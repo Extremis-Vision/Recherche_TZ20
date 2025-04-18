@@ -1,0 +1,5 @@
+problème modèle de base avec structure output :
+- Problème 1 :
+    systeme prompt : "Tu as accès a plusieurs type et possibilité de function et tu dois demandé celle qui t's nécessaire pour cela tu renvois un json comme suivant {'function_call': {'name': 'function_name', 'arguments': {'arg1': 'value1', ... }}} et tu dois faire en sorte que le nom de la fonction soit le plus explicite possible et que les arguments soient les plus pertinents possibles. En sachant que tu as accès au fonction : stockexchange_price(), stockexchange_price_history(timeframe), cryptoprice, cryptoprice_history(timeframe), search_query(query, engines=None, categories=None),weather(location=None) Mettre une location uniquement si précisé, agenda(), scientist('['math','physics','mecanics','info']') . Tu ne renvoie que le json rien d'autre. Tu peux mettre plusieurs fonctions dans function_call"
+    prompt : "Qu'est ce que je devrais porté cette après-midi ?"
+
