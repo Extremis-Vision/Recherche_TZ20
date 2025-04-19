@@ -2,58 +2,23 @@ import requests
 import json
 import os
 import time
-from weather import weather
-AIURL = "http://localhost:1234/v1/chat/completions"
+from outils.weather import weather
+from outils.ai import call_llm
+from outils.scientist import maths
 
-def ask_ai(prompt):
-    headers = {
-    "Content-Type": "application/json"
-    }
-
-    payload = {
-    "model": "gemma-3-12b-it",  # Remplacez par le nom du mod�le charg�
-    "messages": [
-        {"role": "system", "content": "Tu as accès a plusieurs type et possibilité de function et tu dois demandé celle qui t's nécessaire pour cela tu renvois un json comme suivant {'function_call': {'name': 'function_name', 'arguments': {'arg1': 'value1', ... }}} et tu dois faire en sorte que le nom de la fonction soit le plus explicite possible et que les arguments soient les plus pertinents possibles. En sachant que tu as accès au fonction : stockexchange_price(), stockexchange_price_history(timeframe), cryptoprice, cryptoprice_history(timeframe), search_query(query, engines=None, categories=None),weather(location = None si n'est pas précisé tu ne donne aucun arguments) Mettre une location uniquement si précisé, agenda(), scientist('['math','physics','mecanics','info']') #Utile pour toutes questions des domaines indiqué permet de résoudre ou de répondre au problème, homeassistant(),  . Tu ne renvoie que le json rien d'autre. Tu peux mettre plusieurs fonctions dans function_call"},
-        {"role": "user", "content": prompt}
-    ],
-    "temperature": 0.7,
-    "max_tokens": 4096
-    }
-
-    response = requests.post(AIURL, json=payload, headers=headers)
-    if response.status_code == 200:
-        assistant_reply = response.json()["choices"][0]["message"]["content"]
-        print(f"{assistant_reply}")
-        return assistant_reply
-    else:
-        print(f"Erreur : {response.status_code}, {response.text}")
 
 def rephrasal(prompt):
-    headers = {
-    "Content-Type": "application/json"
-    }
+    rephrasal_assistant = "Tu es un assistant fonctionnel qui réécrit les données donnée en entrer pour les adpatés à l'oral et les renvoyer. Garde un niveau de précision dans tes réponses par rapport à ce qui t'es donner en input"
+    return call_llm(rephrasal_assistant, prompt)
 
-    payload = {
-    "model": "gemma-3-12b-it",  # Remplacez par le nom du mod�le charg�
-    "messages": [
-        {"role": "system", "content": "Tu es un assistant fonctionnel qui réécrit les données donnée en entrer pour les adpatés à l'oral et les renvoyer. Garde un niveau de précision dans tes réponses par rapport à ce qui t'es donner en input"},
-        {"role": "user", "content": prompt}
-    ],
-    "temperature": 0.7,
-    "max_tokens": 4096
-    }
+def ask_ai(prompt):
+    function_calling_assistant = "Tu as accès a plusieurs type et possibilité de function et tu dois demandé celle qui t's nécessaire pour cela tu renvois un json comme suivant {'function_call': {'name': 'function_name', 'arguments': {'arg1': 'value1', ... }}} et tu dois faire en sorte que le nom de la fonction soit le plus explicite possible et que les arguments soient les plus pertinents possibles. En sachant que tu as accès au fonction : stockexchange_price(), stockexchange_price_history(timeframe), cryptoprice, cryptoprice_history(timeframe), search_query(query, engines=None, categories=None),weather(location = None si n'est pas précisé tu ne donne aucun arguments) Mettre une location uniquement si précisé, agenda(), ['math','physics','mecanics','info'] #Utile pour toutes questions des domaines indiqué permet de résoudre ou de répondre au problème mets en arguments ce qui est demandé, homeassistant(),  . Tu ne renvoie que le json rien d'autre. Tu peux mettre plusieurs fonctions dans function_call"
+    return call_llm(function_calling_assistant, prompt)
 
-    response = requests.post(AIURL, json=payload, headers=headers)
-    if response.status_code == 200:
-        assistant_reply = response.json()["choices"][0]["message"]["content"]
-        print(f"{assistant_reply}")
-        return assistant_reply
-    else:
-        print(f"Erreur : {response.status_code}, {response.text}")
 
 if __name__ == "__main__":
     #prompt = str(input("qu'est ce que vous voulez demandez à l'agent : ")) #exemple de question : "Qu'est ce que tu me conseil de porter ?"
-    prompt = "Quels est la météo  ?"
+    prompt = "Est ce que c'est un temps pour faire de la boxe thai "
     response = ask_ai(prompt)
     response = response.strip()
     response = response.replace("```", "")
@@ -68,19 +33,18 @@ if __name__ == "__main__":
         # Get the first function call
         if json_data["function_call"] and len(json_data["function_call"]) > 0:
             first_function = json_data["function_call"][0]
-            arguments = first_function["arguments"]
             commande = first_function["name"]
+            arguments = first_function.get("arguments", {})  # Using get() with default empty dict
                         
             print(f"Executing function: {commande}")
             
             # Check if function exists and call it with arguments
             if commande in globals():
-                if arguments:
+                if arguments:  # If arguments is not empty
                     temp = globals()[commande](**arguments)
-                    rephrasal(temp  + " \n" + prompt)
                 else:
                     temp = globals()[commande]()
-                    rephrasal(temp  + " \n" + prompt)
+                print(rephrasal(temp + " \n" + prompt))
             else:
                 print(f"Function {commande} not found")
                 
@@ -88,16 +52,14 @@ if __name__ == "__main__":
         if len(json_data["function_call"]) > 1:
             second_function = json_data["function_call"][1]
             commande = second_function["name"]
-            arguments = second_function["arguments"]
+            arguments = second_function.get("arguments", {})  # Using get() with default empty dict
             
             if commande in globals():
-                if arguments:
+                if arguments:  # If arguments is not empty
                     temp = globals()[commande](**arguments)
-                    rephrasal(temp  + " \n" + prompt)
-
                 else:
                     temp = globals()[commande]()
-                    rephrasal(temp  + " \n" + prompt)
+                print(rephrasal(temp + " \n" + prompt))
                     
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
