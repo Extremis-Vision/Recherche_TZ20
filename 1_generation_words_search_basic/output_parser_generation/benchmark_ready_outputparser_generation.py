@@ -50,6 +50,27 @@ def get_structured_response(question: str, models : str):
         return None
 
 
+def add_csv(model,attempts, score, time_response, results): 
+    fieldnames = ['model_name', "attempts", 'score',"time" , "result"]
+
+    file_exists = os.path.isfile('benchmark.csv')
+
+    with open('benchmark_output_parser.csv', 'a', newline='', encoding='utf-8') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            
+            if not file_exists:
+                writer.writeheader()
+            
+            writer.writerow({
+                'model_name': model,
+                "attempts": attempts,
+                'score': score,
+                "time": time_response,
+                "result": str(results)
+            })
+
+    print("Ajout au CSV terminé.")
+
 
 def benchmark(question: str):
     score = 0
@@ -88,25 +109,7 @@ def benchmark(question: str):
 
 
         print(f"Score : {score}")
-        fieldnames = ['model_name', "attempts", 'score',"time" , "result"]
-
-        file_exists = os.path.isfile('benchmark.csv')
-
-        with open('benchmark.csv', 'a', newline='', encoding='utf-8') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            
-            if not file_exists:
-                writer.writeheader()
-            
-            writer.writerow({
-                'model_name': model,
-                "attempts": attempts,
-                'score': score,
-                "time": time_response,
-                "result": str(results)
-            })
-
-        print("Results appended to benchmark.csv")
+        
 
 
 if __name__ == "__main__":
