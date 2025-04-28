@@ -106,9 +106,9 @@ def benchmark(question: str):
         elapsed_time = end_time - chargement_model
 
         print("Temps écoulé : ", elapsed_time)
-
-
         print(f"Score : {score}")
+
+        add_csv(model, attempts, score, time_response, results)
         
 
 
