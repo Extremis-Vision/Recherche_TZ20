@@ -1,12 +1,6 @@
-Cette partie fait plus référence à la capacité du modèle à générer des mots clées pour des navigateurs de recherche et autre ce qui permettrait ainsi à l'utilisateur d'avoir des données avancées/ récentes et un minimum fiable grace au nommage des source qui lui serait intégrer pour cela j'ai utilisé différentes méthode pour voir les différents résultats pouvant ^etre générerer par les modèles et j'ai fais un benchmark pour pouvoir trier la capacité du modèle de répondre en fonction du system prompt et de la demande utilisateur, ainsi j'ai aussi fait plusieurs prompts système en anglais et en français et les ai testé sur plusieur domaine pour avoir une sorte de mini compte rendu des capacité à générer des mots clées.
+Voici la première partie du code du projet qui sert a testé les différentes manière de générer un output de données avec une structure il est décomposé en plusieurs dossier et fichier. 
 
-Ses tests sont juste des intermédiaires pour tenter de prédire quels modèles perfomera le mieux et comment remplira t'il le mieux la fonction de recherche et d'appel de fonction. 
-
-Malheuresement vue la difficulter des architecture mais aussi et surtout la puissance de calcul nécessaire à l'entrainement de tels modèles, je n'irais que jusqu'à des tests de fine-tuning et de RAG au plus avancé de mes capcités et du temps disponible pour faire des données et de l'analyse de résultat et des capacités. Meme si ses données et ses résultat sont voué à changer et ^etre modifier il est claire qu'au minimum pendant les prochains moi voir la prochaine année ses technique auront toujours un minimum d'utilité et de capacité technique à offrir par rapport à leur cout. 
-
-Encore une fois le but du projet est de proposé une alternative privée a des programme de recherche et essayer de comprendre comment il fonctionne et s'il serait difficile de faire mieux qu'eux. 
-
-Le plus grand mur sera surement dans le cas ou il y a beaucoup de fonction et de données à traité, mais usrout pour les données. Le but serait de faire un programme capable de faire de la recherche et rétention d'information en profondeur pour aider les chercheurs à trouvé certaine donnée ou chose qui leurs aurait nécessité plus de temps en répondant de manière rapie et conscise. Mais pour cela il faudra surement trouver un véritable moyen de trouvé et stocker la données autant pour l'ia mais aussi pour que le chercheur soit capable de précisé et d'affiné au fur et à mesure de la recherhce ce qu'il désire. 
-
-Exemple le problème quand l'on cherche des alternatives a des logicielsou autre connus ais en open source ou autre pareil pour des modèls d'ia cela demande toujours du temps et de l'investissement personnel qui est ennuyant car rempli dinformation inutile ou autre bien référencé car vague et sur des sujets et questions ouvertes. En gros le but c'est de pouvoir trier et chercher à travers internet et des papiers de recherches en essayant de trouvé un moyen de l'optimisé ou le rendre  plus rapide et surtout plus fiable en utilisant un moyen de générer une note de fiabilité sur la réponse donnée (ce qui est dur). Tous cela si possible avant la fin du semestre et de manière plut^ot correcte. 
-
+1) Architecture : 
+Les dossiers continent un fichier python permetant de générer un fichier csv qui contient différente données (temps, score, réponse), ces données seront utilisé pour analyser les performances des llms et les comparés.
+- benchmark_structured_output : c
+- benchmark_output_parser : 
