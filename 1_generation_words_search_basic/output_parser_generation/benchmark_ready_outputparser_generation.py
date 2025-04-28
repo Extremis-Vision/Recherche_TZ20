@@ -15,7 +15,6 @@ def get_structured_response(question: str, models : str):
     # Étape 2: Initialiser le parser
     parser = PydanticOutputParser(pydantic_object=QueryResponse)
 
-    # Étape 3: Créer le prompt avec instructions de formatage
     system_prompt = """Tu es un assistant de recherche qui doit générer des mots clés qui seront utilisés dans un moteur de recherche. 
     Fais en sorte que ces mots clés représentent au mieux ce qui serait nécessaire à la recherche. 
     Donne uniquement les mots clés et rien d'autre en anglais. Génère exactement 5 mots clés.
@@ -28,7 +27,6 @@ def get_structured_response(question: str, models : str):
         ("user", "{input}")
     ])
 
-    # Étape 4: Configurer le modèle local
     model = ChatOpenAI(
         api_key="lm-studio",
         base_url="http://localhost:1234/v1",
@@ -37,7 +35,6 @@ def get_structured_response(question: str, models : str):
         max_tokens=4096
     )
 
-    # Étape 5: Créer la chaîne de traitement
     chain = prompt | model | parser
 
 
@@ -57,17 +54,10 @@ def get_structured_response(question: str, models : str):
 def benchmark(question: str):
     score = 0
     results = []
-    #models = "granite-3.2-8b-instruct"
-    #models = "gemma-3-12b-it"
-    #models = "mathstral-7b-v0.1"
-    #models = "ministral-8b-instruct-2410"
-    #models = "gemma-3-4b-it"
-    #models = "qwq-lcot-7b-instruct"
 
-    #models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
-    models_list = ["gemma-3-12b-it"]
+    models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
+    #models_list = ["gemma-3-12b-it"]
 
-    # Nombre d'essais
     attempts = 10
 
     for model in models_list:
@@ -89,6 +79,7 @@ def benchmark(question: str):
                 results.append(result)
             
             time_response.append({"premier_print" : print_1 ,"reponse_time": reponse_time})
+        
         end_time = time.time()
         time_response.append({"end_time": end_time})
         elapsed_time = end_time - chargement_model
@@ -99,17 +90,14 @@ def benchmark(question: str):
         print(f"Score : {score}")
         fieldnames = ['model_name', "attempts", 'score',"time" , "result"]
 
-        # Check if file exists to determine mode and header writing
         file_exists = os.path.isfile('benchmark.csv')
 
         with open('benchmark.csv', 'a', newline='', encoding='utf-8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             
-            # création de l'entête si le fichier n'existe pas
             if not file_exists:
                 writer.writeheader()
             
-            # Write the new row
             writer.writerow({
                 'model_name': model,
                 "attempts": attempts,
@@ -121,9 +109,7 @@ def benchmark(question: str):
         print("Results appended to benchmark.csv")
 
 
-# Utilisation
 if __name__ == "__main__":
     question = "Pourquoi n'utilise t'on pas les réseaux de neurones convolutifs pour les LLMs ?"
     
-
     print(benchmark(question))
