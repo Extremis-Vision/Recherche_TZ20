@@ -527,6 +527,325 @@
       "category": "science"
     },
     {
+      "template": "paper.html",
+      "url": "http://arxiv.org/abs/2504.13359v1",
+      "title": "Cost-of-Pass: An Economic Framework for Evaluating Language Models",
+      "publishedDate": "2025-04-17T21:58:29",
+      "content": "The widespread adoption of AI systems in the economy hinges on their ability to generate economic value that outweighs their inference costs. Evaluating this tradeoff requires metrics that account for both performance and costs. We propose a framework grounded in production theory for evaluating language models by combining accuracy and inference cost. We introduce \"cost-of-pass\", the expected monetary cost of generating a correct solution. We then define the \"frontier cost-of-pass\" as the minimum cost-of-pass achievable across available models or the \"human-expert, using the approximate cost of hiring an expert. Our analysis reveals distinct economic insights. First, lightweight models are most cost-effective for basic quantitative tasks, large models for knowledge-intensive ones, and reasoning models for complex quantitative problems, despite higher per-token costs. Second, tracking this frontier cost-of-pass over the past year reveals significant progress, particularly for complex quantitative tasks where the cost has roughly halved every few months. Third, to trace key innovations driving this progress, we examine counterfactual frontiers: estimates of cost-efficiency without specific model classes. We find that innovations in lightweight, large, and reasoning models have been essential for pushing the frontier in basic quantitative, knowledge-intensive, and complex quantitative tasks, respectively. Finally, we assess the cost-reductions afforded by common inference-time techniques like majority voting and self-refinement, finding that their marginal accuracy gains rarely justify their costs. Our findings underscore that complementary model-level innovations are the primary drivers of cost-efficiency, and our economic framework provides a principled tool for measuring this progress and guiding deployment.",
+      "doi": null,
+      "authors": [
+        "Mehmet Hamza Erol",
+        "Batu El",
+        "Mirac Suzgun",
+        "Mert Yuksekgonul",
+        "James Zou"
+      ],
+      "journal": null,
+      "tags": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "comments": "Code is available at: https://github.com/mhamzaerol/Cost-of-Pass",
+      "pdf_url": "http://arxiv.org/pdf/2504.13359v1",
+      "engine": "arxiv",
+      "parsed_url": [
+        "http",
+        "arxiv.org",
+        "/abs/2504.13359v1",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "arxiv"
+      ],
+      "positions": [
+        5
+      ],
+      "score": 0.2,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://www.jstor.org/stable/26408299",
+      "title": "Importance sampling: Intrinsic dimension and computational cost",
+      "authors": [
+        "S Agapiou",
+        "O Papaspiliopoulos",
+        "D Sanz-Alonso…"
+      ],
+      "publisher": "JSTOR",
+      "journal": "Statistical Science",
+      "publishedDate": "2017-01-01T00:00:00",
+      "content": "… key in understand ing the computational cost of importance sampling and the central role played by p. In this section, we study the computational cost of importance sampling applied in …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://projecteuclid.org/journals/statistical-science/volume-32/issue-3/Importance-Sampling-Intrinsic-Dimension-and-Computational-Cost/10.1214/17-STS611.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "www.jstor.org",
+        "/stable/26408299",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        6
+      ],
+      "score": 0.16666666666666666,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "url": "http://arxiv.org/abs/1104.0617v1",
+      "title": "Computing Optimal Coverability Costs in Priced Timed Petri Nets",
+      "publishedDate": "2011-04-04T16:35:01",
+      "content": "We consider timed Petri nets, i.e., unbounded Petri nets where each token carries a real-valued clock. Transition arcs are labeled with time intervals, which specify constraints on the ages of tokens. Our cost model assigns token storage costs per time unit to places, and firing costs to transitions. We study the cost to reach a given control-state. In general, a cost-optimal run may not exist. However, we show that the infimum of the costs is computable.",
+      "doi": null,
+      "authors": [
+        "Parosh Aziz Abdulla",
+        "Richard Mayr"
+      ],
+      "journal": null,
+      "tags": [
+        "cs.LO",
+        "F.1.1; F.3.1"
+      ],
+      "comments": "26 pages. Contribution to LICS 2011",
+      "pdf_url": "http://arxiv.org/pdf/1104.0617v1",
+      "engine": "arxiv",
+      "parsed_url": [
+        "http",
+        "arxiv.org",
+        "/abs/1104.0617v1",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "arxiv"
+      ],
+      "positions": [
+        6
+      ],
+      "score": 0.16666666666666666,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://link.springer.com/article/10.1007/BF01536399",
+      "title": "On the computational cost of disjunctive logic programming: Propositional case",
+      "authors": [
+        "T Eiter",
+        "G Gottlob"
+      ],
+      "publisher": "Springer",
+      "journal": "Annals of Mathematics and Artificial Intelligence",
+      "publishedDate": "1995-01-01T00:00:00",
+      "content": "This paper addresses complexity issues for important problems arising with disjunctive logic programming. In particular, the complexity of deciding whether a disjunctive logic program …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://www.kr.tuwien.ac.at/staff/eiter/et-archive/files/amai-dlp.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "link.springer.com",
+        "/article/10.1007/BF01536399",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        7
+      ],
+      "score": 0.14285714285714285,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "url": "http://arxiv.org/abs/1503.06384v1",
+      "title": "Costing Generated Runtime Execution Plans for Large-Scale Machine Learning Programs",
+      "publishedDate": "2015-03-22T05:00:08",
+      "content": "Declarative large-scale machine learning (ML) aims at the specification of ML algorithms in a high-level language and automatic generation of hybrid runtime execution plans ranging from single node, in-memory computations to distributed computations on MapReduce (MR) or similar frameworks like Spark. The compilation of large-scale ML programs exhibits many opportunities for automatic optimization. Advanced cost-based optimization techniques require---as a fundamental precondition---an accurate cost model for evaluating the impact of optimization decisions. In this paper, we share insights into a simple and robust yet accurate technique for costing alternative runtime execution plans of ML programs. Our cost model relies on generating and costing runtime plans in order to automatically reflect all successive optimization phases. Costing runtime plans also captures control flow structures such as loops and branches, and a variety of cost factors like IO, latency, and computation costs. Finally, we linearize all these cost factors into a single measure of expected execution time. Within SystemML, this cost model is leveraged by several advanced optimizers like resource optimization and global data flow optimization. We share our lessons learned in order to provide foundations for the optimization of ML programs.",
+      "doi": null,
+      "authors": [
+        "Matthias Boehm"
+      ],
+      "journal": null,
+      "tags": [
+        "cs.DC",
+        "cs.LG"
+      ],
+      "comments": null,
+      "pdf_url": "http://arxiv.org/pdf/1503.06384v1",
+      "engine": "arxiv",
+      "parsed_url": [
+        "http",
+        "arxiv.org",
+        "/abs/1503.06384v1",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "arxiv"
+      ],
+      "positions": [
+        7
+      ],
+      "score": 0.14285714285714285,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://www.sciencedirect.com/science/article/pii/0004370295000569",
+      "title": "Critical behavior in the computational cost of satisfiability testing",
+      "authors": [
+        "B Selman",
+        "S Kirkpatrick"
+      ],
+      "publisher": "Elsevier",
+      "journal": "Artificial Intelligence",
+      "publishedDate": "1996-01-01T00:00:00",
+      "content": "… critical behavior in the computational cost. We find that the median computational cost takes on a … of the complexity by studying distributions of computational cost. In the SAT phase we …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://www.sciencedirect.com/science/article/pii/0004370295000569/pdf?md5=1bfe4d42e29fa9a0a8d9680b5924b228&pid=1-s2.0-0004370295000569-main.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "www.sciencedirect.com",
+        "/science/article/pii/0004370295000569",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        8
+      ],
+      "score": 0.125,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "url": "http://arxiv.org/abs/2103.15302v1",
+      "title": "Analytic formula for option margin with liquidity costs under dynamic delta hedging",
+      "publishedDate": "2021-03-29T03:18:09",
+      "content": "This study derives the expected liquidity cost when performing the delta hedging process of a European option. This cost is represented by an integration formula that includes European option prices and a certain function depending on the delta process. We first define a unit liquidity cost and then show that the liquidity cost is a multiplication of the unit liquidity cost, stock price, supply curve parameter, and the square of the number of options. Using this formula, the expected liquidity cost before hedging can be calculated much faster than when using a Monte Carlo simulation. Numerically computed distributions of liquidity costs in special cases are also provided.",
+      "doi": "10.1080/00036846.2021.1881430",
+      "authors": [
+        "Kyungsub Lee",
+        "Byoung Ki Seo"
+      ],
+      "journal": null,
+      "tags": [
+        "q-fin.PR",
+        "q-fin.TR"
+      ],
+      "comments": null,
+      "pdf_url": "http://arxiv.org/pdf/2103.15302v1",
+      "engine": "arxiv",
+      "parsed_url": [
+        "http",
+        "arxiv.org",
+        "/abs/2103.15302v1",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "arxiv"
+      ],
+      "positions": [
+        8
+      ],
+      "score": 0.125,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://ieeexplore.ieee.org/abstract/document/7515194/",
+      "title": "Automatic environmental sound recognition: Performance versus computational cost",
+      "authors": [
+        "S Sigtia",
+        "AM Stark",
+        "S Krstulović…"
+      ],
+      "publisher": null,
+      "journal": "IEEE/ACM Transactions …",
+      "publishedDate": "2016-01-01T00:00:00",
+      "content": "… Whereas Automatic Environmental Sound Recognition (AESR) algorithms are most often developed with limited consideration for computational cost, this paper seeks which AESR …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://arxiv.org/pdf/1607.04589",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "ieeexplore.ieee.org",
+        "/abstract/document/7515194/",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        9
+      ],
+      "score": 0.1111111111111111,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "url": "http://arxiv.org/abs/1412.4456v2",
+      "title": "Sharing Non-Anonymous Costs of Multiple Resources Optimally",
+      "publishedDate": "2014-12-15T04:17:41",
+      "content": "In cost sharing games, the existence and efficiency of pure Nash equilibria fundamentally depends on the method that is used to share the resources' costs. We consider a general class of resource allocation problems in which a set of resources is used by a heterogeneous set of selfish users. The cost of a resource is a (non-decreasing) function of the set of its users. Under the assumption that the costs of the resources are shared by uniform cost sharing protocols, i.e., protocols that use only local information of the resource's cost structure and its users to determine the cost shares, we exactly quantify the inefficiency of the resulting pure Nash equilibria. Specifically, we show tight bounds on prices of stability and anarchy for games with only submodular and only supermodular cost functions, respectively, and an asymptotically tight bound for games with arbitrary set-functions. While all our upper bounds are attained for the well-known Shapley cost sharing protocol, our lower bounds hold for arbitrary uniform cost sharing protocols and are even valid for games with anonymous costs, i.e., games in which the cost of each resource only depends on the cardinality of the set of its users.",
+      "doi": null,
+      "authors": [
+        "Max Klimm",
+        "Daniel Schmand"
+      ],
+      "journal": null,
+      "tags": [
+        "cs.GT"
+      ],
+      "comments": null,
+      "pdf_url": "http://arxiv.org/pdf/1412.4456v2",
+      "engine": "arxiv",
+      "parsed_url": [
+        "http",
+        "arxiv.org",
+        "/abs/1412.4456v2",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "arxiv"
+      ],
+      "positions": [
+        9
+      ],
+      "score": 0.1111111111111111,
+      "category": "science"
+    },
+    {
       "url": "http://arxiv.org/pdf/quant-ph/0701237",
       "title": "Thermodynamical cost of reversible computing",
       "content": "Since reversible computing requires preservation of all information throughout the entire computational process, this implies that all errors that appear as a result of the interaction of the information-carrying system with uncontrolled degrees of freedom must be corrected. But this can only be done at the expense of an increase in the entropy of the environment corresponding to the dissipation, in the form of heat, of the ``noisy'' part of the system's energy. This paper gives an expression of that energy in terms of the effective noise temperature, and analyzes the relationship between the energy dissipation rate and the rate of computation. Finally, a generalized Clausius principle based on the concept of effective temperature is presented.",
@@ -734,322 +1053,6 @@
       "category": "science"
     },
     {
-      "template": "paper.html",
-      "url": "http://arxiv.org/abs/1104.0617v1",
-      "title": "Computing Optimal Coverability Costs in Priced Timed Petri Nets",
-      "publishedDate": "2011-04-04T16:35:01",
-      "content": "We consider timed Petri nets, i.e., unbounded Petri nets where each token carries a real-valued clock. Transition arcs are labeled with time intervals, which specify constraints on the ages of tokens. Our cost model assigns token storage costs per time unit to places, and firing costs to transitions. We study the cost to reach a given control-state. In general, a cost-optimal run may not exist. However, we show that the infimum of the costs is computable.",
-      "doi": null,
-      "authors": [
-        "Parosh Aziz Abdulla",
-        "Richard Mayr"
-      ],
-      "journal": null,
-      "tags": [
-        "cs.LO",
-        "F.1.1; F.3.1"
-      ],
-      "comments": "26 pages. Contribution to LICS 2011",
-      "pdf_url": "http://arxiv.org/pdf/1104.0617v1",
-      "engine": "arxiv",
-      "parsed_url": [
-        "http",
-        "arxiv.org",
-        "/abs/1104.0617v1",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "arxiv"
-      ],
-      "positions": [
-        5
-      ],
-      "score": 0.2,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "type": "pdf",
-      "url": "https://www.jstor.org/stable/26408299",
-      "title": "Importance sampling: Intrinsic dimension and computational cost",
-      "authors": [
-        "S Agapiou",
-        "O Papaspiliopoulos",
-        "D Sanz-Alonso…"
-      ],
-      "publisher": "JSTOR",
-      "journal": "Statistical Science",
-      "publishedDate": "2017-01-01T00:00:00",
-      "content": "… key in understand ing the computational cost of importance sampling and the central role played by p. In this section, we study the computational cost of importance sampling applied in …",
-      "comments": "",
-      "html_url": null,
-      "pdf_url": "https://projecteuclid.org/journals/statistical-science/volume-32/issue-3/Importance-Sampling-Intrinsic-Dimension-and-Computational-Cost/10.1214/17-STS611.pdf",
-      "engine": "google scholar",
-      "parsed_url": [
-        "https",
-        "www.jstor.org",
-        "/stable/26408299",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "google scholar"
-      ],
-      "positions": [
-        6
-      ],
-      "score": 0.16666666666666666,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "url": "http://arxiv.org/abs/1503.06384v1",
-      "title": "Costing Generated Runtime Execution Plans for Large-Scale Machine Learning Programs",
-      "publishedDate": "2015-03-22T05:00:08",
-      "content": "Declarative large-scale machine learning (ML) aims at the specification of ML algorithms in a high-level language and automatic generation of hybrid runtime execution plans ranging from single node, in-memory computations to distributed computations on MapReduce (MR) or similar frameworks like Spark. The compilation of large-scale ML programs exhibits many opportunities for automatic optimization. Advanced cost-based optimization techniques require---as a fundamental precondition---an accurate cost model for evaluating the impact of optimization decisions. In this paper, we share insights into a simple and robust yet accurate technique for costing alternative runtime execution plans of ML programs. Our cost model relies on generating and costing runtime plans in order to automatically reflect all successive optimization phases. Costing runtime plans also captures control flow structures such as loops and branches, and a variety of cost factors like IO, latency, and computation costs. Finally, we linearize all these cost factors into a single measure of expected execution time. Within SystemML, this cost model is leveraged by several advanced optimizers like resource optimization and global data flow optimization. We share our lessons learned in order to provide foundations for the optimization of ML programs.",
-      "doi": null,
-      "authors": [
-        "Matthias Boehm"
-      ],
-      "journal": null,
-      "tags": [
-        "cs.DC",
-        "cs.LG"
-      ],
-      "comments": null,
-      "pdf_url": "http://arxiv.org/pdf/1503.06384v1",
-      "engine": "arxiv",
-      "parsed_url": [
-        "http",
-        "arxiv.org",
-        "/abs/1503.06384v1",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "arxiv"
-      ],
-      "positions": [
-        6
-      ],
-      "score": 0.16666666666666666,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "type": "pdf",
-      "url": "https://link.springer.com/article/10.1007/BF01536399",
-      "title": "On the computational cost of disjunctive logic programming: Propositional case",
-      "authors": [
-        "T Eiter",
-        "G Gottlob"
-      ],
-      "publisher": "Springer",
-      "journal": "Annals of Mathematics and Artificial Intelligence",
-      "publishedDate": "1995-01-01T00:00:00",
-      "content": "This paper addresses complexity issues for important problems arising with disjunctive logic programming. In particular, the complexity of deciding whether a disjunctive logic program …",
-      "comments": "",
-      "html_url": null,
-      "pdf_url": "https://www.kr.tuwien.ac.at/staff/eiter/et-archive/files/amai-dlp.pdf",
-      "engine": "google scholar",
-      "parsed_url": [
-        "https",
-        "link.springer.com",
-        "/article/10.1007/BF01536399",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "google scholar"
-      ],
-      "positions": [
-        7
-      ],
-      "score": 0.14285714285714285,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "url": "http://arxiv.org/abs/2103.15302v1",
-      "title": "Analytic formula for option margin with liquidity costs under dynamic delta hedging",
-      "publishedDate": "2021-03-29T03:18:09",
-      "content": "This study derives the expected liquidity cost when performing the delta hedging process of a European option. This cost is represented by an integration formula that includes European option prices and a certain function depending on the delta process. We first define a unit liquidity cost and then show that the liquidity cost is a multiplication of the unit liquidity cost, stock price, supply curve parameter, and the square of the number of options. Using this formula, the expected liquidity cost before hedging can be calculated much faster than when using a Monte Carlo simulation. Numerically computed distributions of liquidity costs in special cases are also provided.",
-      "doi": "10.1080/00036846.2021.1881430",
-      "authors": [
-        "Kyungsub Lee",
-        "Byoung Ki Seo"
-      ],
-      "journal": null,
-      "tags": [
-        "q-fin.PR",
-        "q-fin.TR"
-      ],
-      "comments": null,
-      "pdf_url": "http://arxiv.org/pdf/2103.15302v1",
-      "engine": "arxiv",
-      "parsed_url": [
-        "http",
-        "arxiv.org",
-        "/abs/2103.15302v1",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "arxiv"
-      ],
-      "positions": [
-        7
-      ],
-      "score": 0.14285714285714285,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "type": "pdf",
-      "url": "https://www.sciencedirect.com/science/article/pii/0004370295000569",
-      "title": "Critical behavior in the computational cost of satisfiability testing",
-      "authors": [
-        "B Selman",
-        "S Kirkpatrick"
-      ],
-      "publisher": "Elsevier",
-      "journal": "Artificial Intelligence",
-      "publishedDate": "1996-01-01T00:00:00",
-      "content": "… critical behavior in the computational cost. We find that the median computational cost takes on a … of the complexity by studying distributions of computational cost. In the SAT phase we …",
-      "comments": "",
-      "html_url": null,
-      "pdf_url": "https://www.sciencedirect.com/science/article/pii/0004370295000569/pdf?md5=1bfe4d42e29fa9a0a8d9680b5924b228&pid=1-s2.0-0004370295000569-main.pdf",
-      "engine": "google scholar",
-      "parsed_url": [
-        "https",
-        "www.sciencedirect.com",
-        "/science/article/pii/0004370295000569",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "google scholar"
-      ],
-      "positions": [
-        8
-      ],
-      "score": 0.125,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "url": "http://arxiv.org/abs/1602.07827v3",
-      "title": "Minimum Cost Homomorphisms with Constrained Costs",
-      "publishedDate": "2016-02-25T07:34:37",
-      "content": "Minimum cost homomorphism problems can be viewed as a generalization of list homomorphism problems. They also extend two well-known graph colouring problems: the minimum colour sum problem and the optimum cost chromatic partition problem. In both of these problems, the cost function meets an additional constraint: the cost of using a specific colour is the same for every vertex of the input graph. We study minimum cost homomorphism problems with cost functions constrained to have this property. Clearly, when the standard minimum cost homomorphism problem is polynomial, then the problem with constrained costs is also polynomial. We expect that the same may hold for the cases when the standard minimum cost homomorphism problem is NP-complete. We prove that this is the case for trees $H$: we obtain a dichotomy of minimum constrained cost homomorphism problems which coincides with the dichotomy of standard minimum cost homomorphism problems. For general graphs $H$, we prove a partial dichotomy: the problem is polynomial if $H$ is a proper interval graph and NP-complete when $H$ is not chordal bipartite.",
-      "doi": null,
-      "authors": [
-        "Pavol Hell",
-        "Mayssam Mohammadi Nevisi"
-      ],
-      "journal": null,
-      "tags": [
-        "cs.CC",
-        "math.CO"
-      ],
-      "comments": null,
-      "pdf_url": "http://arxiv.org/pdf/1602.07827v3",
-      "engine": "arxiv",
-      "parsed_url": [
-        "http",
-        "arxiv.org",
-        "/abs/1602.07827v3",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "arxiv"
-      ],
-      "positions": [
-        8
-      ],
-      "score": 0.125,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "type": "pdf",
-      "url": "https://ieeexplore.ieee.org/abstract/document/7515194/",
-      "title": "Automatic environmental sound recognition: Performance versus computational cost",
-      "authors": [
-        "S Sigtia",
-        "AM Stark",
-        "S Krstulović…"
-      ],
-      "publisher": null,
-      "journal": "IEEE/ACM Transactions …",
-      "publishedDate": "2016-01-01T00:00:00",
-      "content": "… Whereas Automatic Environmental Sound Recognition (AESR) algorithms are most often developed with limited consideration for computational cost, this paper seeks which AESR …",
-      "comments": "",
-      "html_url": null,
-      "pdf_url": "https://arxiv.org/pdf/1607.04589",
-      "engine": "google scholar",
-      "parsed_url": [
-        "https",
-        "ieeexplore.ieee.org",
-        "/abstract/document/7515194/",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "google scholar"
-      ],
-      "positions": [
-        9
-      ],
-      "score": 0.1111111111111111,
-      "category": "science"
-    },
-    {
-      "template": "paper.html",
-      "url": "http://arxiv.org/abs/1412.4456v2",
-      "title": "Sharing Non-Anonymous Costs of Multiple Resources Optimally",
-      "publishedDate": "2014-12-15T04:17:41",
-      "content": "In cost sharing games, the existence and efficiency of pure Nash equilibria fundamentally depends on the method that is used to share the resources' costs. We consider a general class of resource allocation problems in which a set of resources is used by a heterogeneous set of selfish users. The cost of a resource is a (non-decreasing) function of the set of its users. Under the assumption that the costs of the resources are shared by uniform cost sharing protocols, i.e., protocols that use only local information of the resource's cost structure and its users to determine the cost shares, we exactly quantify the inefficiency of the resulting pure Nash equilibria. Specifically, we show tight bounds on prices of stability and anarchy for games with only submodular and only supermodular cost functions, respectively, and an asymptotically tight bound for games with arbitrary set-functions. While all our upper bounds are attained for the well-known Shapley cost sharing protocol, our lower bounds hold for arbitrary uniform cost sharing protocols and are even valid for games with anonymous costs, i.e., games in which the cost of each resource only depends on the cardinality of the set of its users.",
-      "doi": null,
-      "authors": [
-        "Max Klimm",
-        "Daniel Schmand"
-      ],
-      "journal": null,
-      "tags": [
-        "cs.GT"
-      ],
-      "comments": null,
-      "pdf_url": "http://arxiv.org/pdf/1412.4456v2",
-      "engine": "arxiv",
-      "parsed_url": [
-        "http",
-        "arxiv.org",
-        "/abs/1412.4456v2",
-        "",
-        "",
-        ""
-      ],
-      "engines": [
-        "arxiv"
-      ],
-      "positions": [
-        9
-      ],
-      "score": 0.1111111111111111,
-      "category": "science"
-    },
-    {
       "url": "https://doi.org/10.1037/e578892011-002",
       "title": "Assessing the Cost of Underperformance: A Computer Programmer Example",
       "content": "",
@@ -1131,27 +1134,27 @@
     },
     {
       "template": "paper.html",
-      "url": "http://arxiv.org/abs/1302.3291v1",
-      "title": "Petri Nets with Time and Cost",
-      "publishedDate": "2013-02-14T02:26:37",
-      "content": "We consider timed Petri nets, i.e., unbounded Petri nets where each token carries a real-valued clock. Transition arcs are labeled with time intervals, which specify constraints on the ages of tokens. Our cost model assigns token storage costs per time unit to places, and firing costs to transitions. We study the cost to reach a given control-state. In general, a cost-optimal run may not exist. However,we show that the infimum of the costs is computable.",
-      "doi": "10.4204/EPTCS.107.3",
+      "url": "http://arxiv.org/abs/1602.07827v3",
+      "title": "Minimum Cost Homomorphisms with Constrained Costs",
+      "publishedDate": "2016-02-25T07:34:37",
+      "content": "Minimum cost homomorphism problems can be viewed as a generalization of list homomorphism problems. They also extend two well-known graph colouring problems: the minimum colour sum problem and the optimum cost chromatic partition problem. In both of these problems, the cost function meets an additional constraint: the cost of using a specific colour is the same for every vertex of the input graph. We study minimum cost homomorphism problems with cost functions constrained to have this property. Clearly, when the standard minimum cost homomorphism problem is polynomial, then the problem with constrained costs is also polynomial. We expect that the same may hold for the cases when the standard minimum cost homomorphism problem is NP-complete. We prove that this is the case for trees $H$: we obtain a dichotomy of minimum constrained cost homomorphism problems which coincides with the dichotomy of standard minimum cost homomorphism problems. For general graphs $H$, we prove a partial dichotomy: the problem is polynomial if $H$ is a proper interval graph and NP-complete when $H$ is not chordal bipartite.",
+      "doi": null,
       "authors": [
-        "Parosh Aziz Abdulla",
-        "Richard Mayr"
+        "Pavol Hell",
+        "Mayssam Mohammadi Nevisi"
       ],
-      "journal": "EPTCS 107, 2013, pp. 9-24",
+      "journal": null,
       "tags": [
-        "cs.LO",
-        "D.2.4"
+        "cs.CC",
+        "math.CO"
       ],
-      "comments": "In Proceedings Infinity 2012, arXiv:1302.3105",
-      "pdf_url": "http://arxiv.org/pdf/1302.3291v1",
+      "comments": null,
+      "pdf_url": "http://arxiv.org/pdf/1602.07827v3",
       "engine": "arxiv",
       "parsed_url": [
         "http",
         "arxiv.org",
-        "/abs/1302.3291v1",
+        "/abs/1602.07827v3",
         "",
         "",
         ""
@@ -1170,14 +1173,14 @@
   "corrections": [],
   "infoboxes": [],
   "suggestions": [
-    "computational cost memory requirements",
-    "accuracy and low computational cost",
-    "computational cost density functional theory",
     "computational cost reduce",
-    "algorithms computational cost",
+    "computational cost density functional theory",
     "prohibitive computational cost",
-    "accuracy computational cost",
-    "low computational cost"
+    "accuracy and low computational cost",
+    "computational cost memory requirements",
+    "low computational cost",
+    "algorithms computational cost",
+    "accuracy computational cost"
   ],
   "unresponsive_engines": [
     [

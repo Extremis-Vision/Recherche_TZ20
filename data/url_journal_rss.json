@@ -1,0 +1,22 @@
+{
+    "crypto": {
+        "coindesk": "https://www.coindesk.com/arc/outboundfeeds/rss/",
+        "journal_du_coin": "https://journalducoin.com/feed/"
+    },
+    "economie": {
+        "lemonde_economie": "https://www.lemonde.fr/economie/rss_full.xml",
+        "nytimes_economie": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
+        "WallstreetJournal_economie": "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml",
+        "Yahoo_finance_economie": "https://finance.yahoo.com/news/rssindex"
+    },
+    "news": {
+        "lemonde": "https://www.lemonde.fr/rss/une.xml",
+        "alsace": "https://www.lalsace.fr/rss",
+        "nytimes": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+        "WorldstreetJournal": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
+    },
+    "stock": {
+        "WorldstreetJournal_stock": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
+        "Yahoo_finance_stock": "https://finance.yahoo.com/rss/topstories"
+    }
+}

@@ -16,7 +16,7 @@ from searchX import research
 
 # Étape 1: Définir la structure de sortie avec Pydantic
 class QueryResponse(BaseModel):
-    querys: List[str] = Field(description="Liste de 5 mots-clés de recherche en anglais")
+    querys: List[str] = Field(description="Liste de 5 mots-clés de recherche en anglais qui peuvent être un groupe de mots qui servira à répondre à la question en se bassant sur les résultats de la recherche de ses mots. ")
     categories: str = Field(description="Catégorie principale de la recherche")
 
 # Étape 2: Initialiser le parser

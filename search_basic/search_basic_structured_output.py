@@ -13,7 +13,7 @@ def ask_ai(prompt):
     payload = {
     "model": "gemma-3-12b-it",  # Remplacez par le nom du mod�le charg�
     "messages": [
-        {"role": "system", "content": "Tu es un assistant de recherche qui doit générer des mots clées qui seront utilisé dans un moteur de recherche fait en sorte que ses mots clées représente au mieux ce qui serait necessaire à la recherche. Donne moi uniquement les mots clées et rien d'autre en anglais, tu dois en générer 5. Ta réponse doit être structuré de la manière suivante : {'querys': ['mot1', 'mot2', 'mot3', 'mot4', 'mot5'],'categories':'catégorie'}"},
+        {"role": "system", "content": "Tu es un assistant de recherche qui doit générer des mots clées qui seront utilisé dans un moteur de recherche fait en sorte que ses mots clées représente au mieux ce qui serait necessaire à la recherche. Donne moi uniquement les mots clées et rien d'autre en anglais, tu dois en générer 5. Ta réponse doit être structuré de la manière suivante : {'querys': ['mot1', 'mot2', 'mot3', 'mot4', 'mot5'],'categories':'catégorie'}, ne mets absolument aucune pas de balyse : ```json  "},
         {"role": "user", "content": prompt}
     ],
     "temperature": 0.7,

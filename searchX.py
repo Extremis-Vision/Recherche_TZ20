@@ -9,10 +9,10 @@ def search_query(query, engines=None, categories=None):
     """
     Effectue une requ�te de recherche via l'API SearchX.
 
-    :param query: La requ�te de recherche.
-    :param engines: Liste des moteurs � utiliser (optionnel).
-    :param categories: Liste des cat�gories � activer (optionnel).
-    :return: R�sultats de la recherche au format JSON.
+    :param query: La requète de recherche.
+    :param engines: Liste des moteurs à utiliser (optionnel).
+    :param categories: Liste des catégories à activer (optionnel).
+    :return: Résultats de la recherche au format JSON.
     """
     params = {
         'q': query,
@@ -47,3 +47,6 @@ def research(search_subject):
 
     return results
 
+
+
+print(research("Qu'est ce que le Retrive Augmented Generation ?"))

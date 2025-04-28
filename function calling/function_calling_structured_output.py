@@ -18,7 +18,7 @@ def ask_ai(prompt):
 
 if __name__ == "__main__":
     #prompt = str(input("qu'est ce que vous voulez demandez à l'agent : ")) #exemple de question : "Qu'est ce que tu me conseil de porter ?"
-    prompt = "Est ce que c'est un temps pour faire de la boxe thai "
+    prompt = "qu'est ce que je devrait porter ?"
     response = ask_ai(prompt)
     response = response.strip()
     response = response.replace("```", "")

@@ -28,7 +28,7 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
-models = "granite-3.2-8b-instruct"
+models = "gemma-3-12b-it"
 
 # Étape 4: Configurer le modèle local
 model = ChatOpenAI(
@@ -54,12 +54,18 @@ def get_structured_response(question: str):
         print(f"Erreur de parsing : {e}")
         return None
 
-# Utilisation
-if __name__ == "__main__":
-    question = "Pourquoi n'utilise t'on pas les réseaux de neurones convolutifs pour les LLMs ?"
+
+def benchmark(question: str):
     score = 0
     results = []
+    #models = "granite-3.2-8b-instruct"
+    #models = "gemma-3-12b-it"
+    #models = "mathstral-7b-v0.1"
+    #models = "ministral-8b-instruct-2410"
+    #models = "gemma-3-4b-it"
+    #models = "qwq-lcot-7b-instruct"
 
+    # Nombre d'essais
     attempts = 100
 
     for i in range(attempts):
@@ -95,3 +101,21 @@ if __name__ == "__main__":
 
     print("Results appended to benchmark.csv")
 
+
+# Utilisation
+if __name__ == "__main__":
+    question = "Pourquoi n'utilise t'on pas les réseaux de neurones convolutifs pour les LLMs ?"
+    score = 0
+    results = []
+
+
+    print(f"\nRéponse :")
+    result = get_structured_response(question)
+    if result:
+        if (result.querys and result.categories) is not None:
+            score += 1
+            print(f"Mots-clés : {result.querys}")
+            print(f"Catégorie : {result.categories}")
+        results.append(result)
+
+    print(f"Score : {score}")
