@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 from typing import List
 import csv
 import os
+import time 
 
 def get_structured_response(question: str, models : str):
     class QueryResponse(BaseModel):
@@ -52,6 +53,7 @@ def get_structured_response(question: str, models : str):
         return None
 
 
+
 def benchmark(question: str):
     score = 0
     results = []
@@ -62,46 +64,61 @@ def benchmark(question: str):
     #models = "gemma-3-4b-it"
     #models = "qwq-lcot-7b-instruct"
 
-    models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
-
+    #models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
+    models_list = ["gemma-3-12b-it"]
 
     # Nombre d'essais
     attempts = 10
 
     for model in models_list:
         print(f"Modèle : {model}")
+        time_response = []
+        chargement_model = time.time()
+        time_response.append({"chargement_model": chargement_model})
         for i in range(attempts):
+            print_1 = time.time()
             print(f"\nRéponse {i+1}:")
             result = get_structured_response(question,model)
+            reponse_time = time.time()
+
             if result:
                 if (result.querys and result.categories) is not None:
                     score += 1
                     print(f"Mots-clés : {result.querys}")
                     print(f"Catégorie : {result.categories}")
                 results.append(result)
+            
+            time_response.append({"premier_print" : print_1 ,"reponse_time": reponse_time})
+        end_time = time.time()
+        time_response.append({"end_time": end_time})
+        elapsed_time = end_time - chargement_model
 
-    print(f"Score : {score}")
-    fieldnames = ['model_name', "attempts", 'score', "result"]
+        print("Temps écoulé : ", elapsed_time)
 
-    # Check if file exists to determine mode and header writing
-    file_exists = os.path.isfile('benchmark.csv')
 
-    with open('benchmark.csv', 'a', newline='', encoding='utf-8') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        
-        # création de l'entête si le fichier n'existe pas
-        if not file_exists:
-            writer.writeheader()
-        
-        # Write the new row
-        writer.writerow({
-            'model_name': model,
-            "attempts": attempts,
-            'score': score,
-            "result": str(results)
-        })
+        print(f"Score : {score}")
+        fieldnames = ['model_name', "attempts", 'score',"time" , "result"]
 
-    print("Results appended to benchmark.csv")
+        # Check if file exists to determine mode and header writing
+        file_exists = os.path.isfile('benchmark.csv')
+
+        with open('benchmark.csv', 'a', newline='', encoding='utf-8') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            
+            # création de l'entête si le fichier n'existe pas
+            if not file_exists:
+                writer.writeheader()
+            
+            # Write the new row
+            writer.writerow({
+                'model_name': model,
+                "attempts": attempts,
+                'score': score,
+                "time": time_response,
+                "result": str(results)
+            })
+
+        print("Results appended to benchmark.csv")
 
 
 # Utilisation
