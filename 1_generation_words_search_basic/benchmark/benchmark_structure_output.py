@@ -19,8 +19,8 @@ sys_prompt = """Tu es un assistant de recherche qui doit
 def benchmark(question: str):
     results = []
 
-    #models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
-    models_list = ["granite-3.2-8b-instruct"]
+    models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
+    #models_list = ["granite-3.2-8b-instruct"]
 
     attempts = 10
 
@@ -76,7 +76,7 @@ def benchmark(question: str):
         scores.append(score_categorie/attempts)
         
         print(f"Score : {score/attempts} Score_categorie : {score_categorie/attempts}")
-        add_json("becnhmark_structured_output.json",model, attempts, scores, time_response, results)
+        add_json("benchmark_structured_output.json",model, attempts, scores, time_response, results)
 
 
 if __name__ == "__main__":
