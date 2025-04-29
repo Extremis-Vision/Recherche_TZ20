@@ -61,28 +61,31 @@ def benchmark(question: str):
 
     for model in models_list:
         score = 0
+        time_moy = []
         print(f"Modèle : {model}")
         time_response = []
         chargement_model = time.time()
-        time_response.append({"chargement_model": chargement_model})
         for i in range(attempts):
             print_1 = time.time()
             print(f"\nRéponse {i+1}:")
             response = ask_ai(question,model)
             reponse_time = time.time()
-            response = response.strip()
-            response = response.replace("```", "")
-            response = response.replace("json", "")
-            response = response.replace("```", "")
-            response = response.replace("\n", "") 
+            time_response.append({"chargement_model": reponse_time - chargement_model })
 
             try:
+                #Traitement de la réponse
+                response = response.strip()
+                response = response.replace("```", "")
+                response = response.replace("json", "")
+                response = response.replace("```", "")
+                response = response.replace("\n", "") 
                 response_final = json.loads(response)
                 if "querys"  in response_final or "categories" in response_final:
                     results.append({"mot_cle" : response_final["querys"], "categories": response_final["categories"]})
                     print("Mots clées : ",response_final["querys"],response_final["categories"])
                     score += 1
-                time_response.append({"premier_print" : print_1 ,"reponse_time": reponse_time})
+                time_moy.append(reponse_time - print_1)
+                time_response.append({"reponse_time_" + str(i): reponse_time - print_1})
             except json.JSONDecodeError as e:
                 response_final = "Erreur de décodage JSON : " + str(e)
                 continue
@@ -92,10 +95,9 @@ def benchmark(question: str):
                 continue
                 
         end_time = time.time()
-        time_response.append({"end_time": end_time})
-        elapsed_time = end_time - chargement_model
-
-        print("Temps écoulé : ", elapsed_time)
+        end_time = time.time()
+        time_response.append({"avg_reponse_time": sum(time_moy) / len(time_moy)})
+        time_response.append({"total_time": end_time - chargement_model})
         print(f"Score : {score}")
 
         add_csv(model, attempts, score, time_response, results)

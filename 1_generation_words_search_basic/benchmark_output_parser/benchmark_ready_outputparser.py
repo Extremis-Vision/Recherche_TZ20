@@ -84,13 +84,15 @@ def benchmark(question: str):
     for model in models_list:
         print(f"Modèle : {model}")
         time_response = []
+        time_moy = []
         chargement_model = time.time()
-        time_response.append({"chargement_model": chargement_model})
         for i in range(attempts):
             print_1 = time.time()
             print(f"\nRéponse {i+1}:")
             result = get_structured_response(question,model)
             reponse_time = time.time()
+            if i == 0:
+                time_response.append({"chargement_model": reponse_time - chargement_model })
 
             if result:
                 if (result.querys and result.categories) is not None:
@@ -99,13 +101,12 @@ def benchmark(question: str):
                     print(f"Catégorie : {result.categories}")
                 results.append(result)
             
-            time_response.append({"premier_print" : print_1 ,"reponse_time": reponse_time})
-        
-        end_time = time.time()
-        time_response.append({"end_time": end_time})
-        elapsed_time = end_time - chargement_model
+            time_moy.append(reponse_time - print_1)
+            time_response.append({"reponse_time_" + str(i): reponse_time - print_1})
 
-        print("Temps écoulé : ", elapsed_time)
+        end_time = time.time()
+        time_response.append({"avg_reponse_time": sum(time_moy) / len(time_moy)})
+        time_response.append({"total_time": end_time - chargement_model})
         print(f"Score : {score}")
 
         add_csv(model, attempts, score, time_response, results)

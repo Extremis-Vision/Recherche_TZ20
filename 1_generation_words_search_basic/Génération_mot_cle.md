@@ -80,3 +80,8 @@ Il est important de savoir que la génération de mots clées dans le contexte d
 Les métrics générer serontdonc difficilement capable de représenté les véritables performance, mais il est important de savoir que ses benchmark sont surtout pour comparer les technique d'appel de llm et dans un contexte général les modèle. 
 
 Les systèmes de benchmark seront utile a plusieur niveau pour extimé les résultat obtenue à des recherches et autres. Donc nous les reveront plus tard. Les résultats de ces benchmarks seront comparé au résultat obetune par d'autre learderboard qui compare ces modèles avec des informations sur les différentes méthodes utilisé. 
+
+Les sites intéressant sont : 
+- https://lmarena.ai/
+- https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/
+- https://www.vellum.ai/llm-leaderboard
