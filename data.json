@@ -1,0 +1,316 @@
+{
+    "results": [
+        {
+            "model_name": "granite-3.2-8b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 72.0274908542633
+                },
+                {
+                    "reponse_time_0": 72.02749013900757
+                },
+                {
+                    "reponse_time_1": 1.7696499824523926
+                },
+                {
+                    "reponse_time_2": 1.8854899406433105
+                },
+                {
+                    "reponse_time_3": 1.604858160018921
+                },
+                {
+                    "reponse_time_4": 1.852905511856079
+                },
+                {
+                    "reponse_time_5": 1.7762269973754883
+                },
+                {
+                    "reponse_time_6": 1.5729014873504639
+                },
+                {
+                    "reponse_time_7": 1.5763576030731201
+                },
+                {
+                    "reponse_time_8": 1.4920246601104736
+                },
+                {
+                    "reponse_time_9": 2.84968900680542
+                },
+                {
+                    "avg_reponse_time": 8.840759348869323
+                },
+                {
+                    "total_time": 88.40794253349304
+                }
+            ],
+            "score": [
+                0.7,
+                0.7
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks', 'CNN', 'not used in LLMs', 'deep learning limitations', 'LLM challenges'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'recurrent neural networks in NLP', 'transformer models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['Convolutional Neural Networks', 'LLMs', 'limitations of CNNs in LLMs', 'CNN vs RNN in language models', 'CNN applications in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'neural network architecture', 'language models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'long-range model limitations', 'CNN vs LLMs', 'deep learning for natural language'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'reasons against use', 'alternatives to CNN in LLMs', 'CNN limitations in LLM'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'CNN', 'LLMs', 'Limitations', 'Advantages vs Disadvantages'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}]"
+        },
+        {
+            "model_name": "gemma-3-12b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 138.81084084510803
+                },
+                {
+                    "reponse_time_0": 138.81083869934082
+                },
+                {
+                    "reponse_time_1": 3.3879644870758057
+                },
+                {
+                    "reponse_time_2": 3.5378382205963135
+                },
+                {
+                    "reponse_time_3": 4.134249210357666
+                },
+                {
+                    "reponse_time_4": 4.008605718612671
+                },
+                {
+                    "reponse_time_5": 4.746487379074097
+                },
+                {
+                    "reponse_time_6": 4.276364326477051
+                },
+                {
+                    "reponse_time_7": 4.543462514877319
+                },
+                {
+                    "reponse_time_8": 4.006531000137329
+                },
+                {
+                    "reponse_time_9": 3.5370941162109375
+                },
+                {
+                    "avg_reponse_time": 17.498943567276
+                },
+                {
+                    "total_time": 174.98984551429749
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks', 'CNN', 'not used in LLMs', 'deep learning limitations', 'LLM challenges'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'recurrent neural networks in NLP', 'transformer models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['Convolutional Neural Networks', 'LLMs', 'limitations of CNNs in LLMs', 'CNN vs RNN in language models', 'CNN applications in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'neural network architecture', 'language models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'long-range model limitations', 'CNN vs LLMs', 'deep learning for natural language'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'reasons against use', 'alternatives to CNN in LLMs', 'CNN limitations in LLM'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'CNN', 'LLMs', 'Limitations', 'Advantages vs Disadvantages'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'feature extraction', 'sequence processing'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architectures', 'hybrid CNN-Transformer models', 'alternative architectures LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'sequence modeling', 'computational cost', 'efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'data efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs', 'feature extraction CNN LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures', 'computational cost CNN LLMs', 'data efficiency LLMs', 'sequence processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'CNN integration LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNNs vs LLMs', 'architecture comparison', 'deep learning limitations', 'transformer architecture', 'sequence processing', 'image recognition', 'text generation'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI & Deep Learning'}]"
+        },
+        {
+            "model_name": "mathstral-7b-v0.1",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 78.92084860801697
+                },
+                {
+                    "reponse_time_0": 78.9208471775055
+                },
+                {
+                    "reponse_time_1": 1.277069091796875
+                },
+                {
+                    "reponse_time_2": 1.2370033264160156
+                },
+                {
+                    "reponse_time_3": 2.3391051292419434
+                },
+                {
+                    "reponse_time_4": 1.1399385929107666
+                },
+                {
+                    "reponse_time_5": 1.2371785640716553
+                },
+                {
+                    "reponse_time_6": 1.405843734741211
+                },
+                {
+                    "reponse_time_7": 1.7779016494750977
+                },
+                {
+                    "reponse_time_8": 1.8396871089935303
+                },
+                {
+                    "reponse_time_9": 1.6416015625
+                },
+                {
+                    "avg_reponse_time": 9.281617593765258
+                },
+                {
+                    "total_time": 92.8165545463562
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks', 'CNN', 'not used in LLMs', 'deep learning limitations', 'LLM challenges'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'recurrent neural networks in NLP', 'transformer models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['Convolutional Neural Networks', 'LLMs', 'limitations of CNNs in LLMs', 'CNN vs RNN in language models', 'CNN applications in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'neural network architecture', 'language models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'long-range model limitations', 'CNN vs LLMs', 'deep learning for natural language'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'reasons against use', 'alternatives to CNN in LLMs', 'CNN limitations in LLM'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'CNN', 'LLMs', 'Limitations', 'Advantages vs Disadvantages'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'feature extraction', 'sequence processing'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architectures', 'hybrid CNN-Transformer models', 'alternative architectures LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'sequence modeling', 'computational cost', 'efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'data efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs', 'feature extraction CNN LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures', 'computational cost CNN LLMs', 'data efficiency LLMs', 'sequence processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'CNN integration LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNNs vs LLMs', 'architecture comparison', 'deep learning limitations', 'transformer architecture', 'sequence processing', 'image recognition', 'text generation'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI & Deep Learning'}, {'mot_cle': ['convolutional neural networks', 'natural language processing', 'language models', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['machine learning', 'neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing', 'machine learning'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['R\u00e9seaux de neurones convolutionnels', 'Mod\u00e8les linguistiques', 'Apprentissage profond', 'Reconnaissance vocale', 'NLP'], 'categories': 'IA et Apprentissage Profond'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'language models', 'natural language processing', 'artificial intelligence', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['Transformers', 'Language Models', 'Convolutional Neural Networks', 'NLP', 'Deep Learning'], 'categories': 'Computer Science'}, {'mot_cle': ['recurrent neural networks', 'long short-term memory', 'sequence modeling', 'natural language processing', 'computer vision'], 'categories': 'machine learning'}, {'mot_cle': ['Recurrent Neural Networks', 'Language Models', 'Text Generation', 'Deep Learning', 'Neural Language Processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['use of convolutional neural networks for lm', 'convolutional neural networks lm application'], 'categories': 'Natural Language Processing'}]"
+        },
+        {
+            "model_name": "ministral-8b-instruct-2410",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 93.60865902900696
+                },
+                {
+                    "reponse_time_0": 93.6086573600769
+                },
+                {
+                    "reponse_time_1": 1.7804744243621826
+                },
+                {
+                    "reponse_time_2": 1.4883732795715332
+                },
+                {
+                    "reponse_time_3": 1.6602706909179688
+                },
+                {
+                    "reponse_time_4": 1.2769243717193604
+                },
+                {
+                    "reponse_time_5": 1.4869029521942139
+                },
+                {
+                    "reponse_time_6": 1.3981702327728271
+                },
+                {
+                    "reponse_time_7": 1.2707710266113281
+                },
+                {
+                    "reponse_time_8": 1.1934700012207031
+                },
+                {
+                    "reponse_time_9": 1.57047438621521
+                },
+                {
+                    "avg_reponse_time": 10.673448872566222
+                },
+                {
+                    "total_time": 106.73484182357788
+                }
+            ],
+            "score": [
+                0.2,
+                0.2
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks', 'CNN', 'not used in LLMs', 'deep learning limitations', 'LLM challenges'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'recurrent neural networks in NLP', 'transformer models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['Convolutional Neural Networks', 'LLMs', 'limitations of CNNs in LLMs', 'CNN vs RNN in language models', 'CNN applications in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'neural network architecture', 'language models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'long-range model limitations', 'CNN vs LLMs', 'deep learning for natural language'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'reasons against use', 'alternatives to CNN in LLMs', 'CNN limitations in LLM'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'CNN', 'LLMs', 'Limitations', 'Advantages vs Disadvantages'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'feature extraction', 'sequence processing'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architectures', 'hybrid CNN-Transformer models', 'alternative architectures LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'sequence modeling', 'computational cost', 'efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'data efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs', 'feature extraction CNN LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures', 'computational cost CNN LLMs', 'data efficiency LLMs', 'sequence processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'CNN integration LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNNs vs LLMs', 'architecture comparison', 'deep learning limitations', 'transformer architecture', 'sequence processing', 'image recognition', 'text generation'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI & Deep Learning'}, {'mot_cle': ['convolutional neural networks', 'natural language processing', 'language models', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['machine learning', 'neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing', 'machine learning'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['R\u00e9seaux de neurones convolutionnels', 'Mod\u00e8les linguistiques', 'Apprentissage profond', 'Reconnaissance vocale', 'NLP'], 'categories': 'IA et Apprentissage Profond'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'language models', 'natural language processing', 'artificial intelligence', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['Transformers', 'Language Models', 'Convolutional Neural Networks', 'NLP', 'Deep Learning'], 'categories': 'Computer Science'}, {'mot_cle': ['recurrent neural networks', 'long short-term memory', 'sequence modeling', 'natural language processing', 'computer vision'], 'categories': 'machine learning'}, {'mot_cle': ['Recurrent Neural Networks', 'Language Models', 'Text Generation', 'Deep Learning', 'Neural Language Processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['use of convolutional neural networks for lm', 'convolutional neural networks lm application'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['why not use convolutional neural networks for LLM', 'convolutional neural networks limitations in language models'], 'categories': 'Neural Networks and Language Models'}, {'mot_cle': ['why not use convolutional neural networks for language models', 'convolutional neural network limitations in natural language processing', 'CNNs and language modeling'], 'categories': 'machine learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}]"
+        },
+        {
+            "model_name": "gemma-3-4b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 102.84069848060608
+                },
+                {
+                    "reponse_time_0": 102.84069681167603
+                },
+                {
+                    "reponse_time_1": 1.2531275749206543
+                },
+                {
+                    "reponse_time_2": 1.1787383556365967
+                },
+                {
+                    "reponse_time_3": 0.988689661026001
+                },
+                {
+                    "reponse_time_4": 1.2316157817840576
+                },
+                {
+                    "reponse_time_5": 1.167729377746582
+                },
+                {
+                    "reponse_time_6": 1.339034080505371
+                },
+                {
+                    "reponse_time_7": 1.2646188735961914
+                },
+                {
+                    "reponse_time_8": 1.2297985553741455
+                },
+                {
+                    "reponse_time_9": 1.1689825057983398
+                },
+                {
+                    "avg_reponse_time": 11.366303157806396
+                },
+                {
+                    "total_time": 113.66340947151184
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks', 'CNN', 'not used in LLMs', 'deep learning limitations', 'LLM challenges'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'recurrent neural networks in NLP', 'transformer models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['Convolutional Neural Networks', 'LLMs', 'limitations of CNNs in LLMs', 'CNN vs RNN in language models', 'CNN applications in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'neural network architecture', 'language models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'long-range model limitations', 'CNN vs LLMs', 'deep learning for natural language'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'reasons against use', 'alternatives to CNN in LLMs', 'CNN limitations in LLM'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'CNN', 'LLMs', 'Limitations', 'Advantages vs Disadvantages'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'feature extraction', 'sequence processing'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architectures', 'hybrid CNN-Transformer models', 'alternative architectures LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'sequence modeling', 'computational cost', 'efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'data efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs', 'feature extraction CNN LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures', 'computational cost CNN LLMs', 'data efficiency LLMs', 'sequence processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'CNN integration LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNNs vs LLMs', 'architecture comparison', 'deep learning limitations', 'transformer architecture', 'sequence processing', 'image recognition', 'text generation'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI & Deep Learning'}, {'mot_cle': ['convolutional neural networks', 'natural language processing', 'language models', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['machine learning', 'neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing', 'machine learning'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['R\u00e9seaux de neurones convolutionnels', 'Mod\u00e8les linguistiques', 'Apprentissage profond', 'Reconnaissance vocale', 'NLP'], 'categories': 'IA et Apprentissage Profond'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'language models', 'natural language processing', 'artificial intelligence', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['Transformers', 'Language Models', 'Convolutional Neural Networks', 'NLP', 'Deep Learning'], 'categories': 'Computer Science'}, {'mot_cle': ['recurrent neural networks', 'long short-term memory', 'sequence modeling', 'natural language processing', 'computer vision'], 'categories': 'machine learning'}, {'mot_cle': ['Recurrent Neural Networks', 'Language Models', 'Text Generation', 'Deep Learning', 'Neural Language Processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['use of convolutional neural networks for lm', 'convolutional neural networks lm application'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['why not use convolutional neural networks for LLM', 'convolutional neural networks limitations in language models'], 'categories': 'Neural Networks and Language Models'}, {'mot_cle': ['why not use convolutional neural networks for language models', 'convolutional neural network limitations in natural language processing', 'CNNs and language modeling'], 'categories': 'machine learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'deep learning', 'transformer architecture', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformers', 'deep learning', 'neural networks', 'ai architecture'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformer architecture', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'transformers', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformers', 'deep learning', 'nlp', 'ai architecture'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformer models', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convNet LLM', 'convolutional neural networks LLMs', 'CNN LLMs', 'neural network architecture LLM', 'transformer vs convnet LLM'], 'categories': 'AI Architecture'}, {'mot_cle': ['convNet LLM', 'convolutional neural networks LLMs', 'CNN LLM', 'LLM architecture', 'neural network LLM'], 'categories': 'AI Architecture'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformers', 'deep learning', 'neural networks', 'nlp'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformer architecture', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}]"
+        },
+        {
+            "model_name": "qwq-lcot-7b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 92.33834028244019
+                },
+                {
+                    "reponse_time_0": 92.33833932876587
+                },
+                {
+                    "reponse_time_1": 1.8612093925476074
+                },
+                {
+                    "reponse_time_2": 1.716590404510498
+                },
+                {
+                    "reponse_time_3": 1.717963457107544
+                },
+                {
+                    "reponse_time_4": 2.041764259338379
+                },
+                {
+                    "reponse_time_5": 2.1244056224823
+                },
+                {
+                    "reponse_time_6": 1.963742733001709
+                },
+                {
+                    "reponse_time_7": 1.8476569652557373
+                },
+                {
+                    "reponse_time_8": 1.642824649810791
+                },
+                {
+                    "reponse_time_9": 1.7135238647460938
+                },
+                {
+                    "avg_reponse_time": 10.896802067756653
+                },
+                {
+                    "total_time": 108.96845626831055
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks', 'CNN', 'not used in LLMs', 'deep learning limitations', 'LLM challenges'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'recurrent neural networks in NLP', 'transformer models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['Convolutional Neural Networks', 'LLMs', 'limitations of CNNs in LLMs', 'CNN vs RNN in language models', 'CNN applications in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'neural network architecture', 'language models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'long-range model limitations', 'CNN vs LLMs', 'deep learning for natural language'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'reasons against use', 'alternatives to CNN in LLMs', 'CNN limitations in LLM'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'CNN', 'LLMs', 'Limitations', 'Advantages vs Disadvantages'], 'categories': 'Machine Learning'}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'feature extraction', 'sequence processing'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architectures', 'hybrid CNN-Transformer models', 'alternative architectures LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'sequence modeling', 'computational cost', 'efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN vs LLM', 'architecture comparison', 'transformer networks', 'hybrid architectures', 'computational cost', 'data efficiency', 'feature extraction'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs', 'feature extraction CNN LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures', 'computational cost CNN LLMs', 'data efficiency LLMs', 'sequence processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'transformer architecture', 'hybrid architectures LLMs', 'CNN integration LLMs', 'sequence processing CNN vs transformers', 'computational cost CNN LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNNs vs LLMs', 'architecture comparison', 'deep learning limitations', 'transformer architecture', 'sequence processing', 'image recognition', 'text generation'], 'categories': 'AI Research'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'large language models', 'CNN limitations LLMs', 'alternative architectures LLMs', 'transformer networks vs CNNs'], 'categories': 'AI & Deep Learning'}, {'mot_cle': ['convolutional neural networks', 'natural language processing', 'language models', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['machine learning', 'neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing', 'machine learning'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['R\u00e9seaux de neurones convolutionnels', 'Mod\u00e8les linguistiques', 'Apprentissage profond', 'Reconnaissance vocale', 'NLP'], 'categories': 'IA et Apprentissage Profond'}, {'mot_cle': ['neural networks', 'convolutional neural networks', 'language models', 'natural language processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks', 'language models', 'natural language processing', 'artificial intelligence', 'machine learning'], 'categories': 'technology'}, {'mot_cle': ['Transformers', 'Language Models', 'Convolutional Neural Networks', 'NLP', 'Deep Learning'], 'categories': 'Computer Science'}, {'mot_cle': ['recurrent neural networks', 'long short-term memory', 'sequence modeling', 'natural language processing', 'computer vision'], 'categories': 'machine learning'}, {'mot_cle': ['Recurrent Neural Networks', 'Language Models', 'Text Generation', 'Deep Learning', 'Neural Language Processing'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['use of convolutional neural networks for lm', 'convolutional neural networks lm application'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['why not use convolutional neural networks for LLM', 'convolutional neural networks limitations in language models'], 'categories': 'Neural Networks and Language Models'}, {'mot_cle': ['why not use convolutional neural networks for language models', 'convolutional neural network limitations in natural language processing', 'CNNs and language modeling'], 'categories': 'machine learning'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'deep learning', 'transformer architecture', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformers', 'deep learning', 'neural networks', 'ai architecture'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformer architecture', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'transformers', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformers', 'deep learning', 'nlp', 'ai architecture'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformer models', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convNet LLM', 'convolutional neural networks LLMs', 'CNN LLMs', 'neural network architecture LLM', 'transformer vs convnet LLM'], 'categories': 'AI Architecture'}, {'mot_cle': ['convNet LLM', 'convolutional neural networks LLMs', 'CNN LLM', 'LLM architecture', 'neural network LLM'], 'categories': 'AI Architecture'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformers', 'deep learning', 'neural networks', 'nlp'], 'categories': 'artificial intelligence'}, {'mot_cle': ['convolutional neural networks', 'llms', 'large language models', 'transformer architecture', 'deep learning', 'neural networks'], 'categories': 'artificial intelligence'}, {'mot_cle': ['why not use cnn for llms', 'reseaux de neurones convolutifs vs llms', 'alternative to transformer models llms'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['why not use cnn for llms', 'recurrent networks vs convolutional networks llms', 'advantages of using rnn over cnn in llms'], 'categories': 'natural language processing'}, {'mot_cle': ['why not use cnn for llms', 'relevance of using cnn in llms', 'advantages of rnn over cnn for llms'], 'categories': 'natural language processing'}, {'mot_cle': ['why not use cnn for llms', 'rejection of cnn in llms', 'advantages of using cnn in llms'], 'categories': 'neural-networks'}, {'mot_cle': ['why not use cnn for llms', 'rejection of cnn in llms', 'advantages of using rnn over cnn for llms', 'comparison rnn and cnn for llms'], 'categories': 'natural language processing'}, {'mot_cle': ['why not use cnn for llms', 'relevance of cnn in llms', 'advantages of using rnn over cnn in llms', 'difference between cnn and rnn for llms'], 'categories': 'natural language processing'}, {'mot_cle': ['why not use convolutional neural networks for llms', 'reinforcement of why not CNN in llms', 'benefits of using RNN over CNN in llms'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['why not use cnn for llms', 'reseaux de neurones convolutifs vs llms', 'alternatives to cnn in llms'], 'categories': 'natural language processing'}, {'mot_cle': ['why not use cnn for llms', 'reinforcement learning vs neural networks', 'comparison rnn and cnn in llms'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['why not use cnn for llms', 'reinforcement of neural networks in llms', 'comparison rnn and cnn in llms'], 'categories': 'Natural Language Processing'}]"
+        }
+    ]
+}
