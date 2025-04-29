@@ -29,27 +29,33 @@ def ask_ai(prompt,model):
     else:
         print(f"Erreur : {response.status_code}, {response.text}")
 
-def add_csv(model,attempts, score, time_response, results): 
-    fieldnames = ['model_name', "attempts", 'score',"time" , "result"]
+def add_json(model,attempts, score, time_response, results):
+    try:    
+        with open('data.json', 'r') as file:
+            data = json.load(file)
 
-    file_exists = os.path.isfile('benchmark.csv')
+    except FileNotFoundError:
+        data = {}
 
-    with open('benchmark_structured_output.csv', 'a', newline='', encoding='utf-8') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            
-            if not file_exists:
-                writer.writeheader()
-            
-            writer.writerow({
-                'model_name': model,
-                "attempts": attempts,
-                'score': score,
-                "time": time_response,
-                "result": str(results)
-            })
+    if 'results' not in data:
+        data['results'] = []
 
-    print("Ajout au CSV terminé.")
+    new_result = {
+        "model_name": model,
+        "temperature": 0.7,
+        "max_tokens": 4096,
+        "attempts": attempts,
+        "time": time_response,
+        "score": score,
+        "result": str(results)
+    }
 
+    data['results'].append(new_result)
+
+    with open('data.json', 'w') as file:
+        json.dump(data, file, indent=4)
+
+    print("Résultat ajouté au fichier JSON.")
 
 def benchmark(question: str):
     results = []
@@ -72,26 +78,30 @@ def benchmark(question: str):
             reponse_time = time.time()
             time_response.append({"chargement_model": reponse_time - chargement_model })
 
+
+            #Traitement de la réponse
+            response = response.strip()
+            response = response.replace("```", "")
+            response = response.replace("json", "")
+            response = response.replace("```", "")
+            response = response.replace("\n", "")
+            while " " in response:
+                response = response.replace(" ", "")
+
+            
             try:
-                #Traitement de la réponse
-                response = response.strip()
-                response = response.replace("```", "")
-                response = response.replace("json", "")
-                response = response.replace("```", "")
-                response = response.replace("\n", "") 
                 response_final = json.loads(response)
                 if "querys"  in response_final or "categories" in response_final:
                     results.append({"mot_cle" : response_final["querys"], "categories": response_final["categories"]})
                     print("Mots clées : ",response_final["querys"],response_final["categories"])
                     score += 1
+
                 time_moy.append(reponse_time - print_1)
                 time_response.append({"reponse_time_" + str(i): reponse_time - print_1})
-            except json.JSONDecodeError as e:
-                response_final = "Erreur de décodage JSON : " + str(e)
-                continue
 
             except Exception as e:
                 response_final = "Erreur : " + str(e)
+                print("Réponse brute :", response)
                 continue
                 
         end_time = time.time()
@@ -100,7 +110,7 @@ def benchmark(question: str):
         time_response.append({"total_time": end_time - chargement_model})
         print(f"Score : {score}")
 
-        add_csv(model, attempts, score, time_response, results)
+        add_json(model, attempts, score, time_response, results)
 
 
 if __name__ == "__main__":
