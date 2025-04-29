@@ -57,8 +57,8 @@ def get_structured_response(question: str, models : str):
 def benchmark(question: str):
     results = []
 
-    models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
-    #models_list = ["gemma-3-12b-it"]
+    #models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
+    models_list = ["granite-3.2-8b-instruct"]
 
     attempts = 10
 
