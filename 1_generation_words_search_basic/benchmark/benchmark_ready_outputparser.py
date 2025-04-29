@@ -3,9 +3,11 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 from typing import List
-import csv
+import json_add as add_json
 import os
 import time 
+
+
 
 def get_structured_response(question: str, models : str):
     class QueryResponse(BaseModel):
@@ -50,30 +52,9 @@ def get_structured_response(question: str, models : str):
         return None
 
 
-def add_csv(model,attempts, score, time_response, results): 
-    fieldnames = ['model_name', "attempts", 'score',"time" , "result"]
-
-    file_exists = os.path.isfile('benchmark.csv')
-
-    with open('benchmark_output_parser.csv', 'a', newline='', encoding='utf-8') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            
-            if not file_exists:
-                writer.writeheader()
-            
-            writer.writerow({
-                'model_name': model,
-                "attempts": attempts,
-                'score': score,
-                "time": time_response,
-                "result": str(results)
-            })
-
-    print("Ajout au CSV terminé.")
 
 
 def benchmark(question: str):
-    score = 0
     results = []
 
     models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
@@ -85,6 +66,8 @@ def benchmark(question: str):
         print(f"Modèle : {model}")
         time_response = []
         time_moy = []
+        score = 0
+        score_categorie = 0
         chargement_model = time.time()
         for i in range(attempts):
             print_1 = time.time()
@@ -99,6 +82,13 @@ def benchmark(question: str):
                     score += 1
                     print(f"Mots-clés : {result.querys}")
                     print(f"Catégorie : {result.categories}")
+                
+                if isinstance(result.categories, str):
+                    score_categorie += 1
+                elif isinstance(result.categories, list):
+                    if len(result.categories) == 1:                        
+                        score_categorie += 1
+
                 results.append(result)
             
             time_moy.append(reponse_time - print_1)
@@ -107,9 +97,12 @@ def benchmark(question: str):
         end_time = time.time()
         time_response.append({"avg_reponse_time": sum(time_moy) / len(time_moy)})
         time_response.append({"total_time": end_time - chargement_model})
-        print(f"Score : {score}")
-
-        add_csv(model, attempts, score, time_response, results)
+        scores = []
+        scores.append(score/attempts)
+        scores.append(score_categorie/attempts)
+        
+        print(f"Score : {score/attempts} Score_categorie : {score_categorie/attempts}")
+        add_json("benchmark_output_parser.json",model, attempts, scores, time_response, results)
         
 
 

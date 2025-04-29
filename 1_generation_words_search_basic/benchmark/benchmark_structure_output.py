@@ -4,7 +4,7 @@ import os
 import time
 import csv
 import sys
-
+from json_add import add_json
 AIURL = "http://192.168.0.18:1234/v1/chat/completions"
 
 def ask_ai(prompt,model):
@@ -36,39 +36,11 @@ def ask_ai(prompt,model):
     else:
         print(f"Erreur : {response.status_code}, {response.text}")
 
-def add_json(model,attempts, score, time_response, results):
-    try:    
-        with open('data.json', 'r') as file:
-            data = json.load(file)
-
-    except FileNotFoundError:
-        data = {}
-
-    if 'results' not in data:
-        data['results'] = []
-
-    new_result = {
-        "model_name": model,
-        "temperature": 0.7,
-        "max_tokens": 4096,
-        "attempts": attempts,
-        "time": time_response,
-        "score": score,
-        "result": str(results)
-    }
-
-    data['results'].append(new_result)
-
-    with open('data.json', 'w') as file:
-        json.dump(data, file, indent=4)
-
-    print("Résultat ajouté au fichier JSON.")
-
 def benchmark(question: str):
     results = []
 
-    models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
-    #models_list = ["gemma-3-12b-it"]
+    #models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
+    models_list = ["granite-3.2-8b-instruct"]
 
     attempts = 10
 
@@ -81,7 +53,6 @@ def benchmark(question: str):
         chargement_model = time.time()
         for i in range(attempts):
             print_1 = time.time()
-            print(f"\nRéponse {i+1}:")
             response = ask_ai(question,model)
             reponse_time = time.time()
             if i == 0:
@@ -120,13 +91,12 @@ def benchmark(question: str):
         end_time = time.time()
         time_response.append({"avg_reponse_time": sum(time_moy) / len(time_moy)})
         time_response.append({"total_time": end_time - chargement_model})
-        print(f"Score : {score}")
         scores = []
         scores.append(score/attempts)
         scores.append(score_categorie/attempts)
         
         print(f"Score : {score/attempts} Score_categorie : {score_categorie/attempts}")
-        add_json(model, attempts, scores, time_response, results)
+        add_json("becnhmark_structured_output.json",model, attempts, scores, time_response, results)
 
 
 if __name__ == "__main__":
