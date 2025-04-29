@@ -2,7 +2,7 @@ import pandas as pd
 import ast
 
 # Chargement des données
-df = pd.read_csv('/home/ghost/Documents/function_calling/3_analyse_result/benchmark_structured_output.csv')
+df = pd.read_csv('/home/ghost/Documents/function_calling/3_analyse_result/benchmark_output_parser.csv')
 
 print(df.head())
 
