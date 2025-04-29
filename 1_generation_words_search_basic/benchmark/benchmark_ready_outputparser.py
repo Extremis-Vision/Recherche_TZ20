@@ -19,7 +19,7 @@ def get_structured_response(question: str, models : str):
 
     system_prompt = """Tu es un assistant de recherche qui doit générer des mots clés qui seront utilisés dans un moteur de recherche. 
     Fais en sorte que ces mots clés représentent au mieux ce qui serait nécessaire à la recherche. 
-    Donne uniquement les mots clés et rien d'autre en anglais. Génère exactement 5 mots clés.
+    Donne uniquement les mots clés et rien d'autre en anglais. Génère exactement 5 mots clés et une catégorie principale.
 
     Format de réponse requis :
     {format_instructions}"""

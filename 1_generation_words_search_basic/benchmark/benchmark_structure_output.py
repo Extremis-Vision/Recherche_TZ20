@@ -8,13 +8,7 @@ from json_add import add_json
 from ask_ai import ask_ai
 AIURL = "http://192.168.0.18:1234/v1/chat/completions"
 
-sys_prompt = """Tu es un assistant de recherche qui doit 
-                générer des mots clées qui seront utilisé dans un moteur de recherche 
-                fait en sorte que ses mots clées représente au mieux ce qui serait necessaire 
-                à la recherche. Donne moi uniquement les mots clées et rien d'autre en anglais,
-                tu dois en générer  mots clées et une catégorie. Ta réponse doit être structuré de la manière suivante : 
-                {"querys": ["mot1", "mot2", "mot3", "mot4", "mot5"],"categories":"catégorie"}, 
-                ne mets absolument aucune pas de balyse : ```json  """
+sys_prompt = """Generate 5 precise English search keywords and a category. Structure output as {"querys": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"], "categories": "specific_category"}. Keywords must maximize search relevance. Exclude any formatting marks."""
 
 def benchmark(question: str):
     results = []

@@ -2,26 +2,28 @@ import pandas as pd
 import json
 from ast import literal_eval
 
-# Chargement du JSON
-with open('/home/ghost/Documents/function_calling/3_analyse_result/becnhmark_structured_output.json') as f:
+# Charger le fichier JSON
+with open('/home/ghost/Documents/function_calling/3_analyse_result/benchmark_structured_output.json') as f:
     data = json.load(f)
 
-# Conversion en DataFrame
-df = pd.json_normalize(data['results'])
 
-# Nettoyage des colonnes
-df['result'] = df['result'].apply(literal_eval)
-df['score'] = df['score'].apply(lambda x: sum(x)/len(x))  # Moyenne des scores
-df['time_metrics'] = df['time'].apply(lambda x: {k:v for d in x for k,v in d.items()})
+    results = data["results"][0]["result"]
 
-print(df.columns)
+    # Convertir les chaînes JSON en objets Python si nécessaire
+    if isinstance(results, str):
+        results = literal_eval(results.replace("'", "\""))
 
-# Extraction des métriques temporelles
-time_df = pd.json_normalize(df['time_metrics'])
-df = pd.concat([df, time_df], axis=1)
+    df = pd.json_normalize(results)
 
-# Calcul du débit (tokens/seconde)
-df['throughput'] = df['max_tokens'] / df['avg_reponse_time']
+    # Explode pour séparer les listes de mots-clés
+    df_exploded = df.explode('mot_cle')
 
-# Découpage des résultats
-df = df.explode('result').reset_index(drop=True)
+    # Compter les catégories
+    category_counts = df['categories'].str.lower().str.strip().value_counts()
+
+    # Compter les mots-clés
+    keyword_counts = df_exploded['mot_cle'].str.lower().str.strip().value_counts()
+
+    print("Catégories :\n", category_counts)
+    print("\nMots-clés :\n", keyword_counts)
+
