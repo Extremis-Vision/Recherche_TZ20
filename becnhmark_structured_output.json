@@ -1,0 +1,56 @@
+{
+    "results": [
+        {
+            "model_name": "granite-3.2-8b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 3.439302921295166
+                },
+                {
+                    "reponse_time_0": 3.4393022060394287
+                },
+                {
+                    "reponse_time_1": 1.638597011566162
+                },
+                {
+                    "reponse_time_2": 1.6817317008972168
+                },
+                {
+                    "reponse_time_3": 1.5686323642730713
+                },
+                {
+                    "reponse_time_4": 2.0091845989227295
+                },
+                {
+                    "reponse_time_5": 1.886892318725586
+                },
+                {
+                    "reponse_time_6": 1.8780391216278076
+                },
+                {
+                    "reponse_time_7": 1.96071195602417
+                },
+                {
+                    "reponse_time_8": 1.679314374923706
+                },
+                {
+                    "reponse_time_9": 1.4352831840515137
+                },
+                {
+                    "avg_reponse_time": 1.9177688837051392
+                },
+                {
+                    "total_time": 19.177852153778076
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks', 'LLMs', 'recurrent neural networks', 'long short-term memory', 'CNN vs RNN'], 'categories': 'machine learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning', 'recurrent neural networks', 'machine learning models'], 'categories': 'Artificial Intelligence / Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'CNN', 'llm limitations', 'large language models', 'CNN vs LLMs'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'CNN', 'LLMs', 'Language Models', 'deep learning limitations'], 'categories': 'Artificial Intelligence, Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'why not use CNN for LLMs', 'convolutional layers in language models', 'limitations of CNN in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'not used in language models', 'LLMs vs CNN', 'advantages of LSTM over CNN', 'CNN limitations in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'limited use in LLMs', 'alternatives to CNN in LLM', 'CNN vs LLM'], 'categories': 'Machine Learning & Deep Learning'}, {'mot_cle': ['convolutional neural networks', 'llm limitations', 'reasons for not using CNN in LLMs', 'LLM challenges', 'CNN vs LLM'], 'categories': 'Machine Learning & Deep Learning'}, {'mot_cle': ['convolutional neural networks', 'LLMs', 'deep learning limitations', 'recurrent neural networks', 'language modeling systems'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['Convolutional Neural Networks', 'LLMs', 'Artificial Intelligence', 'Machine Learning', 'Deep Learning'], 'categories': 'Technology & AI'}]"
+        }
+    ]
+}

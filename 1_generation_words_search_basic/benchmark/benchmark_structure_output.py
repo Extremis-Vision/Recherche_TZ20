@@ -5,36 +5,16 @@ import time
 import csv
 import sys
 from json_add import add_json
+from ask_ai import ask_ai
 AIURL = "http://192.168.0.18:1234/v1/chat/completions"
 
-def ask_ai(prompt,model):
-    headers = {
-    "Content-Type": "application/json"
-    }
-
-    payload = {
-    "model": model,  # Remplacez par le nom du mod�le charg�
-    "messages": [
-        {"role": "system", "content": """Tu es un assistant de recherche qui doit 
-                                        générer des mots clées qui seront utilisé dans un moteur de recherche 
-                                        fait en sorte que ses mots clées représente au mieux ce qui serait necessaire 
-                                        à la recherche. Donne moi uniquement les mots clées et rien d'autre en anglais,
-                                         tu dois en générer  mots clées et une catégorie. Ta réponse doit être structuré de la manière suivante : 
-                                        {"querys": ["mot1", "mot2", "mot3", "mot4", "mot5"],"categories":"catégorie"}, 
-                                        ne mets absolument aucune pas de balyse : ```json  """
-         },
-        {"role": "user", "content": prompt}
-    ],
-    "temperature": 0.7,
-    "max_tokens": 4096
-    }
-
-    response = requests.post(AIURL, json=payload, headers=headers)
-    if response.status_code == 200:
-        assistant_reply = response.json()["choices"][0]["message"]["content"]
-        return assistant_reply
-    else:
-        print(f"Erreur : {response.status_code}, {response.text}")
+sys_prompt = """Tu es un assistant de recherche qui doit 
+                générer des mots clées qui seront utilisé dans un moteur de recherche 
+                fait en sorte que ses mots clées représente au mieux ce qui serait necessaire 
+                à la recherche. Donne moi uniquement les mots clées et rien d'autre en anglais,
+                tu dois en générer  mots clées et une catégorie. Ta réponse doit être structuré de la manière suivante : 
+                {"querys": ["mot1", "mot2", "mot3", "mot4", "mot5"],"categories":"catégorie"}, 
+                ne mets absolument aucune pas de balyse : ```json  """
 
 def benchmark(question: str):
     results = []
@@ -53,7 +33,7 @@ def benchmark(question: str):
         chargement_model = time.time()
         for i in range(attempts):
             print_1 = time.time()
-            response = ask_ai(question,model)
+            response = ask_ai(sys_prompt, question, model)
             reponse_time = time.time()
             if i == 0:
                 time_response.append({"chargement_model": reponse_time - chargement_model })
