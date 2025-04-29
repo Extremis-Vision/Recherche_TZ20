@@ -76,7 +76,8 @@ def benchmark(question: str):
             print(f"\nRéponse {i+1}:")
             response = ask_ai(question,model)
             reponse_time = time.time()
-            time_response.append({"chargement_model": reponse_time - chargement_model })
+            if i == 0:
+                time_response.append({"chargement_model": reponse_time - chargement_model })
 
 
             #Traitement de la réponse
@@ -85,10 +86,7 @@ def benchmark(question: str):
             response = response.replace("json", "")
             response = response.replace("```", "")
             response = response.replace("\n", "")
-            while " " in response:
-                response = response.replace(" ", "")
 
-            
             try:
                 response_final = json.loads(response)
                 if "querys"  in response_final or "categories" in response_final:
@@ -100,8 +98,8 @@ def benchmark(question: str):
                 time_response.append({"reponse_time_" + str(i): reponse_time - print_1})
 
             except Exception as e:
-                response_final = "Erreur : " + str(e)
-                print("Réponse brute :", response)
+                results.append({"Erreur" : str(e)})
+                print("Erreur :", str(e))
                 continue
                 
         end_time = time.time()

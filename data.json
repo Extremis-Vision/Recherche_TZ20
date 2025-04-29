@@ -334,6 +334,79 @@
             ],
             "score": 6,
             "result": "[{'mot_cle': ['CNNforLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LLMarchitecturelimitations', 'AlternativestoTransformersinLLMs', 'Hybridneuralnetworkmodelslanguage'], 'categories': 'ArtificialIntelligence,NaturalLanguageProcessing'}, {'mot_cle': ['CNNforLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LimitationsofCNNsinLLMs', 'LLMArchitectureAlternatives', 'WhynotCNNsinLargeLanguageModels'], 'categories': 'AIResearch'}, {'mot_cle': ['CNNLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LLMarchitecturelimitations', 'Hybridneuralnetworkmodels', 'AlternativearchitecturesforLLMs'], 'categories': 'ArtificialIntelligence'}, {'mot_cle': ['CNNforLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LimitationsCNNinLLMs', 'AlternativestoCNNinLLMs', 'TransformervsCNNLLMs'], 'categories': 'AIResearch'}, {'mot_cle': ['CNNforLLMs', 'ConvolutionalNeuralNetworksvs.LLMs', 'LimitationsofCNNinLargeLanguageModels', 'AlternativearchitecturestoTransformers', 'Hybridneuralnetworkmodels'], 'categories': 'AIResearch'}, {'mot_cle': ['CNNLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LLMarchitecturescomparison', 'WhynotCNNforLLMs', 'LimitationsofCNNinLLMs'], 'categories': 'ArtificialIntelligence,NaturalLanguageProcessing'}]"
+        },
+        {
+            "model_name": "gemma-3-12b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 4.3342976570129395
+                },
+                {
+                    "reponse_time_0": 4.334296941757202
+                },
+                {
+                    "chargement_model": 8.247980117797852
+                },
+                {
+                    "reponse_time_1": 3.9136550426483154
+                },
+                {
+                    "chargement_model": 12.29635214805603
+                },
+                {
+                    "reponse_time_2": 4.0483293533325195
+                },
+                {
+                    "chargement_model": 16.219852209091187
+                },
+                {
+                    "reponse_time_3": 3.923466444015503
+                },
+                {
+                    "chargement_model": 20.130253076553345
+                },
+                {
+                    "reponse_time_4": 3.9103596210479736
+                },
+                {
+                    "chargement_model": 24.19557476043701
+                },
+                {
+                    "reponse_time_5": 4.065286874771118
+                },
+                {
+                    "chargement_model": 27.969488859176636
+                },
+                {
+                    "reponse_time_6": 3.7738516330718994
+                },
+                {
+                    "chargement_model": 31.61319923400879
+                },
+                {
+                    "chargement_model": 35.953097343444824
+                },
+                {
+                    "reponse_time_8": 4.339845657348633
+                },
+                {
+                    "chargement_model": 40.02698588371277
+                },
+                {
+                    "reponse_time_9": 4.073846817016602
+                },
+                {
+                    "avg_reponse_time": 4.04254870944553
+                },
+                {
+                    "total_time": 40.027016401290894
+                }
+            ],
+            "score": 9,
+            "result": "[{'mot_cle': ['CNNLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LLMArchitectureAlternatives', 'HybridLLMArchitectures', 'LimitationsofCNNsinLLMs'], 'categories': 'ArtificialIntelligence,NaturalLanguageProcessing'}, {'mot_cle': ['convolutionalneuralnetworksLLMs', 'CNNlimitationsLLMs', 'LLMarchitecturesalternatives', 'transformernetworksvsCNNs', 'hybridneuralnetworkmodels'], 'categories': 'AIResearch'}, {'mot_cle': ['convolutionalneuralnetworksLLMs', 'CNNlimitationsLLMs', 'LLMarchitecturesalternatives', 'hybridCNN-Transformermodels', 'visuallanguagemodelsvsLLMs'], 'categories': 'AIResearch'}, {'mot_cle': ['convolutionalneuralnetworksLLMs', 'CNNlimitationsLLMs', 'LLMarchitecturealternatives', 'transformervsCNNlanguagemodels', 'hybridarchitecturesLLMs'], 'categories': 'AIResearch'}, {'mot_cle': ['CNNforLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LLMarchitecturelimitations', 'AlternativearchitecturestoTransformers', 'HybridCNN-Transformermodels'], 'categories': 'AIResearch'}, {'mot_cle': ['CNNforLLMs', 'ConvolutionalNeuralNetworksLanguageModels', 'LLMarchitecturelimitations', 'AlternativestoTransformersinLLMs', 'HybridCNN-Transformermodels'], 'categories': 'AIResearch'}, {'mot_cle': ['convolutionalneuralnetworksLLMs', 'CNNlimitationsLLMs', 'alternativearchitecturesLLMs', 'LLMdesignchoices', 'transformernetworkadvantages'], 'categories': 'AIResearch'}, {'mot_cle': ['convolutionalneuralnetworksLLMs', 'CNNlimitationsLLMs', 'LLMarchitecturesalternatives', 'hybridCNN-Transformermodels', 'whynotCNNforlanguagemodeling'], 'categories': 'ArtificialIntelligence,NaturalLanguageProcessing'}, {'mot_cle': ['convolutionalneuralnetworksLLMs', 'CNNlimitationsLLMs', 'LLMarchitecturesalternatives', 'hybridCNN-Transformermodels', 'whynotCNNforlanguagemodels'], 'categories': 'AIResearch'}]"
         }
     ]
 }
