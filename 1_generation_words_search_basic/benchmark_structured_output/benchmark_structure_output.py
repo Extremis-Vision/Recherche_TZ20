@@ -67,8 +67,8 @@ def add_json(model,attempts, score, time_response, results):
 def benchmark(question: str):
     results = []
 
-    #models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
-    models_list = ["gemma-3-12b-it"]
+    models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
+    #models_list = ["gemma-3-12b-it"]
 
     attempts = 10
 
@@ -99,7 +99,6 @@ def benchmark(question: str):
                 response_final = json.loads(response)
                 if "querys"  in response_final or "categories" in response_final:
                     results.append({"mot_cle" : response_final["querys"], "categories": response_final["categories"]})
-                    print("Mots clées : ",response_final["querys"],response_final["categories"])
                 if isinstance(response_final['categories'], str):
                     score_categorie += 1
                 elif isinstance(response_final['categories'], list):
@@ -115,7 +114,6 @@ def benchmark(question: str):
                 results.append({"Erreur" : str(e)})
                 time_moy.append(reponse_time - print_1)
                 time_response.append({"reponse_time_" + str(i): reponse_time - print_1})
-                print("Erreur :", str(e))
                 continue
                 
         end_time = time.time()
