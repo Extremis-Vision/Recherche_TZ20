@@ -15,7 +15,14 @@ def ask_ai(prompt,model):
     payload = {
     "model": model,  # Remplacez par le nom du mod�le charg�
     "messages": [
-        {"role": "system", "content": "Tu es un assistant de recherche qui doit générer des mots clées qui seront utilisé dans un moteur de recherche fait en sorte que ses mots clées représente au mieux ce qui serait necessaire à la recherche. Donne moi uniquement les mots clées et rien d'autre en anglais, tu dois en générer 5. Ta réponse doit être structuré de la manière suivante : {'querys': ['mot1', 'mot2', 'mot3', 'mot4', 'mot5'],'categories':'catégorie'}, ne mets absolument aucune pas de balyse : ```json  "},
+        {"role": "system", "content": """Tu es un assistant de recherche qui doit 
+                                        générer des mots clées qui seront utilisé dans un moteur de recherche 
+                                        fait en sorte que ses mots clées représente au mieux ce qui serait necessaire 
+                                        à la recherche. Donne moi uniquement les mots clées et rien d'autre en anglais,
+                                         tu dois en générer  mots clées et une catégorie. Ta réponse doit être structuré de la manière suivante : 
+                                        {"querys": ["mot1", "mot2", "mot3", "mot4", "mot5"],"categories":"catégorie"}, 
+                                        ne mets absolument aucune pas de balyse : ```json  """
+         },
         {"role": "user", "content": prompt}
     ],
     "temperature": 0.7,
@@ -67,6 +74,7 @@ def benchmark(question: str):
 
     for model in models_list:
         score = 0
+        score_categorie = 0
         time_moy = []
         print(f"Modèle : {model}")
         time_response = []
@@ -92,13 +100,21 @@ def benchmark(question: str):
                 if "querys"  in response_final or "categories" in response_final:
                     results.append({"mot_cle" : response_final["querys"], "categories": response_final["categories"]})
                     print("Mots clées : ",response_final["querys"],response_final["categories"])
-                    score += 1
+                if isinstance(response_final['categories'], str):
+                    score_categorie += 1
+                elif isinstance(response_final['categories'], list):
+                    if len(response_final['categories']) == 1:                        
+                        score_categorie += 1
+                
+                score += 1
 
                 time_moy.append(reponse_time - print_1)
                 time_response.append({"reponse_time_" + str(i): reponse_time - print_1})
 
             except Exception as e:
                 results.append({"Erreur" : str(e)})
+                time_moy.append(reponse_time - print_1)
+                time_response.append({"reponse_time_" + str(i): reponse_time - print_1})
                 print("Erreur :", str(e))
                 continue
                 
@@ -107,8 +123,12 @@ def benchmark(question: str):
         time_response.append({"avg_reponse_time": sum(time_moy) / len(time_moy)})
         time_response.append({"total_time": end_time - chargement_model})
         print(f"Score : {score}")
-
-        add_json(model, attempts, score, time_response, results)
+        scores = []
+        scores.append(score/attempts)
+        scores.append(score_categorie/attempts)
+        
+        print(f"Score : {score/attempts} Score_categorie : {score_categorie/attempts}")
+        add_json(model, attempts, scores, time_response, results)
 
 
 if __name__ == "__main__":
