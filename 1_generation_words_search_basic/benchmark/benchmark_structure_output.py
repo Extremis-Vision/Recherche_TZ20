@@ -5,7 +5,9 @@ import time
 import csv
 import sys
 from json_add import add_json
-from ask_ai import ask_ai
+from ask_ai import ask_ai, get_model
+
+
 AIURL = "http://192.168.0.18:1234/v1/chat/completions"
 
 sys_prompt = """Generate 5 precise English search keywords and a category. Structure output as {"querys": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"], "categories": "specific_category"}. Keywords must maximize search relevance. Exclude any formatting marks."""
@@ -13,7 +15,7 @@ sys_prompt = """Generate 5 precise English search keywords and a category. Struc
 def benchmark(question: str):
     results = []
 
-    models_list = ["granite-3.2-8b-instruct","gemma-3-12b-it","mathstral-7b-v0.1","ministral-8b-instruct-2410","gemma-3-4b-it","qwq-lcot-7b-instruct"]
+    models_list = get_model()
     #models_list = ["granite-3.2-8b-instruct"]
 
     attempts = 10
