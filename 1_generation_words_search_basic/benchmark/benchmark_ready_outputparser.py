@@ -56,14 +56,13 @@ def get_structured_response(question: str, models : str):
 
 
 def benchmark(question: str):
-    results = []
-
     models_list = get_model()
     #models_list = ["granite-3.2-8b-instruct"]
 
     attempts = 10
 
     for model in models_list:
+        results = []
         print(f"Modèle : {model}")
         time_response = []
         time_moy = []
