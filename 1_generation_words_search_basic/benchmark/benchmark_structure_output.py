@@ -8,19 +8,17 @@ from json_add import add_json
 from ask_ai import ask_ai, get_model
 
 
-AIURL = "http://192.168.0.18:1234/v1/chat/completions"
-
 sys_prompt = """Generate 5 precise English search keywords and a category. Structure output as {"querys": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"], "categories": "specific_category"}. Keywords must maximize search relevance. Exclude any formatting marks."""
 
 def benchmark(question: str):
-    results = []
-
     models_list = get_model()
+    models_list.remove("text-embedding-nomic-embed-text-v1.5")
     #models_list = ["granite-3.2-8b-instruct"]
 
     attempts = 10
 
     for model in models_list:
+        results = []
         score = 0
         score_categorie = 0
         time_moy = []
@@ -29,7 +27,14 @@ def benchmark(question: str):
         chargement_model = time.time()
         for i in range(attempts):
             print_1 = time.time()
-            response = ask_ai(sys_prompt, question, model)
+            try:
+                response = ask_ai(sys_prompt, question, model)
+
+            except Exception as e:
+                print(f"Erreur modèle : {e}")
+                break
+                
+
             reponse_time = time.time()
             if i == 0:
                 time_response.append({"chargement_model": reponse_time - chargement_model })
@@ -77,4 +82,3 @@ def benchmark(question: str):
 
 if __name__ == "__main__":
     benchmark("Pourquoi n'utilise t'on pas les réseaux de neurones convulatif pour les llms ?")
-        
