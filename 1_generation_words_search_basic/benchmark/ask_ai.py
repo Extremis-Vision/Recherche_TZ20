@@ -41,3 +41,5 @@ def get_model():
         if isinstance(i["id"],str):
             models.append(i['id'])
     return models
+
+print(get_model())
