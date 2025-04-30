@@ -32,6 +32,9 @@ prompt = ChatPromptTemplate.from_template(eval_template)
 parser = JsonOutputParser()
 
 def evaluate_with_langchain():
+
+    models_list = ["deepseek-r1-distill-qwen-7b","deepseek-r1-distill-qwen-1.5b","deepthink-reasoning-7b","qwen2.5-moe-6x1.5b-deepseek-reasoning-e32-8.71b","llama-3.1-8b-claude-3.7-sonnet-reasoning-distilled","deepseek-ai-deepseek-r1-distill-llama-8b","qwen3-14b","ministral-8b-instruct-2410","gemma-3-12b-it-qat"]
+
     model = ChatOpenAI(
         api_key="lm-studio",
         base_url="http://localhost:1234/v1",
