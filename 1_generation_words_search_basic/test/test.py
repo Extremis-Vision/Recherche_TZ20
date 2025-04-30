@@ -1,24 +1,18 @@
-import json
+import requests
 
-response = """{'querys':[
-                        'CNNLLMscomparison',
-                        'ConvolutionalNeuralNetworksLanguageModels',
-                        'LLMarchitecturelimitations',
-                        'WhynotCNNforLLMs',
-                        'AlternativearchitecturestoTransformers'
-                    ],
-                    'categories':'AIResearch'
-                }"""
+AIURL = "http://192.168.0.18:1234/v1/models"
 
+def get_model():
+    headers = {
+    "Content-Type": "application/json"
+    }
 
+    response = requests.get(AIURL)
+    data = response.json()['data']
+    models = []
+    for i in data:
+        if isinstance(i["id"],str):
+            models.append(i['id'])
+    return models
 
-try:
-    response_final = json.loads(response)
-
-except Exception as e:
-    print("Erreur : " + str(e))
-
-while " " in response:
-    response = response.replace(" ", "")
-
-print(response)
+print(get_model())
