@@ -1,0 +1,1044 @@
+{
+    "results": [
+        {
+            "model_name": "deepthink-reasoning-7b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 1.66717529296875
+                },
+                {
+                    "reponse_time_0": 1.6671748161315918
+                },
+                {
+                    "reponse_time_1": 1.6398890018463135
+                },
+                {
+                    "reponse_time_2": 1.5971384048461914
+                },
+                {
+                    "reponse_time_3": 1.5972294807434082
+                },
+                {
+                    "reponse_time_4": 1.6688587665557861
+                },
+                {
+                    "reponse_time_5": 1.593003749847412
+                },
+                {
+                    "reponse_time_6": 1.8614559173583984
+                },
+                {
+                    "reponse_time_7": 1.6698856353759766
+                },
+                {
+                    "reponse_time_8": 1.6789422035217285
+                },
+                {
+                    "reponse_time_9": 1.6355912685394287
+                },
+                {
+                    "avg_reponse_time": 1.6609169244766235
+                },
+                {
+                    "total_time": 16.6093692779541
+                }
+            ],
+            "score": [
+                0.7,
+                0.7
+            ],
+            "result": "[QueryResponse(querys=['convolutional neural networks', 'language modeling', 'transformer models', 'reinforcement learning', 'pre-training'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language model', 'transformer models', 'deep learning', 'natural language processing'], categories='LLMs architecture'), QueryResponse(querys=['convolutional neural networks', 'language model limitations', 'llms architecture', 'deep learning techniques', 'computational efficiency'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language model limitations', 'reinforcement learning for language generation', 'transformer architectures', 'llm performance'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language modeling', 'deep learning', 'neural networks for text', 'large language models'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language modeling', 'large language models', 'deep learning', 'natural language processing'], categories='LLMs and Neural Networks'), QueryResponse(querys=['convolutional neural networks', 'language models', 'recurrent neural networks', 'deep learning', 'natural language processing'], categories='AI and Machine Learning')]"
+        },
+        {
+            "model_name": "qwen2.5-moe-6x1.5b-deepseek-reasoning-e32-8.71b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 211.99046802520752
+                },
+                {
+                    "reponse_time_0": 211.99046683311462
+                },
+                {
+                    "reponse_time_1": 140.19407534599304
+                },
+                {
+                    "reponse_time_2": 138.83217811584473
+                },
+                {
+                    "reponse_time_3": 35.87804365158081
+                },
+                {
+                    "reponse_time_4": 39.579811811447144
+                },
+                {
+                    "reponse_time_5": 138.70798587799072
+                },
+                {
+                    "reponse_time_6": 51.6660532951355
+                },
+                {
+                    "reponse_time_7": 140.36122465133667
+                },
+                {
+                    "reponse_time_8": 46.54047203063965
+                },
+                {
+                    "reponse_time_9": 140.28546118736267
+                },
+                {
+                    "avg_reponse_time": 108.40357728004456
+                },
+                {
+                    "total_time": 1084.0357944965363
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[]"
+        },
+        {
+            "model_name": "llama-3.1-8b-claude-3.7-sonnet-reasoning-distilled",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 95.35694098472595
+                },
+                {
+                    "reponse_time_0": 95.35693955421448
+                },
+                {
+                    "reponse_time_1": 32.03018617630005
+                },
+                {
+                    "reponse_time_2": 36.33574604988098
+                },
+                {
+                    "reponse_time_3": 35.06560206413269
+                },
+                {
+                    "reponse_time_4": 25.43433928489685
+                },
+                {
+                    "reponse_time_5": 27.949442148208618
+                },
+                {
+                    "reponse_time_6": 28.289424657821655
+                },
+                {
+                    "reponse_time_7": 42.01646637916565
+                },
+                {
+                    "reponse_time_8": 31.46066188812256
+                },
+                {
+                    "reponse_time_9": 32.24749946594238
+                },
+                {
+                    "avg_reponse_time": 38.61863076686859
+                },
+                {
+                    "total_time": 386.1863272190094
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[]"
+        },
+        {
+            "model_name": "qwen3-14b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 181.15802669525146
+                },
+                {
+                    "reponse_time_0": 181.15802597999573
+                },
+                {
+                    "reponse_time_1": 5.898344278335571
+                },
+                {
+                    "reponse_time_2": 5.9059062004089355
+                },
+                {
+                    "reponse_time_3": 31.833049058914185
+                },
+                {
+                    "reponse_time_4": 5.617330074310303
+                },
+                {
+                    "reponse_time_5": 5.918508052825928
+                },
+                {
+                    "reponse_time_6": 6.0240702629089355
+                },
+                {
+                    "reponse_time_7": 6.664502382278442
+                },
+                {
+                    "reponse_time_8": 5.47255539894104
+                },
+                {
+                    "reponse_time_9": 40.866588830947876
+                },
+                {
+                    "avg_reponse_time": 29.535888051986696
+                },
+                {
+                    "total_time": 295.3588967323303
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[]"
+        },
+        {
+            "model_name": "gemma-3-12b-it-qat",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 226.35852098464966
+                },
+                {
+                    "reponse_time_0": 226.35852026939392
+                },
+                {
+                    "reponse_time_1": 5.01008152961731
+                },
+                {
+                    "reponse_time_2": 4.926909685134888
+                },
+                {
+                    "reponse_time_3": 4.986665725708008
+                },
+                {
+                    "reponse_time_4": 2.887958526611328
+                },
+                {
+                    "reponse_time_5": 4.912264347076416
+                },
+                {
+                    "reponse_time_6": 4.855751037597656
+                },
+                {
+                    "reponse_time_7": 4.915431022644043
+                },
+                {
+                    "reponse_time_8": 4.781781196594238
+                },
+                {
+                    "reponse_time_9": 2.881840467453003
+                },
+                {
+                    "avg_reponse_time": 26.651720380783082
+                },
+                {
+                    "total_time": 266.51743841171265
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[QueryResponse(querys=['CNNs', 'LLMs', 'transformers', 'computational cost', 'scalability'], categories='Artificial Intelligence'), QueryResponse(querys=['CNNs for LLMs', 'LLM architecture limitations', 'Convolutional Neural Networks language models', 'Transformer vs CNN efficiency', 'Computational cost CNN LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['CNNs for LLMs', 'LLM architecture limitations', 'Convolutional neural networks language models', 'Transformer vs CNN comparison', 'Computational efficiency LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['CNNs for LLMs', 'LLM architecture limitations', 'Convolutional Neural Networks language models', 'Transformer vs CNN efficiency', 'Computational cost CNN LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['CNNs', 'LLMs', 'transformers', 'neural networks', 'architecture'], categories='Artificial Intelligence'), QueryResponse(querys=['CNNs for LLMs', 'LLM architecture limitations', 'Convolutional Neural Networks language models', 'Transformer vs CNN efficiency', 'Alternative architectures LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['CNN for LLMs', 'LLM architecture limitations', 'Convolutional Neural Networks language models', 'Transformer vs CNN', 'Computational cost CNN LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['CNN for LLMs', 'LLM architecture limitations', 'Convolutional Neural Networks language models', 'Transformer vs CNN efficiency', 'Computational cost CNN LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['CNN for LLMs', 'Convolutional Neural Networks language models', 'LLM architecture limitations', 'Transformer vs CNN', 'Computational efficiency LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['CNNs', 'LLMs', 'Limitations', 'Alternatives', 'Architecture'], categories='Natural Language Processing')]"
+        },
+        {
+            "model_name": "qwen3-8b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 137.263432264328
+                },
+                {
+                    "reponse_time_0": 137.26343154907227
+                },
+                {
+                    "reponse_time_1": 14.242834568023682
+                },
+                {
+                    "reponse_time_2": 16.874976634979248
+                },
+                {
+                    "reponse_time_3": 18.30586075782776
+                },
+                {
+                    "reponse_time_4": 8.227376937866211
+                },
+                {
+                    "reponse_time_5": 12.783165693283081
+                },
+                {
+                    "reponse_time_6": 12.700414180755615
+                },
+                {
+                    "reponse_time_7": 23.669774770736694
+                },
+                {
+                    "reponse_time_8": 15.763592958450317
+                },
+                {
+                    "reponse_time_9": 9.856671810150146
+                },
+                {
+                    "avg_reponse_time": 26.9688099861145
+                },
+                {
+                    "total_time": 269.6881175041199
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[]"
+        },
+        {
+            "model_name": "granite-3.2-8b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 72.79978561401367
+                },
+                {
+                    "reponse_time_0": 72.79978466033936
+                },
+                {
+                    "reponse_time_1": 1.9873149394989014
+                },
+                {
+                    "reponse_time_2": 2.5772411823272705
+                },
+                {
+                    "reponse_time_3": 2.137986421585083
+                },
+                {
+                    "reponse_time_4": 1.8519389629364014
+                },
+                {
+                    "reponse_time_5": 1.890873670578003
+                },
+                {
+                    "reponse_time_6": 1.9859533309936523
+                },
+                {
+                    "reponse_time_7": 1.899639368057251
+                },
+                {
+                    "reponse_time_8": 1.7728278636932373
+                },
+                {
+                    "reponse_time_9": 2.0170037746429443
+                },
+                {
+                    "avg_reponse_time": 9.09205641746521
+                },
+                {
+                    "total_time": 90.92082238197327
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[QueryResponse(querys=['convolutional neural networks', 'CNN limitations', 'language models', 'transformer architecture', 'deep learning challenges'], categories='Artificial Intelligence, Deep Learning'), QueryResponse(querys=['convolutional neural networks', 'transformer models', 'language modeling', 'recurrent neural networks', 'deep learning limitations'], categories='Artificial Intelligence & Machine Learning'), QueryResponse(querys=['convolutional neural networks vs language models', 'CNN limitations in NLP', 'why not CNN for LLMs', 'comparing CNN and Transformer architectures', 'CNN drawbacks in natural language processing'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'LLM models', 'reasons for not using CNN', 'CNN vs LLM', 'CNN limitations in NLP'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'LLMs limitations', 'CNN vs RNN', 'transformer models', 'deep learning architectures'], categories='Language Models'), QueryResponse(querys=['convolutional neural networks', 'transformer models', 'large language models', 'recurrent neural networks', 'neural network architecture'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'Transformer models', 'reasons for preference', 'CNN vs Transformer'], categories='Artificial Intelligence - Machine Learning'), QueryResponse(querys=['convolutional neural networks', 'CNN limitations', 'transformer models', 'LLM architecture', 'neural network comparison'], categories='Language Models & NLP'), QueryResponse(querys=['convolutional neural networks', 'language models', 'CNN limitations', 'transformer architecture', 'deep learning applications'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'language models', 'transformer architecture', 'reasons for avoidance', 'CNN vs Transformer'], categories='Artificial Intelligence - Machine Learning')]"
+        },
+        {
+            "model_name": "gemma-3-1b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 21.092807292938232
+                },
+                {
+                    "reponse_time_0": 21.092806100845337
+                },
+                {
+                    "reponse_time_1": 1.1430950164794922
+                },
+                {
+                    "reponse_time_2": 0.43039774894714355
+                },
+                {
+                    "reponse_time_3": 0.9646904468536377
+                },
+                {
+                    "reponse_time_4": 0.49871206283569336
+                },
+                {
+                    "reponse_time_5": 0.4507157802581787
+                },
+                {
+                    "reponse_time_6": 1.1641640663146973
+                },
+                {
+                    "reponse_time_7": 1.0344243049621582
+                },
+                {
+                    "reponse_time_8": 1.130671501159668
+                },
+                {
+                    "reponse_time_9": 0.46188974380493164
+                },
+                {
+                    "avg_reponse_time": 2.8371566772460937
+                },
+                {
+                    "total_time": 28.37169861793518
+                }
+            ],
+            "score": [
+                0.4,
+                0.4
+            ],
+            "result": "[QueryResponse(querys=['natural language processing', 'large language models', 'chatbot', 'information retrieval'], categories='AI & Language Models'), QueryResponse(querys=['LLM Search', 'Large Language Models', 'Natural Language Processing', 'Search Engine', 'AI'], categories='Artificial Intelligence & Machine Learning'), QueryResponse(querys=['large language models', 'natural language processing', 'chatbot', 'AI applications', 'machine learning'], categories='Artificial Intelligence'), QueryResponse(querys=['large language models', 'natural language processing', 'chatbot', 'AI applications'], categories='Artificial Intelligence & Machine Learning')]"
+        },
+        {
+            "model_name": "qwen2-0.5b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 12.99710488319397
+                },
+                {
+                    "reponse_time_0": 12.997103691101074
+                },
+                {
+                    "reponse_time_1": 1.567361831665039
+                },
+                {
+                    "reponse_time_2": 0.7612369060516357
+                },
+                {
+                    "reponse_time_3": 1.4410796165466309
+                },
+                {
+                    "reponse_time_4": 2.7914977073669434
+                },
+                {
+                    "reponse_time_5": 2.1173739433288574
+                },
+                {
+                    "reponse_time_6": 0.9084343910217285
+                },
+                {
+                    "reponse_time_7": 4.270251750946045
+                },
+                {
+                    "reponse_time_8": 0.7315051555633545
+                },
+                {
+                    "reponse_time_9": 2.9189553260803223
+                },
+                {
+                    "avg_reponse_time": 3.050480031967163
+                },
+                {
+                    "total_time": 30.5048189163208
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[]"
+        },
+        {
+            "model_name": "gemma-3-12b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 149.68735909461975
+                },
+                {
+                    "reponse_time_0": 149.68735790252686
+                },
+                {
+                    "reponse_time_1": 2.8796675205230713
+                },
+                {
+                    "reponse_time_2": 2.9309518337249756
+                },
+                {
+                    "reponse_time_3": 2.859035015106201
+                },
+                {
+                    "reponse_time_4": 2.8420400619506836
+                },
+                {
+                    "reponse_time_5": 2.8400511741638184
+                },
+                {
+                    "reponse_time_6": 2.855801820755005
+                },
+                {
+                    "reponse_time_7": 2.8538832664489746
+                },
+                {
+                    "reponse_time_8": 2.921516180038452
+                },
+                {
+                    "reponse_time_9": 2.9187984466552734
+                },
+                {
+                    "avg_reponse_time": 17.55891032218933
+                },
+                {
+                    "total_time": 175.58934330940247
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'LLMs', 'transformers', 'architecture limitations', 'computational cost'], categories='Natural Language Processing')]"
+        },
+        {
+            "model_name": "gemma-3-4b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 103.68812251091003
+                },
+                {
+                    "reponse_time_0": 103.6881206035614
+                },
+                {
+                    "reponse_time_1": 1.869192361831665
+                },
+                {
+                    "reponse_time_2": 1.8822755813598633
+                },
+                {
+                    "reponse_time_3": 1.886993169784546
+                },
+                {
+                    "reponse_time_4": 1.8514447212219238
+                },
+                {
+                    "reponse_time_5": 1.8768446445465088
+                },
+                {
+                    "reponse_time_6": 1.869567632675171
+                },
+                {
+                    "reponse_time_7": 1.8717868328094482
+                },
+                {
+                    "reponse_time_8": 1.8799946308135986
+                },
+                {
+                    "reponse_time_9": 1.8734850883483887
+                },
+                {
+                    "avg_reponse_time": 12.054970526695252
+                },
+                {
+                    "total_time": 120.54994058609009
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Architecture Limitations'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Large Language Models'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Large Language Models'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Large Language Models'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Architecture Limitations'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Large Language Models'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Architecture', 'Large Language Models'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Large Language Models'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Large Language Models'], categories='Artificial Intelligence'), QueryResponse(querys=['LLM', 'Convolutional Neural Networks', 'Deep Learning', 'Transformer Models', 'Large Language Models'], categories='Artificial Intelligence')]"
+        },
+        {
+            "model_name": "mathstral-7b-v0.1",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 80.26759433746338
+                },
+                {
+                    "reponse_time_0": 80.26759338378906
+                },
+                {
+                    "reponse_time_1": 1.7354273796081543
+                },
+                {
+                    "reponse_time_2": 2.160564661026001
+                },
+                {
+                    "reponse_time_3": 1.9934234619140625
+                },
+                {
+                    "reponse_time_4": 1.3780958652496338
+                },
+                {
+                    "reponse_time_5": 1.6176211833953857
+                },
+                {
+                    "reponse_time_6": 2.2302236557006836
+                },
+                {
+                    "reponse_time_7": 1.4105892181396484
+                },
+                {
+                    "reponse_time_8": 1.5635991096496582
+                },
+                {
+                    "reponse_time_9": 1.1029818058013916
+                },
+                {
+                    "avg_reponse_time": 9.546011972427369
+                },
+                {
+                    "total_time": 95.46036005020142
+                }
+            ],
+            "score": [
+                0.9,
+                0.9
+            ],
+            "result": "[QueryResponse(querys=['deep learning models', 'convolutional neural networks', 'language modeling', 'natural language processing', 'transformer models'], categories='Comparison of Models'), QueryResponse(querys=['long short term memory networks', 'neural machine translation', 'recurrent neural network', 'deep learning', 'natural language processing'], categories='Neurosciences'), QueryResponse(querys=['Deep learning models', 'Neural networks', 'Convolutional neural networks', 'Long short-term memory', 'Transformers'], categories='Artificial Intelligence'), QueryResponse(querys=['why not use Convolutional Neural Networks for LLMs', 'what are the benefits and drawbacks of using CNNs for LLMs'], categories='Neural Networks, Language Models'), QueryResponse(querys=['neural networks', 'convolutional networks', 'large language models', 'LLMs'], categories='Machine Learning'), QueryResponse(querys=['recurrent neural networks', 'long-term memory', 'context awareness', 'sequence modeling', 'natural language processing'], categories='Neural Networks'), QueryResponse(querys=['Neural Networks', 'Convolutional Layers', 'Large Language Models', 'Natural Language Processing', 'Machine Learning'], categories='AI Research'), QueryResponse(querys=['natural language processing', 'machine learning', 'language models', 'convolutional neural networks'], categories='Artificial Intelligence'), QueryResponse(querys=['convolutional neural networks', 'LLMs'], categories='Artificial intelligence')]"
+        },
+        {
+            "model_name": "qwq-lcot-7b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 94.45599913597107
+                },
+                {
+                    "reponse_time_0": 94.45599794387817
+                },
+                {
+                    "reponse_time_1": 1.844742774963379
+                },
+                {
+                    "reponse_time_2": 1.8696975708007812
+                },
+                {
+                    "reponse_time_3": 3.245927572250366
+                },
+                {
+                    "reponse_time_4": 1.87288498878479
+                },
+                {
+                    "reponse_time_5": 1.8024826049804688
+                },
+                {
+                    "reponse_time_6": 3.0062053203582764
+                },
+                {
+                    "reponse_time_7": 2.8693349361419678
+                },
+                {
+                    "reponse_time_8": 1.7901079654693604
+                },
+                {
+                    "reponse_time_9": 2.9984471797943115
+                },
+                {
+                    "avg_reponse_time": 11.575582885742188
+                },
+                {
+                    "total_time": 115.75606322288513
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[QueryResponse(querys=['convolutional neural networks llnms', 'CNN for LLMs', 'use of CNN in LLMs', 'replacing RNN with CNN in LLMs', 'advantages of CNN over RNN in LLMs'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language models', 'recurrent neural networks', 'transformer models', 'deep learning'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language model limitations', 'recurrent neural networks', 'sequential data processing', 'model architecture'], categories='Natural Language Processing'), QueryResponse(querys=['why not use convolutional neural networks for llms', 'replacing recurrent with convolutive neural networks in llms', 'advantages of using rnn over cnn in llms', 'convolutional neural networks limitations in llm models', 'CNN vs RNN in language model architecture'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language model limitations', 'recurrent neural networks', 'feature extraction capabilities', 'sequence processing'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language models', 'recurrent neural networks', 'parameter efficiency', 'context understanding'], categories='Natural Language Processing'), QueryResponse(querys=['why not use convolutional neural networks for llms', 'advantages of using conv nets in llms', 'disadvantages of cnn in llm models', 'comparison of cnn and rnn in llm architectures', 'CNN vs RNN for language modeling'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks llnms', 'why not use cnn in llm', 'relevance of cnns in llm architectures', 'cnn vs llnm for language modeling', 'applications of convnets in large language models'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'language models', 'recurrent neural networks', 'transformers', 'deep learning'], categories='natural language processing'), QueryResponse(querys=['convolutional neural networks llnms', 'why not use cnn in llm', 'relevance of cnns in llm architecture', 'limitations of using cnns for llm', 'advantages of recurrent neural networks over cnns for llm'], categories='Natural Language Processing')]"
+        },
+        {
+            "model_name": "ministral-8b-instruct-2410",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 97.06842112541199
+                },
+                {
+                    "reponse_time_0": 97.06842017173767
+                },
+                {
+                    "reponse_time_1": 2.1845786571502686
+                },
+                {
+                    "reponse_time_2": 1.723271369934082
+                },
+                {
+                    "reponse_time_3": 2.1679396629333496
+                },
+                {
+                    "reponse_time_4": 1.8200793266296387
+                },
+                {
+                    "reponse_time_5": 2.765669107437134
+                },
+                {
+                    "reponse_time_6": 1.5123724937438965
+                },
+                {
+                    "reponse_time_7": 2.2440786361694336
+                },
+                {
+                    "reponse_time_8": 4.6592347621917725
+                },
+                {
+                    "reponse_time_9": 2.5250799655914307
+                },
+                {
+                    "avg_reponse_time": 11.867072415351867
+                },
+                {
+                    "total_time": 118.670889377594
+                }
+            ],
+            "score": [
+                0.7,
+                0.7
+            ],
+            "result": "[QueryResponse(querys=['large language models', 'convolutional neural networks', 'LSTM networks', 'transformers'], categories='deep learning models'), QueryResponse(querys=['convolutional neural networks', 'transformer models', 'language models', 'neural architecture search', 'research paper'], categories='Machine Learning'), QueryResponse(querys=['large language models', 'transformers', 'neural networks', 'convolutional neural networks', 'deep learning'], categories='Machine Learning'), QueryResponse(querys=['convolutional neural networks', 'LSTM', 'transformers', 'neural machine translation', 'sequence-to-sequence models'], categories='Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'transformers vs CNNs', 'LLM architecture comparison', 'neural network types', 'deep learning models'], categories='Artificial Intelligence and Machine Learning'), QueryResponse(querys=['transformers', 'large language models', 'neural networks', 'convolutional neural networks', 'computer vision'], categories='Machine Learning and AI'), QueryResponse(querys=['convolutional neural networks', 'transformation models', 'recurrent neural networks', 'attention mechanisms', 'language model training'], categories='Large Language Models')]"
+        },
+        {
+            "model_name": "deepseek-r1-distill-qwen-7b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 108.39728593826294
+                },
+                {
+                    "reponse_time_0": 108.39728379249573
+                },
+                {
+                    "reponse_time_1": 28.308250188827515
+                },
+                {
+                    "reponse_time_2": 14.7901451587677
+                },
+                {
+                    "reponse_time_3": 28.48380756378174
+                },
+                {
+                    "reponse_time_4": 27.644285917282104
+                },
+                {
+                    "reponse_time_5": 21.090929746627808
+                },
+                {
+                    "reponse_time_6": 15.178306579589844
+                },
+                {
+                    "reponse_time_7": 21.913950443267822
+                },
+                {
+                    "reponse_time_8": 16.000213384628296
+                },
+                {
+                    "reponse_time_9": 29.98334002494812
+                },
+                {
+                    "avg_reponse_time": 31.179051280021667
+                },
+                {
+                    "total_time": 311.790714263916
+                }
+            ],
+            "score": [
+                0.7,
+                0.7
+            ],
+            "result": "[QueryResponse(querys=[\"Why don't we use convolutional neural networks for LLMs?\", 'What are the limitations of using CNNs in large language models?', 'How do transformers differ from CNNs in handling text data?', 'Why are transformers more effective than CNNs for language tasks?', 'Are there cases where CNNs can be used with LLMs?'], categories='Language Models'), QueryResponse(querys=['Why are CNNs not used in LLMs?', 'What advantages do Transformers have over CNNs in language processing?'], categories='Natural Language Processing'), QueryResponse(querys=['Large Language Models', 'Convolutional Neural Networks (CNN)', 'Token-based processing', 'Sequence modeling', 'Attention mechanisms'], categories='Neural Networks in NLP'), QueryResponse(querys=[\"Why don't we use Convolutional Neural Networks (CNNs) for large language models (LLMs)?\"], categories='Natural Language Processing'), QueryResponse(querys=[\"Why don't LLMs use CNNs\", 'CNNs not used in LLMs due to text structure', 'Transformer effectiveness in NLP tasks', 'CNNs computational costs vs transformers', 'Transformers preferred over CNNs in text understanding tasks'], categories='Natural Language Processing'), QueryResponse(querys=['Why not use convolutional neural networks for large language models?', 'Convolutional neural networks vs. large language models', 'Role of convolutional layers in machine learning', 'Comparison between CNN and LLM structure', 'Data processing advantages of transformer-based models over CNNs'], categories='Neural Networks and Deep Learning'), QueryResponse(querys=['Why are convolutional neural networks not used for large language models?', 'What are the limitations of using CNNs in NLP tasks?', 'Why are transformer-based models preferred over CNNs for LLMs?', 'How do computational costs compare when using CNNs versus other architectures for LLMs?', 'What specific reasons prevent CNNs from being widely adopted as LLMs?'], categories='Natural Language Processing')]"
+        },
+        {
+            "model_name": "mamba-codestral-7b-v0.1-instruct-python_coding_assistant",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 183.07075548171997
+                },
+                {
+                    "reponse_time_0": 183.07075452804565
+                },
+                {
+                    "reponse_time_1": 9.792789936065674
+                },
+                {
+                    "reponse_time_2": 3.3198978900909424
+                },
+                {
+                    "reponse_time_3": 7.92228102684021
+                },
+                {
+                    "reponse_time_4": 10.397883176803589
+                },
+                {
+                    "reponse_time_5": 13.526089668273926
+                },
+                {
+                    "reponse_time_6": 27.665275812149048
+                },
+                {
+                    "reponse_time_7": 4.362838506698608
+                },
+                {
+                    "reponse_time_8": 5.861791133880615
+                },
+                {
+                    "reponse_time_9": 20.77472996711731
+                },
+                {
+                    "avg_reponse_time": 28.66943316459656
+                },
+                {
+                    "total_time": 286.6943485736847
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[]"
+        },
+        {
+            "model_name": "deepseek-r1-distill-qwen-1.5b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 36.22955131530762
+                },
+                {
+                    "reponse_time_0": 36.22955012321472
+                },
+                {
+                    "reponse_time_1": 7.524465322494507
+                },
+                {
+                    "reponse_time_2": 4.789587497711182
+                },
+                {
+                    "reponse_time_3": 14.212141275405884
+                },
+                {
+                    "reponse_time_4": 5.102421045303345
+                },
+                {
+                    "reponse_time_5": 11.007170677185059
+                },
+                {
+                    "reponse_time_6": 9.381205081939697
+                },
+                {
+                    "reponse_time_7": 7.275962829589844
+                },
+                {
+                    "reponse_time_8": 13.3640718460083
+                },
+                {
+                    "reponse_time_9": 5.915523529052734
+                },
+                {
+                    "avg_reponse_time": 11.480209922790527
+                },
+                {
+                    "total_time": 114.80216646194458
+                }
+            ],
+            "score": [
+                0.2,
+                0.2
+            ],
+            "result": "[QueryResponse(querys=['Deep learning approaches with convolutional neural networks on large language models'], categories='NLP'), QueryResponse(querys=[' convolutional neural networks for large language models ', ' applications of convolutional neural networks in language models ', ' convolutional neural networks in natural language processing ', ' convolutional neural networks architecture for language models ', ' applications of convolutional neural networks in deep learning models '], categories='NLP')]"
+        },
+        {
+            "model_name": "deepseek-ai-deepseek-r1-distill-llama-8b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 96.34428286552429
+                },
+                {
+                    "reponse_time_0": 96.3442816734314
+                },
+                {
+                    "reponse_time_1": 22.28496789932251
+                },
+                {
+                    "reponse_time_2": 20.366862058639526
+                },
+                {
+                    "reponse_time_3": 23.51443338394165
+                },
+                {
+                    "reponse_time_4": 20.350706815719604
+                },
+                {
+                    "reponse_time_5": 22.706444025039673
+                },
+                {
+                    "reponse_time_6": 28.078208684921265
+                },
+                {
+                    "reponse_time_7": 18.725631952285767
+                },
+                {
+                    "reponse_time_8": 14.098597526550293
+                },
+                {
+                    "reponse_time_9": 14.309881448745728
+                },
+                {
+                    "avg_reponse_time": 28.078001546859742
+                },
+                {
+                    "total_time": 280.78018379211426
+                }
+            ],
+            "score": [
+                0.6,
+                0.6
+            ],
+            "result": "[QueryResponse(querys=['convolutional neural networks in language models', 'use of cnn in large language models', 'advantages of cnn for lls', 'challenges of applying cnn to text data', 'rnn vs cnn in lls'], categories='Language Models and Neural Networks'), QueryResponse(querys=['convolutional neural networks', 'large language models', 'architectures pour les mod\u00e8les de langage', 'performance des r\u00e9seaux de neurones', 'application des CNN dans le NLP'], categories='Architectures neuronal et deep learning'), QueryResponse(querys=['why are convolutional neural networks not used for LLMs', 'CNNs in language models', 'using CNNs for text processing', 'convolutional neural networks and large language models', 'benefits of CNNs in NLP'], categories='Application of Convolutional Neural Networks in Large Language Models'), QueryResponse(querys=['convolutional neural networks', 'large language models', 'text processing', 'feature extraction', 'pattern recognition'], categories='Applications of CNNs in LLMs'), QueryResponse(querys=['convolutional neural network', 'large language model', 'transformer architecture', 'self-attention mechanisms', 'deep learning applications'], categories='Model Architecture Choices in NLP'), QueryResponse(querys=['convolutional neural networks', 'deep learning models', 'text processing techniques', 'feature extraction methods', 'multimodal models'], categories='Applications of Convolutional Neural Networks in Large Language Models')]"
+        },
+        {
+            "model_name": "phi-4",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 369.0896530151367
+                },
+                {
+                    "reponse_time_0": 369.089652299881
+                },
+                {
+                    "reponse_time_1": 6.531735181808472
+                },
+                {
+                    "reponse_time_2": 7.257322549819946
+                },
+                {
+                    "reponse_time_3": 5.928243637084961
+                },
+                {
+                    "reponse_time_4": 5.714106559753418
+                },
+                {
+                    "reponse_time_5": 7.996701717376709
+                },
+                {
+                    "reponse_time_6": 6.739195108413696
+                },
+                {
+                    "reponse_time_7": 6.198650360107422
+                },
+                {
+                    "reponse_time_8": 7.657997369766235
+                },
+                {
+                    "reponse_time_9": 6.625729084014893
+                },
+                {
+                    "avg_reponse_time": 42.97393338680267
+                },
+                {
+                    "total_time": 429.7395899295807
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[QueryResponse(querys=['r\u00e9seaux neuronaux convolutifs', 'mod\u00e8les de langage \u00e0 grande \u00e9chelle', 'apprentissage profond', 'CNN vs Transformers', 'avantages des CNN'], categories='intelligence artificielle'), QueryResponse(querys=['convolutional neural networks', 'large language models', 'why not CNN for NLP', 'LLM architecture choices', 'neural network types in LLM'], categories='Neural Networks and Language Models'), QueryResponse(querys=['r\u00e9seaux neurones convolutifs', 'mod\u00e8les linguistiques', 'deep learning', 'architecture r\u00e9seau neuronal', 'traitement du langage naturel'], categories='intelligence artificielle et apprentissage automatique'), QueryResponse(querys=['neural networks convolutional', 'LLMs architecture', 'transformer models', 'CNN vs transformer', 'NLP model architectures'], categories='Neural Network Architectures'), QueryResponse(querys=['Convolutional neural networks', 'Large language models', 'Transformer architecture', 'CNN vs transformer comparison', 'Neural network applications'], categories='Artificial Intelligence'), QueryResponse(querys=['r\u00e9seaux neuronaux convolutifs', 'mod\u00e8les de langage \u00e0 grande \u00e9chelle', 'applications CNN LLM', 'diff\u00e9rences entre CNN et transformer', 'limitations CNN pour traitement du texte'], categories='Apprentissage automatique'), QueryResponse(querys=['r\u00e9seaux neurones convolutionnels', 'mod\u00e8les de langage \u00e0 grande \u00e9chelle', 'NNC vs transformer', 'avantages des transformers', 'applications NNC'], categories='Technologies IA'), QueryResponse(querys=['reseau neuronal convolutionnel', 'transformer', 'deep learning language model', 'processeur de texte', 'cnn vs transformer'], categories='mod\u00e8les linguistiques'), QueryResponse(querys=['RNN vs CNN for language models', 'Limitations of CNN in NLP', 'Why RNN preferred over CNN for text', 'Advantages of Transformers over CNN', 'CNN application in sequence modeling'], categories='Neural Networks in Natural Language Processing'), QueryResponse(querys=['convolutional neural networks', 'large language models', 'neural network architectures', 'LLMs vs CNNs', 'reasons against CNNs in NLP'], categories='Neural Network Architectures')]"
+        },
+        {
+            "model_name": "mistral-7b-instruct-v0.3",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 300.74213576316833
+                },
+                {
+                    "reponse_time_0": 300.74213457107544
+                },
+                {
+                    "reponse_time_1": 0.047063589096069336
+                },
+                {
+                    "reponse_time_2": 0.045746803283691406
+                },
+                {
+                    "reponse_time_3": 0.05993032455444336
+                },
+                {
+                    "reponse_time_4": 0.04523587226867676
+                },
+                {
+                    "reponse_time_5": 0.04542231559753418
+                },
+                {
+                    "reponse_time_6": 0.04606795310974121
+                },
+                {
+                    "reponse_time_7": 0.04603433609008789
+                },
+                {
+                    "reponse_time_8": 0.04979538917541504
+                },
+                {
+                    "reponse_time_9": 0.04997372627258301
+                },
+                {
+                    "avg_reponse_time": 30.11774048805237
+                },
+                {
+                    "total_time": 301.1774220466614
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[]"
+        }
+    ]
+}
