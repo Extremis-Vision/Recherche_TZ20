@@ -3,7 +3,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 from typing import List
-import json_add as add_json
+from json_add import add_json
 from ask_ai import get_model
 import os
 import time 
@@ -57,6 +57,8 @@ def get_structured_response(question: str, models : str):
 
 def benchmark(question: str):
     models_list = get_model()
+    models_list.remove("text-embedding-nomic-embed-text-v1.5")
+
     #models_list = ["granite-3.2-8b-instruct"]
 
     attempts = 10

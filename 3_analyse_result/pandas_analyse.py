@@ -7,7 +7,7 @@ with open('/home/ghost/Documents/function_calling/3_analyse_result/benchmark_str
     data = json.load(f)
 
 
-    results = data["results"][0]["result"]
+    results = data["results"][4]["result"]
 
     # Convertir les chaînes JSON en objets Python si nécessaire
     if isinstance(results, str):
