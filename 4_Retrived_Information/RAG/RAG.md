@@ -1,7 +1,21 @@
 Ressources : 
-Lang-chain : 
-- Self-RAG : https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_self_rag/
-- Local RAG agent (with web searching tool) : https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag_local/#web-search-tool
-- Tutorial / Example : https://github.com/langchain-ai/langchain/blob/master/docs/docs/tutorials/rag.ipynb
-- Langchain + Chroma db : https://www.youtube.com/watch?v=tcqEUSNCn8I
+- STORM Stanford tool :
+    - tool linl : https://github.com/stanford-oval/storm
+    - demo : https://www.youtube.com/watch?v=abs1TQd07u8
 
+- Lang-chain : 
+    - Self-RAG : https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_self_rag/
+    - Local RAG agent (with web searching tool) : https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_adaptive_rag_local/#web-search-tool
+    - Tutorial / Example : https://github.com/langchain-ai/langchain/blob/master/docs/docs/tutorials/rag.ipynb
+    - Langchain + Chroma db : https://www.youtube.com/watch?v=tcqEUSNCn8I
+    - What is langchain : https://www.youtube.com/watch?v=P3MAbZ2eMUI, https://www.youtube.com/watch?v=1AmLD1aY7cM
+    - Colab langchain : https://colab.research.google.com/drive/1BkpMLfYEofhNK-PCKCSj9_SJqnUK40gR?usp=sharing#scrollTo=8RSTxnoIozRN
+    - Langchain Local LLMs tutorial : https://www.youtube.com/watch?v=2TJxpyO3ei4
+    - Langchain FAISS : https://www.youtube.com/watch?v=Vk1jB_xJaac
+
+- LlamaIndex : 
+    - Introduction : https://www.youtube.com/watch?v=
+    - RAG avancé : https://www.youtube.com/watch?v=yzPQaNhuVGU
+
+
+- RAG Chroma DB : https://www.youtube.com/watch?v=tcqEUSNCn8I
