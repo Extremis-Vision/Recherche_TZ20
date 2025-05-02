@@ -10,3 +10,5 @@ Ressources :
 
 Video explanation : 
 - Vectore database : https://www.youtube.com/watch?v=dN0lsF2cvm4
+- Indef Explanation of RAG : https://www.youtube.com/watch?v=sVcwVQRHIc8, https://www.youtube.com/watch?v=T-D1OfcDW1M&ab_channel=IBMTechnology
+- IBM Vector database semantic seach : https://www.youtube.com/watch?v=gl1r1XV0SLw
