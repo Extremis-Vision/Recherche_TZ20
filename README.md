@@ -1,14 +1,21 @@
-Le but de ce projet est de voir les performances de modèles, mais aussi de certaine technique et de la qualité des réponses données. 
+🚀 Function Calling Project
 
-Pour cela ce projet ce divise en plusieurs partie : 
-1) génération de mots clées pour la recherche contenue dans le dossier : generation_words_search_basic
-2) Le function calling
-3) Analyse des resulat des parties 1 et 2
-4) Retrieve Information (RAG, KAG, CAG, ...)
-5) Recherche Internet 
+🌟 Overview
 
-Supplémentaire 
-6) Agent 
-7) Finetuning
+The goal of this project is to evaluate the performance of models, specific techniques, and the quality of responses provided. The project is divided into several parts:
 
-Il y aura une analyse des résultats obtenue à la fin du 5 et dans le cas ou il est possible et réalissable de le faire pour moi, les deux parties suivantes aussi auront une analyse de résulat. 
+Keyword Generation for Search: Contained in the 1_generation_words_search_basic folder. 🔍
+
+Function Calling: Details can be found in the 2_function_calling folder. 📞
+
+Analysis of Results: Analysis of parts 1 and 2, located in the 3_analyse_result folder. 📊
+
+Information Retrieval: Techniques such as RAG, KAG, CAG, etc., detailed in the 4_Retrived_Information folder. 🔄
+
+Internet Search: Contained in the 5_recherche_internet folder. 🌍
+
+🛠️ Supplementary
+
+Agent: Additional information in the 6_Agent folder. 🤖
+
+Finetuning: Details can be found in the 7_Finetunning folder. 🛠️
