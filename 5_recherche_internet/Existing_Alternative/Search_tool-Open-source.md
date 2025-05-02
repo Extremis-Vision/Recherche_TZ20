@@ -9,6 +9,7 @@ Open-source :
 - morphic : https://github.com/miurla/morphic
 - LLocal Search : https://github.com/nilsherzig/LLocalSearch
 
+
 Youtube : 
 - Scrap-data : https://www.youtube.com/watch?v=WkLdLJJzV1k
 - build perplexity clone : https://www.youtube.com/watch?v=vPbNnHEjnFU
