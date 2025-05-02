@@ -1,5 +1,6 @@
-Search Services used :
-- SearXNG (in a container)
-- Tavily (Free API , link : )
-- exa (link : https://exa.ai/)
-- serper (link : https://serper.dev/)
+# Services de Recherche Utilisés
+
+- 🔍 **SearXNG (en conteneur)**
+- 🔍 **Tavily (API Gratuite) :** [Tavily website](https://tavily.com/)
+- 🔍 **Exa** : [Exa](https://exa.ai/)
+- 🔍 **Serper** : [Serper](https://serper.dev/)

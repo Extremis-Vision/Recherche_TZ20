@@ -1,8 +1,13 @@
-Can use agent librarie : 
-- smolagent
+# Ressources et Bibliothèques pour les Agents
 
-Models specifically for function calling : 
-- Gorilla : https://github.com/ShishirPatil/gorilla
+## Bibliothèques d'Agents
 
-Ressources : 
-- Function calling Agent VS ReAct Agent : https://github.com/ShishirPatil/gorilla
+- 🤖 **Smolagent**
+
+## Modèles Spécifiques pour l'Appel de Fonctions
+
+- 🦍 **Gorilla** : [GitHub - Gorilla](https://github.com/ShishirPatil/gorilla)
+
+## Ressources
+
+- 📚 **Comparaison entre Agent d'Appel de Fonctions et Agent ReAct** : [GitHub - Gorilla](https://github.com/ShishirPatil/gorilla)
