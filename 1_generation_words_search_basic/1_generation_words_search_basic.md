@@ -23,40 +23,7 @@ Benchmerk avancé :
 
 idée pour le benchmark vrac 
 
-
-
-Pandas pour l'analyse statistique
-Matplotlib/Seaborn pour la visualisation
-NLTK/SpaCy pour l'analyse lexicale
-Metrics sp�cialis�es (BLEU, ROUGE) pour la qualit� textuelle
-
-
-IRaMuTeQ
-NVivo
-ALCESTE
-MAXQDA
-Qualtrics Text iQ
-Lexalytics
-
-
-
-BERTScore
-ROUGE-N
-Human Evaluation via Crowdsourcing
-
-
 ## Advanced Metrics for Semantic and Contextual Analysis
-BERT-based Toxicity Detection
-Topic Coherence Scores
-Diversity Metrics
-
-VADER Sentiment Analysis
-BERTopic for Topic Modeling
-
-
-F1-Score with Gold Standards
-
-
 Implementation Recommendations
 Step 1: Use BERTScore and ROUGE for baseline semantic and syntactic alignment.
 Step 2: Deploy Perspective API to filter toxic/irrelevant outputs.
@@ -85,3 +52,19 @@ Les sites intéressant sont :
 - https://lmarena.ai/
 - https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/
 - https://www.vellum.ai/llm-leaderboard
+
+
+Ressources benchmark
+- Pandas pour l'analyse statistique
+- Matplotlib/Seaborn pour la visualisation
+- NLTK/SpaCy pour l'analyse lexicale
+- Metrics sp�cialis�es (BLEU, ROUGE) pour la qualit� textuelle
+- IRaMuTeQ
+- NVivo
+- ALCESTE
+- MAXQDA
+- Qualtrics Text iQ
+- Lexalytics
+- BERTScore
+- ROUGE-N
+- Human Evaluation via Crowdsourcing
