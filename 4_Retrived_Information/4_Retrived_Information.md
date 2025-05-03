@@ -35,6 +35,5 @@
 - 📝 **AI Note Taking Remio** : [Remio](https://www.remio.ai/)
 - 📊 **PDF Math Translate** : [GitHub - PDF Math Translate](https://github.com/Byaidu/PDFMathTranslate)
 
-## Sources pour Idées de Codage
-
+## Sources Exemple 
 - 💡 **Video Projects** : [GitHub - Video Projects](https://github.com/technovangelist/videoprojects/tree/main/scripts)
