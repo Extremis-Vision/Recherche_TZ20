@@ -12,7 +12,6 @@ Pour cela le dossier ce décompose en deux grandes parties :
 
 ## Ressources et Bibliothèques pour les Agents
 ### Bibliothèques d'Agents
-
 - 🤖 **Smolagent**
 
 ### Modèles Spécifiques pour l'Appel de Fonctions

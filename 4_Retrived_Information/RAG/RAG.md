@@ -13,6 +13,7 @@ Ressources :
     - Langchain Local LLMs tutorial : https://www.youtube.com/watch?v=2TJxpyO3ei4
     - Langchain FAISS : https://www.youtube.com/watch?v=Vk1jB_xJaac
     - Langgraph complexe : https://www.youtube.com/watch?v=NZbgduKl9Zk
+    - Tutoriel RAG FAISS + Langchain : https://www.youtube.com/watch?v=hmqYxByTlRs&ab_channel=CodersBranch
 
 - LlamaIndex : 
     - Introduction : https://www.youtube.com/watch?v=
