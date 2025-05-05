@@ -1,5 +1,4 @@
 # Techniques et Outils pour les Agents
-
 ## Techniques Multiples
 
 - 🔍 **RAG (Retrieved Augmented Generation)**
@@ -34,6 +33,9 @@
 - 💬 **FastGPT Chat on Dataset** : [FastGPT](https://fastgpt.cn/en)
 - 📝 **AI Note Taking Remio** : [Remio](https://www.remio.ai/)
 - 📊 **PDF Math Translate** : [GitHub - PDF Math Translate](https://github.com/Byaidu/PDFMathTranslate)
+- **Taskade** : [Site](https://www.taskade.com/)
 
 ## Sources Exemple 
 - 💡 **Video Projects** : [GitHub - Video Projects](https://github.com/technovangelist/videoprojects/tree/main/scripts)
+-    **NotebookLM copy** : [Google Colab](https://colab.research.google.com/drive/1lSzgEXw9F4X65qSSgOs47ejMGRDkbuZH?usp=sharing#scrollTo=ocPp1ws8wU-9) , [GitHub](https://github.com/satvik314/opensource_notebooklm?tab=readme-ov-file)
+

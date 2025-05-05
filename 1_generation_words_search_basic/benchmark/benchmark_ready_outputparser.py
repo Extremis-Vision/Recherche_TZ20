@@ -7,6 +7,7 @@ from json_add import add_json
 from ask_ai import get_model
 import os
 import time 
+import re
 
 
 
@@ -52,7 +53,8 @@ def get_structured_response(question: str, models : str):
         print(f"Erreur de parsing : {e}")
         return None
 
-
+def clean_output(output: str):
+    return re.sub(r'<think>.*?</think>', '', output)
 
 
 def benchmark(question: str):
@@ -75,6 +77,7 @@ def benchmark(question: str):
             print_1 = time.time()
             print(f"\nRéponse {i+1}:")
             result = get_structured_response(question,model)
+            result = clean_output(result)
             reponse_time = time.time()
             if i == 0:
                 time_response.append({"chargement_model": reponse_time - chargement_model })
