@@ -31,6 +31,8 @@
 ### 📺 Exemple de Ressource Utilisée
 
 - 🔗 **MCP Setup Complet** : [YouTube - Dave Ebbelaar](https://www.youtube.com/watch?v=5xqFjh56AwM&ab_channel=DaveEbbelaar)
+- 🔗 **MCP Exemple Code** : [GitHub](https://github.com/daveebbelaar/ai-cookbook/tree/main/mcp/crash-course)
+
 
 ### 📚 Ressources
 
