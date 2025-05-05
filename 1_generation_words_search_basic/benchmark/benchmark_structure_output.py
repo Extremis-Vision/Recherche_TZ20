@@ -6,9 +6,14 @@ import csv
 import sys
 from json_add import add_json
 from ask_ai import ask_ai, get_model
-
+import re
 
 sys_prompt = """Generate 5 precise English search keywords and a category. Structure output as {"querys": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"], "categories": "specific_category"}. Keywords must maximize search relevance. Exclude any formatting marks."""
+
+def clean_output(output: str):
+    return re.sub(r'<think>.*?</think>', '', output)
+
+
 
 def benchmark(question: str):
     models_list = get_model()
@@ -46,6 +51,8 @@ def benchmark(question: str):
             response = response.replace("json", "")
             response = response.replace("```", "")
             response = response.replace("\n", "")
+            response = response.replace("'", "\"")
+            response = clean_output(response)
 
             try:
                 response_final = json.loads(response)

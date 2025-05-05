@@ -7,6 +7,7 @@ Ressources :
 - KAG research parper : https://github.com/OpenSPG/KAG?tab=readme-ov-, https://github.com/OpenSPG/KAG/blob/master/README.md
 - SBERT : https://sbert.net/
 - LLama index : https://github.com/run-llama/LlamaIndexTS 
+- Models specialized in retrieving on the internet : https://github.com/RUC-NLPIR/WebThinker
 
 Video explanation : 
 - Vectore database : https://www.youtube.com/watch?v=dN0lsF2cvm4
