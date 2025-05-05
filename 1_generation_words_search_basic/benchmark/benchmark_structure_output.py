@@ -13,8 +13,6 @@ sys_prompt = """Generate 5 precise English search keywords and a category. Struc
 def clean_output(output: str):
     return re.sub(r'<think>.*?</think>', '', output)
 
-
-
 def benchmark(question: str):
     models_list = get_model()
     models_list.remove("text-embedding-nomic-embed-text-v1.5")

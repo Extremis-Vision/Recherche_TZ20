@@ -1,7 +1,9 @@
 
-# Model COntext Protocl (MCP) :
+# Model Context Protocl (MCP) :
 ## Definition : 
 
+### Exemple Ressource utilisé : 
+- MCP setup complet : https://www.youtube.com/watch?v=5xqFjh56AwM&ab_channel=DaveEbbelaar
 
 ### Ressource : 
 - MCP avec Python : https://www.youtube.com/watch?v=Ek8JHgZtmcI&ab_channel=AlejandroAO-Software%26Ai
