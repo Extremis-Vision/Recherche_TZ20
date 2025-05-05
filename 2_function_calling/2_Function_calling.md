@@ -7,7 +7,8 @@ Pour appeler une fonction nous pouvons utilisé plusieur manière et ces différ
 
 Pour cela le dossier ce décompose en deux grandes parties : 
 1) un appel simple et unique avec en réponse l'appel à la fonction (structured output, Output parser)
-2) Plusieurs appels pour être capable de selectionner et appeler la bonne fonction. (exemple : MCP)
+2) Plusieurs appels pour être capable de selectionner et appeler la bonne fonction : **[MCP](2_function_calling/MCP/MCP.md)**
+
 
 
 ## Ressources et Bibliothèques pour les Agents
