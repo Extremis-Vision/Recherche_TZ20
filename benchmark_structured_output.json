@@ -1,0 +1,1044 @@
+{
+    "results": [
+        {
+            "model_name": "phi-4-reasoning",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 442.1809754371643
+                },
+                {
+                    "reponse_time_0": 442.18097496032715
+                },
+                {
+                    "reponse_time_1": 167.20736455917358
+                },
+                {
+                    "reponse_time_2": 191.90601682662964
+                },
+                {
+                    "reponse_time_3": 368.8767876625061
+                },
+                {
+                    "reponse_time_4": 291.72388529777527
+                },
+                {
+                    "reponse_time_5": 295.50059747695923
+                },
+                {
+                    "reponse_time_6": 178.27285861968994
+                },
+                {
+                    "reponse_time_7": 309.13548016548157
+                },
+                {
+                    "reponse_time_8": 140.21011424064636
+                },
+                {
+                    "reponse_time_9": 258.5876805782318
+                },
+                {
+                    "avg_reponse_time": 264.36017603874205
+                },
+                {
+                    "total_time": 2643.602783679962
+                }
+            ],
+            "score": [
+                0.8,
+                0.8
+            ],
+            "result": "[{'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'mot_cle': ['convolutional neural networks', 'large language models', 'transformer architecture', 'CNN vs transformer', 'neural network architectures'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks language modeling', 'CNN limitations in NLP', 'transformers vs CNNs', 'scalability challenges of CNNs in LLMs', 'sequential data processing with CNNs'], 'categories': 'Deep Learning Architectures'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'mot_cle': ['CNN limitations in language modeling', 'Transformers vs CNN for NLP', 'Global context in language models', 'Receptive field constraints CNN', 'Computational efficiency transformers vs CNN'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['Convolutional Neural Networks', 'Transformer Models', 'Self-Attention Mechanism', 'Sequence Modeling', 'Language Model Architectures'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['CNN limitations language modeling', 'Transformer versus CNN for NLP', 'Sequential data challenges with CNNs', 'Long-range dependencies in CNN architectures', 'LLM architecture comparisons'], 'categories': 'Deep Learning Architectures'}, {'mot_cle': ['Transformer-based LLM architecture', 'CNN limitations for language modeling', 'Self-attention mechanism benefits', 'Long-range dependency modeling in NLP', 'Comparing CNN and transformer models'], 'categories': 'Machine Learning / Language Models'}, {'mot_cle': ['CNN architecture for language models', 'Why not use CNN in large language models', 'Convolutional neural networks in NLP tasks', 'Transformer vs CNN performance', 'Large-scale language model architectures comparison'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['CNN limitations for sequential data', 'Transformer advantages over CNN', 'Convolutional networks in NLP performance', 'Why not use convolutional networks for LLMs', 'Comparative analysis of CNN vs Transformer'], 'categories': 'Deep Learning'}]"
+        },
+        {
+            "model_name": "deepthink-reasoning-7b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 50.73408341407776
+                },
+                {
+                    "reponse_time_0": 50.73408222198486
+                },
+                {
+                    "reponse_time_1": 2.1118881702423096
+                },
+                {
+                    "reponse_time_2": 1.9986240863800049
+                },
+                {
+                    "reponse_time_3": 2.364697217941284
+                },
+                {
+                    "reponse_time_4": 2.1095705032348633
+                },
+                {
+                    "reponse_time_5": 2.1810719966888428
+                },
+                {
+                    "reponse_time_6": 1.7926387786865234
+                },
+                {
+                    "reponse_time_7": 2.218494176864624
+                },
+                {
+                    "reponse_time_8": 2.0430593490600586
+                },
+                {
+                    "reponse_time_9": 2.0343658924102783
+                },
+                {
+                    "avg_reponse_time": 6.958849239349365
+                },
+                {
+                    "total_time": 69.58965063095093
+                }
+            ],
+            "score": [
+                0.1,
+                0.1
+            ],
+            "result": "[{'Erreur': 'list indices must be integers or slices, not str'}, {'Erreur': 'Extra data: line 1 column 170 (char 169)'}, {'Erreur': 'Extra data: line 1 column 185 (char 184)'}, {'mot_cle': ['why not use cnn for llms', 'replacing lstm with cnn in llms', 'advantages of using lstm over cnn in llms', 'role of convolutive networks in llm training', 'neural network architecture comparison for llms'], 'categories': 'Natural Language Processing'}, {'Erreur': 'Extra data: line 1 column 193 (char 192)'}, {'Erreur': 'Extra data: line 1 column 187 (char 186)'}, {'Erreur': 'list indices must be integers or slices, not str'}, {'Erreur': 'list indices must be integers or slices, not str'}, {'Erreur': 'Extra data: line 1 column 190 (char 189)'}, {'Erreur': 'Extra data: line 1 column 194 (char 193)'}]"
+        },
+        {
+            "model_name": "qwen2.5-moe-6x1.5b-deepseek-reasoning-e32-8.71b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 99.05469489097595
+                },
+                {
+                    "reponse_time_0": 99.05469298362732
+                },
+                {
+                    "reponse_time_1": 10.970289468765259
+                },
+                {
+                    "reponse_time_2": 138.47200846672058
+                },
+                {
+                    "reponse_time_3": 139.26448273658752
+                },
+                {
+                    "reponse_time_4": 58.481791496276855
+                },
+                {
+                    "reponse_time_5": 45.48090052604675
+                },
+                {
+                    "reponse_time_6": 87.85109901428223
+                },
+                {
+                    "reponse_time_7": 40.431570291519165
+                },
+                {
+                    "reponse_time_8": 138.3627200126648
+                },
+                {
+                    "reponse_time_9": 12.497990608215332
+                },
+                {
+                    "avg_reponse_time": 77.08675456047058
+                },
+                {
+                    "total_time": 770.8689374923706
+                }
+            ],
+            "score": [
+                0.1,
+                0.1
+            ],
+            "result": "[{'Erreur': 'Extra data: line 1 column 139 (char 138)'}, {'mot_cle': ['artical neural network', 'convolutional neural network'], 'categories': 'pattern recognition task'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Extra data: line 1 column 114 (char 113)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Extra data: line 1 column 117 (char 116)'}]"
+        },
+        {
+            "model_name": "llama-3.1-8b-claude-3.7-sonnet-reasoning-distilled",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 94.90915870666504
+                },
+                {
+                    "reponse_time_0": 94.9091567993164
+                },
+                {
+                    "reponse_time_1": 47.9478874206543
+                },
+                {
+                    "reponse_time_2": 24.390180349349976
+                },
+                {
+                    "reponse_time_3": 30.91591787338257
+                },
+                {
+                    "reponse_time_4": 31.6755588054657
+                },
+                {
+                    "reponse_time_5": 37.864466428756714
+                },
+                {
+                    "reponse_time_6": 34.40564846992493
+                },
+                {
+                    "reponse_time_7": 30.553189516067505
+                },
+                {
+                    "reponse_time_8": 43.0950984954834
+                },
+                {
+                    "reponse_time_9": 33.20293378829956
+                },
+                {
+                    "avg_reponse_time": 40.89600379467011
+                },
+                {
+                    "total_time": 408.9610116481781
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[{'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}]"
+        },
+        {
+            "model_name": "qwen3-14b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 194.65603399276733
+                },
+                {
+                    "reponse_time_0": 194.65603184700012
+                },
+                {
+                    "reponse_time_1": 24.38856267929077
+                },
+                {
+                    "reponse_time_2": 24.70907187461853
+                },
+                {
+                    "reponse_time_3": 24.859495401382446
+                },
+                {
+                    "reponse_time_4": 26.31564235687256
+                },
+                {
+                    "reponse_time_5": 25.59988307952881
+                },
+                {
+                    "reponse_time_6": 38.38412570953369
+                },
+                {
+                    "reponse_time_7": 25.883965969085693
+                },
+                {
+                    "reponse_time_8": 21.99571204185486
+                },
+                {
+                    "reponse_time_9": 29.155660152435303
+                },
+                {
+                    "avg_reponse_time": 43.59481511116028
+                },
+                {
+                    "total_time": 435.9490661621094
+                }
+            ],
+            "score": [
+                0.5,
+                0.5
+            ],
+            "result": "[{'mot_cle': ['CNN vs transformer for LLM', 'limitations of CNN in NLP', 'why transformers not CNN for language models', 'receptive field issues in CNN LLM', 'attention mechanisms over convolutional networks'], 'categories': 'Natural Language Processing (NLP) and Deep Learning Architectures'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': \"Expecting ',' delimiter: line 1 column 125 (char 124)\"}, {'mot_cle': ['CNN limitations in LLM', 'transformer vs CNN for NLP', 'sequential data processing in LLM', 'attention mechanism in language models', 'why use transformers over CNNs'], 'categories': 'natural_language_processing'}, {'mot_cle': ['CNN vs LLM architecture', 'Why not use CNNs for language models', 'LLM neural network types', 'Convolutional networks in NLP', 'Transformer vs CNN for text'], 'categories': 'Artificial Intelligence/Natural Language Processing'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'mot_cle': ['CNN vs LLM architecture', 'why not use CNN for language models', 'transformer vs convolutional networks', 'limitations of CNN in NLP', 'attention mechanism in LLMs'], 'categories': 'machine_learning_architecture'}, {'mot_cle': ['CNN vs Transformer for LLMs', 'why not use CNN in language models', 'attention mechanism in LLMs', 'sequence modeling with Transformers', 'NLP architecture comparison'], 'categories': 'Natural Language Processing (NLP) Architecture Differences'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}]"
+        },
+        {
+            "model_name": "gemma-3-12b-it-qat",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 224.63062620162964
+                },
+                {
+                    "reponse_time_0": 224.63062453269958
+                },
+                {
+                    "reponse_time_1": 3.043891429901123
+                },
+                {
+                    "reponse_time_2": 3.1657516956329346
+                },
+                {
+                    "reponse_time_3": 3.1688385009765625
+                },
+                {
+                    "reponse_time_4": 3.1606695652008057
+                },
+                {
+                    "reponse_time_5": 3.1690876483917236
+                },
+                {
+                    "reponse_time_6": 3.1608400344848633
+                },
+                {
+                    "reponse_time_7": 3.41713547706604
+                },
+                {
+                    "reponse_time_8": 3.176927328109741
+                },
+                {
+                    "reponse_time_9": 3.2952182292938232
+                },
+                {
+                    "avg_reponse_time": 25.33889844417572
+                },
+                {
+                    "total_time": 253.3892421722412
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'transformer network advantages LLMs', 'why not CNNs for text generation'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'why not CNN for LLM', 'transformer network advantages over CNN'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNNs large language models', 'LLM architecture alternatives CNN', 'why not CNNs for LLMs', 'convnets limitations in LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'hybrid LLM architectures convolutional layers', 'scaling CNNs for language processing'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'why not CNNs for text generation', 'hybrid CNN-transformer architectures'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'why not CNNs for language modeling', 'convnets vs transformers language'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'why not CNN in LLMs', 'convnets vs transformers language modeling'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNNs versus transformers language models', 'LLM architecture alternatives CNN', 'why not CNNs for large language models', 'limitations CNNs in LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'hybrid LLM architectures CNN', 'why not CNN for text generation'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'why not CNNs for language modeling', 'hybrid CNN-transformer language model'], 'categories': 'Natural Language Processing'}]"
+        },
+        {
+            "model_name": "qwen3-8b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 138.47178649902344
+                },
+                {
+                    "reponse_time_0": 138.47178483009338
+                },
+                {
+                    "reponse_time_1": 11.89691686630249
+                },
+                {
+                    "reponse_time_2": 12.752819299697876
+                },
+                {
+                    "reponse_time_3": 13.199758052825928
+                },
+                {
+                    "reponse_time_4": 12.78029465675354
+                },
+                {
+                    "reponse_time_5": 10.978816270828247
+                },
+                {
+                    "reponse_time_6": 10.847810745239258
+                },
+                {
+                    "reponse_time_7": 15.76478362083435
+                },
+                {
+                    "reponse_time_8": 11.556976795196533
+                },
+                {
+                    "reponse_time_9": 12.082526922225952
+                },
+                {
+                    "avg_reponse_time": 25.033248805999754
+                },
+                {
+                    "total_time": 250.33306765556335
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['CNN vs transformer', 'long-range dependencies in LLMs', 'sequence modeling with CNNs', 'transformer architecture advantages', 'neural network text processing'], 'categories': 'Neural Network Architectures for NLP'}, {'mot_cle': ['CNN vs transformer', 'LLM architecture limitations', 'neural networks text processing', 'sequence modeling CNN', 'attention mechanism comparison'], 'categories': 'neural_network_architectures'}, {'mot_cle': ['CNN vs transformer', 'neural networks sequence processing', 'attention mechanism advantages', 'LLM architecture limitations', 'convolutional networks text analysis'], 'categories': 'neural_network_architectures'}, {'mot_cle': ['CNN vs transformer', 'sequence modeling', 'attention mechanism', 'positional encoding', 'input length'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['why not use cnn for llms', 'cnn limitations in nlp', 'llm vs cnn architecture', 'sequence modeling with cnn', 'transformer vs cnn efficiency'], 'categories': 'nlp_model_architecture'}, {'mot_cle': ['CNN limitations in NLP', 'transformer vs CNN for LLMs', 'sequence modeling with CNNs', 'attention mechanism superiority', 'neural network architecture comparison'], 'categories': 'machine_learning_architectures'}, {'mot_cle': ['Convolutional Neural Networks vs Transformers', 'Why CNN not used LLMs', 'CNN limitations NLP tasks', 'Transformer architecture advantages', 'LLM model efficiency'], 'categories': 'Machine Learning Models'}, {'mot_cle': ['CNN vs Transformer', 'Why CNN not LLM', 'Convolutional Neural Networks for NLP', 'Transformer Architecture Advantages', 'LLM Efficiency Comparison'], 'categories': 'Neural Network Architectures'}, {'mot_cle': ['CNN vs Transformer', 'LLM architecture limitations', 'text modeling CNN', 'sequence prediction CNN', 'neural network efficiency'], 'categories': 'machine_learning'}, {'mot_cle': ['CNN vs transformer', 'neural network architecture for NLP', 'sequence modeling limitations CNN', 'attention mechanism superiority', 'context understanding in LLMs'], 'categories': 'machine_learning_architecture'}]"
+        },
+        {
+            "model_name": "granite-3.2-8b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 71.62492513656616
+                },
+                {
+                    "reponse_time_0": 71.62492322921753
+                },
+                {
+                    "reponse_time_1": 2.4265246391296387
+                },
+                {
+                    "reponse_time_2": 2.384465217590332
+                },
+                {
+                    "reponse_time_3": 2.2610108852386475
+                },
+                {
+                    "reponse_time_4": 2.482551097869873
+                },
+                {
+                    "reponse_time_5": 2.5034420490264893
+                },
+                {
+                    "reponse_time_6": 2.6595866680145264
+                },
+                {
+                    "reponse_time_7": 2.4711408615112305
+                },
+                {
+                    "reponse_time_8": 2.3378303050994873
+                },
+                {
+                    "reponse_time_9": 2.6260147094726562
+                },
+                {
+                    "avg_reponse_time": 9.377748966217041
+                },
+                {
+                    "total_time": 93.77774500846863
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks in LLMs', 'advantages of CNNs over LLMs', 'CNN limitations for language models', 'Why not use CNNs in LLMs?', 'CNN vs. LLM in natural language processing'], 'categories': 'Artificial Intelligence - Natural Language Processing'}, {'mot_cle': ['convolutional neural networks in LLMs', 'advantages of CNC in language models', 'why not use CNN for LLM', 'CNN vs other network types in LLMs', 'limitations of CNN in NLP'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks in LLMs', 'advantages of CNN over LLMs', 'CNN vs Recurrent LLMs', 'limitation of CNN for language models', 'CNN applications beyond image processing'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['convolutional neural networks in LLMs', 'advantages of CNN over LLMs', 'CNN limitations for language models', 'LLM challenges with convolutional networks', 'comparative analysis CNN vs LLMs'], 'categories': 'Machine Learning'}, {'mot_cle': ['convolutional neural networks in LLMs', 'advantages of CNNs over other networks for NLP', 'CNN limitations in language models', 'Why not use CNNs for LLMs?', 'CNN vs transformer in natural language processing'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks in LLMs', 'advantages of CNN over LLMs', 'CNN vs Recurrent Neural Networks for NLP', 'Limitations of CNN in language models', 'Improving LLMs with CNN techniques'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['Convolutional Neural Networks in LLMs', 'Advantages of CNN over traditional LLMs', 'CNN vs Recurrent Neural Networks for Language Models', 'Limitations of Convolutional Neural Networks in NLP', 'Innovative applications of CNN in text processing'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks in LLMs', 'advantages of CNN over traditional LLMs', 'CNN application limitations in language models', 'comparative analysis CNN vs LLMs', 'CNN challenges in natural language processing'], 'categories': 'Artificial Intelligence and Machine Learning'}, {'mot_cle': ['convolutional neural networks', 'CNNs in LLMs', 'limitations of CNNs for language models', 'advantages of transformers over CNNs in NLP', 'CNN vs Transformer architectures in machine learning'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['Convolutional Neural Networks in LLMs', 'Advantages of CNNs over traditional LLMs', 'Limitations of Convolutional Neural Networks for Language Models', 'CNN vs RNN in Natural Language Processing', 'Why not use CNNs in LLMs'], 'categories': 'Natural Language Processing'}]"
+        },
+        {
+            "model_name": "gemma-3-1b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 20.881691217422485
+                },
+                {
+                    "reponse_time_0": 20.88168978691101
+                },
+                {
+                    "reponse_time_1": 0.5675785541534424
+                },
+                {
+                    "reponse_time_2": 0.9430646896362305
+                },
+                {
+                    "reponse_time_3": 0.9289102554321289
+                },
+                {
+                    "reponse_time_4": 1.1163015365600586
+                },
+                {
+                    "reponse_time_5": 1.005662441253662
+                },
+                {
+                    "reponse_time_6": 0.5174047946929932
+                },
+                {
+                    "reponse_time_7": 0.5349240303039551
+                },
+                {
+                    "reponse_time_8": 1.0663540363311768
+                },
+                {
+                    "reponse_time_9": 1.0529372692108154
+                },
+                {
+                    "avg_reponse_time": 2.8614827394485474
+                },
+                {
+                    "total_time": 28.615042448043823
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['neural networks convulsive LLMs', 'convulsive neural network language models', 'LLM architecture convolutional networks', 'benefits and drawbacks of CNN-based LLMs', 'challenges in implementing CNNs for large language models'], 'categories': 'Artificial Intelligence Research'}, {'mot_cle': ['neural networks', 'convulsive', 'LLMs', 'reasoning', 'efficacy'], 'categories': 'Artificial Intelligence Research'}, {'mot_cle': ['neural networks convolutional', 'convulated neural networks LLMs', 'large language model architectures convolutional', 'research neural network limitations LLM', 'convolutional neural networks language models challenges'], 'categories': 'AI Research & Development'}, {'mot_cle': ['neural networks convolutional', 'convulated neural networks LLMs', 'LLM architecture convolutional networks', 'reinforcement learning neural networks', 'large language model limitations convolutional'], 'categories': 'Artificial Intelligence & Machine Learning'}, {'mot_cle': ['neural network convolutional architectures LLMs', 'convulated neural networks language models limitations', 'challenges using convolutional neural networks for large language models', 'advantages and disadvantages of convolutional neural networks in LLMs', 'research on leveraging convolutional networks for LLM training'], 'categories': 'Artificial Intelligence & Language Models'}, {'mot_cle': ['neural networks convolutions language models', 'convulsive neural networks large language models', 'hybrid neural network LLM architecture', 'convolutional architectures language models limitations', 'research challenges neural networks LLMs convulsion'], 'categories': 'AI Research & Development'}, {'mot_cle': ['neural networks', 'convulsions', 'LLMs', 'language models'], 'categories': 'Artificial Intelligence Research'}, {'mot_cle': ['neural networks', 'convulsion', 'LLMs', 'language models'], 'categories': 'AI Research & Development'}, {'mot_cle': ['neural networks convolution LLMs limitations', 'convulsive neural networks large language models', 'challenges using convolutional neural networks for LLMs', 'reasons not to use convolutional neural networks in LLMs', 'future of LLM architectures convolutional networks'], 'categories': 'AI Research & Development'}, {'mot_cle': ['neural networks convolutions language models', 'convulsion neural networks large language models', 'challenges using convolutional neural networks for LLMs', 'limitations of convolutional neural networks in LLMs research', 'research on convolutional networks for language modeling'], 'categories': 'AI Research & Development'}]"
+        },
+        {
+            "model_name": "qwen2-0.5b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 12.567285060882568
+                },
+                {
+                    "reponse_time_0": 12.567283630371094
+                },
+                {
+                    "reponse_time_1": 0.6041877269744873
+                },
+                {
+                    "reponse_time_2": 0.5258588790893555
+                },
+                {
+                    "reponse_time_3": 0.38057637214660645
+                },
+                {
+                    "reponse_time_4": 2.982475519180298
+                },
+                {
+                    "reponse_time_5": 0.7144505977630615
+                },
+                {
+                    "reponse_time_6": 2.0201358795166016
+                },
+                {
+                    "reponse_time_7": 0.4768052101135254
+                },
+                {
+                    "reponse_time_8": 0.28410863876342773
+                },
+                {
+                    "reponse_time_9": 0.7984516620635986
+                },
+                {
+                    "avg_reponse_time": 2.1354334115982057
+                },
+                {
+                    "total_time": 21.355010986328125
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[{'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}, {'Erreur': \"Expecting ',' delimiter: line 1 column 28 (char 27)\"}, {'Erreur': 'Extra data: line 1 column 2 (char 1)'}]"
+        },
+        {
+            "model_name": "gemma-3-12b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 146.56681895256042
+                },
+                {
+                    "reponse_time_0": 146.56681776046753
+                },
+                {
+                    "reponse_time_1": 3.5436739921569824
+                },
+                {
+                    "reponse_time_2": 3.349113941192627
+                },
+                {
+                    "reponse_time_3": 3.4086906909942627
+                },
+                {
+                    "reponse_time_4": 3.152022123336792
+                },
+                {
+                    "reponse_time_5": 3.4743051528930664
+                },
+                {
+                    "reponse_time_6": 3.413559913635254
+                },
+                {
+                    "reponse_time_7": 3.348621129989624
+                },
+                {
+                    "reponse_time_8": 3.346989631652832
+                },
+                {
+                    "reponse_time_9": 3.3441126346588135
+                },
+                {
+                    "avg_reponse_time": 17.69479069709778
+                },
+                {
+                    "total_time": 176.94811463356018
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations LLM architecture', 'LLM alternative architectures CNN', 'hybrid transformer convolutional models', 'why not CNN for large language models'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs limitations', 'CNN application to large language models', 'LLM architecture alternatives CNN', 'hybrid LLM CNN design challenges', 'why not CNN for LLMs performance'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'hybrid LLM architectures convolutional layers', 'transformer network advantages over CNNs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'hybrid CNN-Transformer architectures NLP', 'alternative architectures for LLMs', 'computational efficiency CNNs LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations language models', 'LLM architecture alternatives CNN', 'hybrid architectures LLM CNN', 'transformer network advantages LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'hybrid CNN-Transformer architectures NLP', 'LLM architecture alternatives convolutional layers', 'why not CNNs for LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations large language models', 'LLM architecture alternatives CNN', 'hybrid LLM architectures convolutional layers', 'why not CNNs for LLMs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs comparison', 'CNN limitations language models', 'LLM architecture alternatives CNN', 'hybrid LLM architectures convolutional layers', 'transformer network advantages over CNNs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations LLM training', 'LLM architecture alternatives CNN', 'hybrid LLM architectures convolutional layers', 'transformer network advantages over CNNs'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN limitations language models', 'hybrid CNN-Transformer architectures NLP', 'LLM architecture alternatives convolutional layers', 'image processing techniques large language models'], 'categories': 'Natural Language Processing'}]"
+        },
+        {
+            "model_name": "gemma-3-4b-it",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 102.99704384803772
+                },
+                {
+                    "reponse_time_0": 102.99704265594482
+                },
+                {
+                    "reponse_time_1": 1.3042821884155273
+                },
+                {
+                    "reponse_time_2": 1.392338752746582
+                },
+                {
+                    "reponse_time_3": 1.293926477432251
+                },
+                {
+                    "reponse_time_4": 1.3193297386169434
+                },
+                {
+                    "reponse_time_5": 1.3259010314941406
+                },
+                {
+                    "reponse_time_6": 1.3286232948303223
+                },
+                {
+                    "reponse_time_7": 1.314521074295044
+                },
+                {
+                    "reponse_time_8": 1.3013825416564941
+                },
+                {
+                    "reponse_time_9": 1.287224292755127
+                },
+                {
+                    "avg_reponse_time": 11.486457204818725
+                },
+                {
+                    "total_time": 114.86480808258057
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks LLMs', 'CNNs large language models', 'LLM architecture alternatives', 'transformer vs convolutional', 'neural network limitations LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN language models', 'LLM architecture alternatives', 'transformer vs CNN for text', 'deep learning language modeling'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN language models', 'transformer vs CNN for NLP', 'deep learning large language models', 'neural network architectures LLM'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN language models', 'LLM architecture comparison', 'neural networks large language models', 'alternative LLM architectures'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN LLM limitations', 'transformer architecture vs CNN', 'neural network alternatives LLM', 'deep learning language models'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNNs large language models', 'LLM architecture comparison', 'neural network alternatives LLMs', 'transformer vs convolutional'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN language models', 'transformer architecture vs CNN', 'deep learning large language models', 'neural network limitations LLM'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN language models', 'LLM architecture alternatives', 'transformer vs CNN for text', 'neural network limitations LLMs'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNN language models', 'deep learning large language models', 'neural network alternatives LLM', 'transformer vs convolutional'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['convolutional neural networks LLMs', 'CNNs large language models', 'LLM architecture alternatives', 'transformer vs convolutional', 'deep learning language models'], 'categories': 'Artificial Intelligence'}]"
+        },
+        {
+            "model_name": "mathstral-7b-v0.1",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 80.49235224723816
+                },
+                {
+                    "reponse_time_0": 80.49235081672668
+                },
+                {
+                    "reponse_time_1": 1.5678613185882568
+                },
+                {
+                    "reponse_time_2": 1.634195327758789
+                },
+                {
+                    "reponse_time_3": 2.4795284271240234
+                },
+                {
+                    "reponse_time_4": 2.273665189743042
+                },
+                {
+                    "reponse_time_5": 1.0213565826416016
+                },
+                {
+                    "reponse_time_6": 1.6671555042266846
+                },
+                {
+                    "reponse_time_7": 2.3087079524993896
+                },
+                {
+                    "reponse_time_8": 2.5721020698547363
+                },
+                {
+                    "reponse_time_9": 1.735609769821167
+                },
+                {
+                    "avg_reponse_time": 9.775253295898438
+                },
+                {
+                    "total_time": 97.75272870063782
+                }
+            ],
+            "score": [
+                1.0,
+                1.0
+            ],
+            "result": "[{'mot_cle': ['CNNs in LlMs', 'Use of CNNs for language models', 'Advantages and disadvantages of using CNNs in LlMs', 'Impact of CNNs on the performance of language models', 'Comparison of CNNs with other techniques in LlMs'], 'categories': 'AI and Machine Learning'}, {'mot_cle': ['Deep Learning Models', 'Convolutional Neural Networks', 'Language Modeling', 'Machine Learning Techniques', 'Artificial Intelligence'], 'categories': 'Education and Learning'}, {'mot_cle': ['Machine Learning Models', 'Neural Networks Convolutional', 'Language Models', 'Deep Learning Architecture', 'Natural Language Processing'], 'categories': 'Technology'}, {'mot_cle': ['Use of Convolutional Neural Networks in LSTM', 'Applications of CNNs in LSTM models', 'Comparison of CNN and LSTM for sequence modeling', 'Benefits of using CNN with LSTM', 'Challenges in applying CNN to LSTM'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['CNNs for LLMs', 'Usage of CNNs in LLMs', 'Advantages of using CNNs for LLMs', 'Comparison between CNNs and other models for LLMs', 'Challenges in implementing CNNs for LLMs'], 'categories': 'Computer Science'}, {'mot_cle': ['machine learning models', 'convolutional neural networks', 'natural language processing'], 'categories': 'Computer Science'}, {'mot_cle': ['Convolutional Neural Networks', 'Language Modeling', 'Text Generation', 'Neural Network Applications in NLP', 'Deep Learning for Language Processing'], 'categories': 'Computer Science'}, {'mot_cle': ['using convolutional neural networks for LMS', 'advantages of using CNNs in LMS', 'limitations of using CNNs in LMS', 'alternatives to CNNs for LMS', 'best practices for implementing CNNs in LMS'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['use of Convolutional Neural Networks in LMS', 'Convolutional Neural Networks for learning management systems', 'advantages of using CNNs in LMS', 'disadvantages of using CNNs in LMS', 'alternatives to CNNs in LMS'], 'categories': 'Computer Science'}, {'mot_cle': ['Convolutional Neural Networks for LMs', 'Neuromorphic Learning Machines', 'Deep Learning in NLP', 'Advanced Language Modeling with CNNs'], 'categories': 'AI/Machine Learning'}]"
+        },
+        {
+            "model_name": "qwq-lcot-7b-instruct",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 92.7339563369751
+                },
+                {
+                    "reponse_time_0": 92.7339551448822
+                },
+                {
+                    "reponse_time_1": 2.6838464736938477
+                },
+                {
+                    "reponse_time_2": 2.5535035133361816
+                },
+                {
+                    "reponse_time_3": 2.471092462539673
+                },
+                {
+                    "reponse_time_4": 2.5519607067108154
+                },
+                {
+                    "reponse_time_5": 2.640444755554199
+                },
+                {
+                    "reponse_time_6": 2.386584758758545
+                },
+                {
+                    "reponse_time_7": 2.3783533573150635
+                },
+                {
+                    "reponse_time_8": 2.603916645050049
+                },
+                {
+                    "reponse_time_9": 2.1421470642089844
+                },
+                {
+                    "avg_reponse_time": 11.514580488204956
+                },
+                {
+                    "total_time": 115.14607834815979
+                }
+            ],
+            "score": [
+                0.7,
+                0.7
+            ],
+            "result": "[{'mot_cle': ['why not use convolutional neural networks for llms', 'rejection of cnn in llms', 'advantages of using cnns in llms', 'comparison rnn vs cnn in llms', 'CNN limitations in large language models'], 'categories': 'AI and Machine Learning'}, {'mot_cle': ['why not use convolutional neural networks for llms', 'rejection of cnn in llms', 'convolutional neural networks vs llms', 'applications of cnns in llm limitations', 'neural network architecture choices for llms'], 'categories': 'AI and Machine Learning'}, {'mot_cle': ['why not use convolutional neural networks for llms', 'rejection of cnn in llms', 'advantages of non-cnn in llms', 'comparison cnns and llms architectures', 'usage of conv nets in llms'], 'categories': 'Machine Learning'}, {'mot_cle': ['why not use cnn for llms', 'relevance of cnn in llms', 'advantages of using rnn over cnn in llms', 'comparison rnn and cnn in llms', 'applications of cnn in llms'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['why not use cnn for llms', 'relevance of cnn in llms', 'advantages of using lstm over cnn in llms', 'uses of cnn vs lstm in llms', 'comparison cnn and lstm for llms'], 'categories': 'Artificial Intelligence'}, {'mot_cle': ['why not use convolutional neural networks for llms', 'rejection of cnn in llms', 'convolutional neural networks vs llms', 'role of cnns in llm development', 'limitations of cnns in llms'], 'categories': 'ai-and-machine-learning'}, {'Erreur': 'Extra data: line 1 column 201 (char 200)'}, {'mot_cle': ['why not use cnn for llms', 'relevance of cnn in llms', 'advantages of rnn over cnn for llms', 'comparison cnn and rnn in llms', 'applications of cnn in llms'], 'categories': 'machine_learning'}, {'Erreur': 'Extra data: line 1 column 208 (char 207)'}, {'Erreur': 'Extra data: line 1 column 166 (char 165)'}]"
+        },
+        {
+            "model_name": "ministral-8b-instruct-2410",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 94.37628722190857
+                },
+                {
+                    "reponse_time_0": 94.3762857913971
+                },
+                {
+                    "reponse_time_1": 2.336862564086914
+                },
+                {
+                    "reponse_time_2": 1.7920026779174805
+                },
+                {
+                    "reponse_time_3": 2.887678861618042
+                },
+                {
+                    "reponse_time_4": 2.7086706161499023
+                },
+                {
+                    "reponse_time_5": 2.927323579788208
+                },
+                {
+                    "reponse_time_6": 2.4141294956207275
+                },
+                {
+                    "reponse_time_7": 2.505718231201172
+                },
+                {
+                    "reponse_time_8": 2.5038816928863525
+                },
+                {
+                    "reponse_time_9": 2.1985819339752197
+                },
+                {
+                    "avg_reponse_time": 11.665113544464111
+                },
+                {
+                    "total_time": 116.65139174461365
+                }
+            ],
+            "score": [
+                0.1,
+                0.1
+            ],
+            "result": "[{'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'categories'\"}, {'mot_cle': ['convolutional neural networks for language models', 'why not use CNNs in LLMs', 'limitation of CNNs in NLP', 'advantages of RNNs over CNNs in language processing', 'alternatives to CNN for language modeling'], 'categories': 'Artificial Intelligence and Machine Learning'}, {'Erreur': \"'categories'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}]"
+        },
+        {
+            "model_name": "deepseek-r1-distill-qwen-7b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 106.81066250801086
+                },
+                {
+                    "reponse_time_0": 106.81066083908081
+                },
+                {
+                    "reponse_time_1": 20.168195009231567
+                },
+                {
+                    "reponse_time_2": 17.98346447944641
+                },
+                {
+                    "reponse_time_3": 17.055508613586426
+                },
+                {
+                    "reponse_time_4": 21.792724132537842
+                },
+                {
+                    "reponse_time_5": 22.870832681655884
+                },
+                {
+                    "reponse_time_6": 18.93566656112671
+                },
+                {
+                    "reponse_time_7": 21.11098289489746
+                },
+                {
+                    "reponse_time_8": 21.2350914478302
+                },
+                {
+                    "reponse_time_9": 11.957098007202148
+                },
+                {
+                    "avg_reponse_time": 27.992022466659545
+                },
+                {
+                    "total_time": 279.9212999343872
+                }
+            ],
+            "score": [
+                0.1,
+                0.1
+            ],
+            "result": "[{'Erreur': \"Expecting ',' delimiter: line 1 column 24 (char 23)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 25 (char 24)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 23 (char 22)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 25 (char 24)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 493 (char 492)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 24 (char 23)\"}, {'mot_cle': ['Why not use convolutional neural networks', 'Convolutional neural networks in large language models', 'Why convolutional neural networks not used for natural language processing', 'Difference between convolutional and transformer neural networks in LLMs', 'Why convolutional neural networks not suitable for natural language processing'], 'categories': 'neural networks applications'}, {'Erreur': \"Expecting ',' delimiter: line 1 column 110 (char 109)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 53 (char 52)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 22 (char 21)\"}]"
+        },
+        {
+            "model_name": "mamba-codestral-7b-v0.1-instruct-python_coding_assistant",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 186.22381377220154
+                },
+                {
+                    "reponse_time_0": 186.22381210327148
+                },
+                {
+                    "reponse_time_1": 15.967328071594238
+                },
+                {
+                    "reponse_time_2": 7.845168113708496
+                },
+                {
+                    "reponse_time_3": 2.922210454940796
+                },
+                {
+                    "reponse_time_4": 8.581697225570679
+                },
+                {
+                    "reponse_time_5": 10.726514101028442
+                },
+                {
+                    "reponse_time_6": 0.716193437576294
+                },
+                {
+                    "reponse_time_7": 15.84607481956482
+                },
+                {
+                    "reponse_time_8": 18.905314922332764
+                },
+                {
+                    "reponse_time_9": 3.8859705924987793
+                },
+                {
+                    "avg_reponse_time": 27.16202838420868
+                },
+                {
+                    "total_time": 271.6207022666931
+                }
+            ],
+            "score": [
+                0.0,
+                0.0
+            ],
+            "result": "[{'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}]"
+        },
+        {
+            "model_name": "deepseek-r1-distill-qwen-1.5b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 33.40109705924988
+                },
+                {
+                    "reponse_time_0": 33.40109467506409
+                },
+                {
+                    "reponse_time_1": 83.15689253807068
+                },
+                {
+                    "reponse_time_2": 7.803191661834717
+                },
+                {
+                    "reponse_time_3": 4.407621622085571
+                },
+                {
+                    "reponse_time_4": 5.235551834106445
+                },
+                {
+                    "reponse_time_5": 7.689284801483154
+                },
+                {
+                    "reponse_time_6": 9.232147455215454
+                },
+                {
+                    "reponse_time_7": 11.845277070999146
+                },
+                {
+                    "reponse_time_8": 10.166642427444458
+                },
+                {
+                    "reponse_time_9": 6.71604061126709
+                },
+                {
+                    "avg_reponse_time": 17.96537446975708
+                },
+                {
+                    "total_time": 179.6548981666565
+                }
+            ],
+            "score": [
+                0.1,
+                0.1
+            ],
+            "result": "[{'Erreur': \"Expecting ',' delimiter: line 1 column 25 (char 24)\"}, {'Erreur': 'Expecting value: line 1 column 1 (char 0)'}, {'Erreur': \"Expecting ',' delimiter: line 1 column 25 (char 24)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 27 (char 26)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 24 (char 23)\"}, {'Erreur': 'Extra data: line 1 column 378 (char 377)'}, {'mot_cle': ['perceptron', 'deep learning', 'neural networks', 'llm', 'convolutional neural networks'], 'categories': 'neural networks'}, {'Erreur': \"Expecting ',' delimiter: line 1 column 25 (char 24)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 27 (char 26)\"}, {'Erreur': \"Expecting ',' delimiter: line 1 column 25 (char 24)\"}]"
+        },
+        {
+            "model_name": "deepseek-ai-deepseek-r1-distill-llama-8b",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 86.63960576057434
+                },
+                {
+                    "reponse_time_0": 86.63960361480713
+                },
+                {
+                    "reponse_time_1": 16.045172452926636
+                },
+                {
+                    "reponse_time_2": 22.60714602470398
+                },
+                {
+                    "reponse_time_3": 13.093801021575928
+                },
+                {
+                    "reponse_time_4": 14.890364646911621
+                },
+                {
+                    "reponse_time_5": 18.39384651184082
+                },
+                {
+                    "reponse_time_6": 19.9985408782959
+                },
+                {
+                    "reponse_time_7": 15.001462459564209
+                },
+                {
+                    "reponse_time_8": 21.730287313461304
+                },
+                {
+                    "reponse_time_9": 22.192835807800293
+                },
+                {
+                    "avg_reponse_time": 25.059306073188782
+                },
+                {
+                    "total_time": 250.59381198883057
+                }
+            ],
+            "score": [
+                0.9,
+                0.9
+            ],
+            "result": "[{'mot_cle': ['convolutional neural networks and large language models', 'why are convolutional neural networks not used for lms', 'using cnn in nlp applications', 'advantages of convolutional neural networks for text processing', 'challenges of applying convolutional neural networks to language models'], 'categories': 'neural_networks_and_deep_learning'}, {'mot_cle': ['convolutional neural networks for LLMs', 'why not use CNNs for LLMs', 'CNNs in text processing', 'large language models and CNNs', 'convolutional neural networks limitations'], 'categories': 'AI techniques for NLP'}, {'mot_cle': ['convolutional neural networks for language models', 'large language models using cnn architecture', 'effectiveness of cns in nlp tasks', 'cnn vs transformer models for llms', 'challenges integrating cnn into llm training'], 'categories': 'deep learning architectures'}, {'mot_cle': ['convolutional neural networks for LLMs', 'why not use convolutional neural networks for LLMs', 'convolutional NNs in language models', 'CNNs vs transformers for LLMs', 'use of CNNs in text generation'], 'categories': 'language_modeling_and_neural_networks'}, {'mot_cle': ['Convolutional Neural Networks (CNNs) vs. Large Language Models'], 'categories': 'machine_learning_models'}, {'Erreur': \"Expecting ',' delimiter: line 1 column 23 (char 22)\"}, {'mot_cle': ['convolutional neural network in language models', 'use of ctnns for lllm', 'cnn vs rnn in text generation', 'application of ctnns for text processing', 'why not use cnn for llms'], 'categories': 'neural networks and deep learning applications'}, {'mot_cle': ['convolutional neural networks for large language models', 'using cnn for llm', 'cnn applications in nlp', 'why not use cnn for text generation', 'convolutional networks vs transformer'], 'categories': 'neural networks and deep learning'}, {'mot_cle': ['convolutional neural networks for large language models', 'why not use convolutional neural networks for llls', 'application of cnn in nlp', 'large language models and deep learning architectures', 'cnn vs transformer for text processing'], 'categories': 'deep_learning_and_natural_language_processing'}, {'mot_cle': ['convolutional neural networks in large language models', 'use of cnn for llm', 'cnn vs transformer for nlp', 'application of cnn in text generation', 'advantages of cnn for text processing'], 'categories': 'natural language processing'}]"
+        },
+        {
+            "model_name": "phi-4",
+            "temperature": 0.7,
+            "max_tokens": 4096,
+            "attempts": 10,
+            "time": [
+                {
+                    "chargement_model": 360.7474718093872
+                },
+                {
+                    "reponse_time_0": 360.74747037887573
+                },
+                {
+                    "reponse_time_1": 6.847028732299805
+                },
+                {
+                    "reponse_time_2": 6.808596849441528
+                },
+                {
+                    "reponse_time_3": 6.102155447006226
+                },
+                {
+                    "reponse_time_4": 7.651381731033325
+                },
+                {
+                    "reponse_time_5": 7.4809489250183105
+                },
+                {
+                    "reponse_time_6": 6.635970592498779
+                },
+                {
+                    "reponse_time_7": 6.276187419891357
+                },
+                {
+                    "reponse_time_8": 6.623429536819458
+                },
+                {
+                    "reponse_time_9": 7.471404075622559
+                },
+                {
+                    "avg_reponse_time": 42.26445736885071
+                },
+                {
+                    "total_time": 422.64477491378784
+                }
+            ],
+            "score": [
+                0.7,
+                0.7
+            ],
+            "result": "[{'Erreur': \"'querys'\"}, {'mot_cle': ['Convolutional neural networks in NLP', 'Limitations of CNN for language models', 'Comparison between RNN and CNN in LLMs', 'Why not use CNN for large-scale language tasks', 'Advantages of transformer over convolutional networks'], 'categories': 'Natural Language Processing'}, {'mot_cle': ['use of convolutional neural networks in language models', 'why not use CNN for LLMs?', 'comparison between RNN and CNN in NLP', 'advantages of transformers over CNN', 'limitations of CNN for large-scale language processing'], 'categories': 'natural_language_processing'}, {'mot_cle': ['convolutional neural networks language models', 'CNN vs transformer in NLP', 'limitations of CNN for text generation', 'why transformers over CNN for LLMs', 'advantages of attention mechanisms'], 'categories': 'natural_language_processing'}, {'mot_cle': ['use of convolutional neural networks in language models', 'limitations of CNNs for natural language processing', 'why are RNNs preferred over CNNs for NLP?', 'advantages of transformers over CNNs in LLMs', 'comparison between CNNs and other architectures in language modeling'], 'categories': 'artificial intelligence'}, {'mot_cle': ['Convolutional neural networks in language models', 'Why not use CNN for LLMs?', 'Benefits of RNN over CNN in NLP', 'Comparison of CNN and RNN in text processing', 'Limitations of convolutional networks for large-scale language tasks'], 'categories': 'machine learning and natural language processing'}, {'mot_cle': ['convolutional neural networks in large language models', 'limitations of CNNs for NLP', 'why use transformers over CNNs', 'CNN vs transformer architectures in LLMs', 'applications of convolutional layers in text processing'], 'categories': 'machine learning architecture'}, {'Erreur': \"'querys'\"}, {'Erreur': \"'querys'\"}, {'mot_cle': ['Convolutional neural networks for LLMs', 'Limitations of CNN in large language models', 'Why not use CNNs in NLP tasks', 'CNN vs RNN/Transformer in language modeling', 'Benefits of transformers over CNNs in LLMs'], 'categories': 'machine learning and natural language processing'}]"
+        }
+    ]
+}
