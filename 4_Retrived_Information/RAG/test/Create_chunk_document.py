@@ -145,7 +145,7 @@ if __name__ == "__main__":
         collection = store_embeddings(chunks, embeddings)
         
         # Tester une requête
-        question = "Quelle est la principale fonctionnalité du projet?"
+        question = "Quelle est la principale fonctionnalité du projet ?"
         print("\nEnvoi de la requête à LM Studio...")
         response = rag_with_lmstudio(question, collection)
         
