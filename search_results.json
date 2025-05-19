@@ -1,0 +1,355 @@
+{
+  "query": "Qu'est ce que le Retrive Augmented Generation ?",
+  "number_of_results": 0,
+  "results": [
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://www.nexialog.com/wp-content/uploads/2024/07/Benchmark-robos-conversationnels-reglementaires-Nexialog-Consulting-4.pdf",
+      "title": "BENCHMARK",
+      "authors": [
+        "M BRUNET",
+        "EDO Amande"
+      ],
+      "publisher": null,
+      "journal": null,
+      "publishedDate": null,
+      "content": "… , une solution consiste à utiliser la technique Retrieval Augmented Generation (RAG). Cette approche combine la recherche d’informations et la génération de texte en se référant à un …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://www.nexialog.com/wp-content/uploads/2024/07/Benchmark-robos-conversationnels-reglementaires-Nexialog-Consulting-4.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "www.nexialog.com",
+        "/wp-content/uploads/2024/07/Benchmark-robos-conversationnels-reglementaires-Nexialog-Consulting-4.pdf",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        1
+      ],
+      "score": 1.0,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://plurital.org/memoires/MEMOIRE_ROXANE_ANQUETIL-2010-2011.pdf",
+      "title": "Apport de l'analyse en dépendances pour la génération de QCM à partir de fichiers d'aide de logiciels",
+      "authors": [
+        "R Anquetil"
+      ],
+      "publisher": null,
+      "journal": null,
+      "publishedDate": null,
+      "content": "… to questions using dependency trees, augmented with semantic information such as named … sémantique, il serait bon de se demander ce qu’est une signification en linguistique. C’est …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://plurital.org/memoires/MEMOIRE_ROXANE_ANQUETIL-2010-2011.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "plurital.org",
+        "/memoires/MEMOIRE_ROXANE_ANQUETIL-2010-2011.pdf",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        2
+      ],
+      "score": 0.5,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://www.osti.gov/etdeweb/biblio/21016553",
+      "title": "Investment and deregulation in the electricity generation industry; Investissement et dereglementation dans le secteur electrique",
+      "authors": [
+        "B Peluchon"
+      ],
+      "publisher": null,
+      "journal": null,
+      "publishedDate": "2007-01-01T00:00:00",
+      "content": "… On peut encore citer le moyen de production favorisé à l’heure actuelle qu’est le Cycle Combiné au Gaz (CCG) dont la répartition entre les coûts est encore plus accentuée vers les …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://www.osti.gov/etdeweb/servlets/purl/21016553",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "www.osti.gov",
+        "/etdeweb/biblio/21016553",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        3
+      ],
+      "score": 0.3333333333333333,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://publications.polymtl.ca/950/1/2012_StephaneOuellette.pdf",
+      "title": "Partage d'infrastructures et convergence fixe/mobile dans les réseaux 3GPP de prochaine génération",
+      "authors": [
+        "S Ouellette"
+      ],
+      "publisher": null,
+      "journal": null,
+      "publishedDate": "2012-01-01T00:00:00",
+      "content": "… cellulaire de quatri`eme génération a débuté par quelques … deuxi`eme et troisi`eme génération existants pour le support de la … Les réseaux mobiles de quatri`eme génération promettent …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://publications.polymtl.ca/950/1/2012_StephaneOuellette.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "publications.polymtl.ca",
+        "/950/1/2012_StephaneOuellette.pdf",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        4
+      ],
+      "score": 0.25,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://folia.unifr.ch/global/documents/324931",
+      "title": "Learning Astronomy with augmented reality",
+      "authors": [
+        "B Ferrari"
+      ],
+      "publisher": null,
+      "journal": null,
+      "publishedDate": "2022-01-01T00:00:00",
+      "content": "… grâce à la technologie innovante qu’est la réalité augmentée. … génération, les iPad 12,9 pouces de quatrième génération, les … En effet, cette nouvelle génération du framework capture le …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://folia.unifr.ch/documents/324931/files/Ferrari_Bastien_2022.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "folia.unifr.ch",
+        "/global/documents/324931",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        5
+      ],
+      "score": 0.2,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "",
+      "url": "https://muse.jhu.edu/pub/3/article/524814/summary",
+      "title": "La violation d'un pays et autres écrits anticolonialistes by Lamine Senghor",
+      "authors": [
+        "D Thomas"
+      ],
+      "publisher": null,
+      "journal": "Research in African Literatures",
+      "publishedDate": "2013-01-01T00:00:00",
+      "content": "… , Dakar, Amsterdam), augmented in this edition with an … stance as a precondition for racial equality: \"Qu'est-ce que c'est que la … ways by enabling a new generation of researchers to think …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": null,
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "muse.jhu.edu",
+        "/pub/3/article/524814/summary",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        6
+      ],
+      "score": 0.16666666666666666,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://search.proquest.com/openview/778a6e74c8cee68e20c621777783b047/1?pq-origsite=gscholar&cbl=18750&diss=y",
+      "title": "Génération automatique de requêtes SPARQL à partir de questions en langue naturelle",
+      "authors": [
+        "R Hirigoyen"
+      ],
+      "publisher": null,
+      "journal": null,
+      "publishedDate": "2022-01-01T00:00:00",
+      "content": "… We also add a copy layer to our model, which allows it to retrieve this information in order to … Cependant, la génération de la requête SPARQL pour récupérer la bonne réponse à une …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://publications.polymtl.ca/10533/1/2022_RoseHirigoyen.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "search.proquest.com",
+        "/openview/778a6e74c8cee68e20c621777783b047/1",
+        "",
+        "pq-origsite=gscholar&cbl=18750&diss=y",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        7
+      ],
+      "score": 0.14285714285714285,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://dial.uclouvain.be/downloader/downloader.php?pid=thesis%3A49266&datastream=PDF_01&cover=cover-mem",
+      "title": "Comment le marketing d'influence influence-t-il le parcours d'achat des produits de luxe pour la génération Z?",
+      "authors": [
+        "E Lozac'h",
+        "J Masset"
+      ],
+      "publisher": null,
+      "journal": null,
+      "publishedDate": null,
+      "content": "… our original work, augmented by the responsible use of AI. … Nous définirons d'abord ce qu'est une cohorte, puis nous mettrons en lumière les différentes caractéristiques de la génération …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://dial.uclouvain.be/downloader/downloader.php?pid=thesis%3A49266&datastream=PDF_01&cover=cover-mem",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "dial.uclouvain.be",
+        "/downloader/downloader.php",
+        "",
+        "pid=thesis%3A49266&datastream=PDF_01&cover=cover-mem",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        8
+      ],
+      "score": 0.125,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "pdf",
+      "url": "https://hal.science/hal-03027078/",
+      "title": "Qu'est-ce qu'un système d'exploitation? Une approche historique",
+      "authors": [
+        "M Bullynck"
+      ],
+      "publisher": null,
+      "journal": "Cahiers d'histoire du Cnam",
+      "publishedDate": "2017-01-01T00:00:00",
+      "content": "… La première génération était composée des systèmes de traitement par lots, la seconde de l’… batch, they may be termed ‘first generation’ operating systems. A significant characteristic of …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": "https://hal.science/hal-03027078/file/CHC1-2017-1_MaartenBullynck.pdf",
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "hal.science",
+        "/hal-03027078/",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        9
+      ],
+      "score": 0.1111111111111111,
+      "category": "science"
+    },
+    {
+      "template": "paper.html",
+      "type": "",
+      "url": "https://search.informit.org/doi/abs/10.3316/informit.T2024092100005490061107394",
+      "title": "Qu'est-ce qu'un label?: Formulation de l'identite a travers les systemes de certification dans la construction d'une nation post-coloniale groenlandaise",
+      "authors": [
+        "C Ren",
+        "RB Jacobsen"
+      ],
+      "publisher": null,
+      "journal": "études inuit studies",
+      "publishedDate": "2023-01-01T00:00:00",
+      "content": "… The realities and identities of thirdgeneration Inuit urban dwellers in Iqaluit or Nuuk also … The values of Danish that materialized among the catechists were augmented by the …",
+      "comments": "",
+      "html_url": null,
+      "pdf_url": null,
+      "engine": "google scholar",
+      "parsed_url": [
+        "https",
+        "search.informit.org",
+        "/doi/abs/10.3316/informit.T2024092100005490061107394",
+        "",
+        "",
+        ""
+      ],
+      "engines": [
+        "google scholar"
+      ],
+      "positions": [
+        10
+      ],
+      "score": 0.1,
+      "category": "science"
+    }
+  ],
+  "answers": [],
+  "corrections": [
+    "Qu'est ce que le Retrieval Augmented Generation ?"
+  ],
+  "infoboxes": [],
+  "suggestions": [],
+  "unresponsive_engines": [
+    [
+      "arxiv",
+      "timeout"
+    ],
+    [
+      "google",
+      "too many requests"
+    ]
+  ]
+}

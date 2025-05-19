@@ -25,7 +25,7 @@ def ask_ai(system_prompt,prompt,model, temperatuere=0.7, tokens=4096):
     else:
         print(f"Erreur : {response.status_code}, {response.text}")
 
-def get_model():
+def get_models():
     headers = {
     "Content-Type": "application/json"
     }

@@ -3,6 +3,7 @@
 ## Moteurs de Recherche
 
 - 🔍 **SearXNG (en conteneur)**
+-  Craw4ai : https://github.com/unclecode/crawl4ai (get info out of the website)
 - 🔍 **Tavily (API Gratuite)** : [Site Web de Tavily](https://tavily.com/)
 - 🔍 **Exa** : [Exa](https://exa.ai/)
 - 🔍 **Serper** : [Serper](https://serper.dev/)
