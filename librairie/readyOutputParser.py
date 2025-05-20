@@ -21,7 +21,7 @@ def get_model(models : str):
     )
     return model
 
-def get_key_word(question: str, models : str):
+def get_key_word(question: str, models : str = "gemma-3-12b-it-qat"):
     class QueryResponse(BaseModel):
         questions: List[str] = Field(description="Liste de 5 mots-clés de recherche en anglais")
         categories: str = Field(description="Catégorie principale de la recherche")
@@ -49,7 +49,7 @@ def get_key_word(question: str, models : str):
             "input": question,
             "format_instructions": parser.get_format_instructions()
         })
-        return response
+        return [response.questions, response.categories]
     
     except Exception as e:
         print(f"Erreur de parsing : {e}")
@@ -117,10 +117,3 @@ def deep_search(prompt: str, models : str):
     prompt += question
     print(prompt)
     print(get_key_word(prompt, models))
-
-
-if __name__ == "__main__":
-    # Exemple d'utilisation
-    question = "Je veux des outils d'IA pour le marketing"
-    models = "gemma-3-12b-it-qat"
-    deep_search(question, models)

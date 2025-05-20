@@ -5,6 +5,13 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import time
+import asyncio
+from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+import sys
+from typing import List
+import RAG
+import readyOutputParser
+
 
 SEARCHURL = "http://localhost:4000/search"
 
@@ -35,34 +42,63 @@ def search_query(query, engines=None, categories=None):
 
 def research(search_subject):
     resultats = search_query(search_subject, engines=["google", "bing"], categories=["science"])
-    print(resultats)
-
-    with open('search_results.json', 'w', encoding='utf-8') as f:
-        json.dump(resultats, f, ensure_ascii=False, indent=2)
-    print("Results saved to search_results.json")
-
     results = []
 
-    with open('search_results.json', 'r', encoding='utf-8') as f:
-        resultat = json.load(f)
-        for result in resultat["results"]:
-            results.append(result["title"])
+    for i in resultats["results"]:
+        if i["score"] >= 0.5:
+            results.append(i["url"])
 
+    with open('search_results.json', 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+
+    return results  
+
+async def parallel_crawl_async(urls):
+    run_conf = CrawlerRunConfig(cache_mode=CacheMode.BYPASS, stream=True)
+    results = []
+    total = len(urls)
+    async with AsyncWebCrawler() as crawler:
+        idx = 1
+        async for result in await crawler.arun_many(urls, config=run_conf):
+            if result.success:
+                print(f"[{idx}/{total}] URL: {result.url} - Markdown length: {len(result.markdown.raw_markdown)}")
+                results.append({
+                    "url": result.url,
+                    "markdown": result.markdown.raw_markdown,
+                })
+            else:
+                print(f"[{idx}/{total}] Error crawling {result.url}: {result.error_message}")
+            idx += 1
     return results
 
-def scrapeur(lien):
-    try:
 
-        response = requests.get(lien, timeout=100)
-        response.raise_for_status()
-        
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        return soup
-    
-    except Exception as e:
-        print(f"Erreur : {str(e)}")
-        return []
+def crawler(urls):
+    data =[]
+    for url in urls:
+        data += asyncio.run(parallel_crawl_async([url]))
+        print("Passe au suivant")
+    data = [d for d in data if d.get("markdown")]
+    if not data:
+        print("Aucun contenu Markdown récupéré, impossible de créer les embeddings.")
+        return
+    print("RAG ")
+    RAG.RAG(data)
 
 
-print(scrapeur("https://muse.jhu.edu/pub/3/article/524814/summary"))
+def ai_research(question: str):
+    key_words = readyOutputParser.get_key_word(question)
+    urls = []
+    for word in key_words[0]:
+        result = research(word)
+        if isinstance(result, list):
+            urls.extend(result)
+        else:
+            urls.append(result)
+    # Filtre les URLs PDF et vides
+    flattened_urls = [u for u in urls if u and isinstance(u, str) and not u.lower().endswith('.pdf')]
+    print("Liste d'URLs à crawler :", flattened_urls)
+    crawler(flattened_urls)
+
+
+
+ai_research("Quels est l'utilité de l'ia dans la recherche")
