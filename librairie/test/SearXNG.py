@@ -41,7 +41,7 @@ def search_query(query, engines=None, categories=None):
     
 
 def research(search_subject):
-    resultats = search_query(search_subject, engines=["google", "bing"], categories=["science"])
+    resultats = search_query(search_subject, engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'])
     results = []
 
     for i in resultats["results"]:
@@ -72,7 +72,7 @@ async def parallel_crawl_async(urls):
     return results
 
 
-def crawler(urls):
+def crawler(urls, model : str = "gemma-3-12b-it-qat"):
     data =[]
     for url in urls[:3]:
         data += asyncio.run(parallel_crawl_async([url]))
@@ -82,12 +82,13 @@ def crawler(urls):
         print("Aucun contenu Markdown récupéré, impossible de créer les embeddings.")
         return
     print("RAG ")
-    RAG.RAG(data)
+    RAG.RAG(data, model)
 
 
-def ai_research(question: str):
-    key_words = readyOutputParser.get_key_word(question)
+def ai_research(question: str, model : str = "gemma-3-12b-it-qat"):
+    key_words = readyOutputParser.get_key_word(question, model)
     urls = []
+    print(key_words)
     for word in key_words[0]:
         result = research(word)
         if isinstance(result, list):
@@ -96,8 +97,7 @@ def ai_research(question: str):
             urls.append(result)
     # Filtre les URLs PDF et vides
     flattened_urls = [u for u in urls if u and isinstance(u, str) and not u.lower().endswith('.pdf')]
-    print("Liste d'URLs à crawler :", flattened_urls)
-    crawler(flattened_urls)
+    crawler(flattened_urls, model)
 
 
-ai_research("Quels est l'Architecutre des transformers ")
+ai_research("Qu'est ce qu'un transformer", "ministral-8b-instruct-2410")

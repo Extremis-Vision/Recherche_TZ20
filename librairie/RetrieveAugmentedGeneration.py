@@ -4,9 +4,10 @@ import lmstudio as lms
 from chromadb import Client
 import chromadb
 from openai import OpenAI
+import CallTemplate
 
 
-def create_smart_chunks(text: str, target_size: int = 1000) -> List[str]:
+def divide_data_to_chunks(text: str, target_size : int = 1000) -> List[str]:
     chunks = []
     current_chunk = ""
     current_size = 0
@@ -39,7 +40,7 @@ def create_chunks(contenue: str,target_size: int = 1000):
     allChunks = []
 
     for info in contenue :
-        allChunks += create_smart_chunks(info["markdown"],target_size)
+        allChunks += divide_data_to_chunks(info["markdown"],target_size)
 
     return allChunks 
 
@@ -69,28 +70,8 @@ def store_embeddings(chunks: List[str], embeddings: List[List[float]], collectio
     )
     return collection
 
-def query_lmstudio(prompt: str, model_name: str = "gemma-3-12b-it-qat", temperature: float = 0.7) -> str:
-    client = OpenAI(
-        base_url="http://localhost:1234/v1",
-        api_key="not-needed"
-    )
-    
-    try:
-        response = client.chat.completions.create(
-            model=model_name,
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant.Give a detail response to the question given and give the reference of the source at the end of each information. In the same language as the question."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=temperature,
-            max_tokens=500
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        print(f"Error querying LM Studio: {e}")
-        return None
 
-def rag_with_lmstudio(query: str, collection, model_name: str = "gemma-3-12b-it-qat"):
+def get_response_from_raginfo(query: str, collection, model_name: str = "gemma-3-12b-it-qat"):
     # Create query embedding
     model = lms.embedding_model("nomic-embed-text-v1.5")
     query_embedding = list(map(float, model.embed(query)))
@@ -98,7 +79,7 @@ def rag_with_lmstudio(query: str, collection, model_name: str = "gemma-3-12b-it-
     # Search for relevant documents
     results = collection.query(
         query_embeddings=[query_embedding],
-        n_results=3
+        n_results=5
     )
     
     if not results['documents']:
@@ -106,39 +87,17 @@ def rag_with_lmstudio(query: str, collection, model_name: str = "gemma-3-12b-it-
     
     # Build context for LM Studio
     context = "\n".join(results['documents'][0])
-    prompt = f"""Based on the following context:
-    {context}
-    
+    prompt = f"""
     Please answer this question: {query}
-    
     Answer using only the information provided in the context."""
     
     # Get model response
-    response = query_lmstudio(prompt, model_name)
+    response = CallTemplate.response_with_context(prompt, context, model_name)
     return response
 
-def check_lmstudio_connection():
-    client = OpenAI(
-        base_url="http://localhost:1234/v1",
-        api_key="not-needed"
-    )
-    try:
-        response = client.chat.completions.create(
-            model="gemma-3-12b-it-qat",
-            messages=[{"role": "system", "content": "Test"}],
-            max_tokens=5
-        )
-        return True
-    except Exception:
-        return False
 
 
-def RAG(contenu):
-    # Vérifier la connexion à LM Studio
-    if not check_lmstudio_connection():
-        print("Erreur: Impossible de se connecter à LM Studio. Vérifiez que le serveur est en cours d'exécution.")
-        sys.exit(1)
-
+def get_RAG_response(contenu : str , model : str =  "gemma-3-12b-it-qat"):
     try:
         print("Création des chunks...")
         chunks = create_chunks(contenu, target_size=500)
@@ -150,7 +109,7 @@ def RAG(contenu):
         collection = store_embeddings(chunks, embeddings)
         
         question = str(input("Donné la question sur la donnée donné :"))
-        response = rag_with_lmstudio(question, collection)
+        response = get_response_from_raginfo(question, collection, model)
         
         if response:
             print(f"\nQuestion: {question}")
