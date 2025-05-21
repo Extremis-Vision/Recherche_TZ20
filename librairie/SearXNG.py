@@ -74,7 +74,7 @@ async def parallel_crawl_async(urls):
 
 def crawler(urls):
     data =[]
-    for url in urls:
+    for url in urls[:3]:
         data += asyncio.run(parallel_crawl_async([url]))
         print("Passe au suivant")
     data = [d for d in data if d.get("markdown")]
@@ -100,5 +100,4 @@ def ai_research(question: str):
     crawler(flattened_urls)
 
 
-
-ai_research("Quels est l'utilité de l'ia dans la recherche")
+ai_research("Quels est l'Architecutre des transformers ")

@@ -39,7 +39,7 @@ def create_chunks(contenue: str,target_size: int = 1000):
     allChunks = []
 
     for info in contenue :
-        allChunks += create_smart_chunks(info,target_size)
+        allChunks += create_smart_chunks(info["markdown"],target_size)
 
     return allChunks 
 
@@ -79,7 +79,7 @@ def query_lmstudio(prompt: str, model_name: str = "gemma-3-12b-it-qat", temperat
         response = client.chat.completions.create(
             model=model_name,
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "system", "content": "You are a helpful assistant.Give a detail response to the question given and give the reference of the source at the end of each information. In the same language as the question."},
                 {"role": "user", "content": prompt}
             ],
             temperature=temperature,
@@ -149,8 +149,6 @@ def RAG(contenu):
         print("Stockage des embeddings...")
         collection = store_embeddings(chunks, embeddings)
         
-        # Tester une requête
-        print("\nEnvoi de la requête à LM Studio...")
         question = str(input("Donné la question sur la donnée donné :"))
         response = rag_with_lmstudio(question, collection)
         

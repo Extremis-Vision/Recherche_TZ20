@@ -19,6 +19,7 @@ def get_model(models : str):
         temperature=0.7,
         max_tokens=4096
     )
+
     return model
 
 def get_key_word(question: str, models : str = "gemma-3-12b-it-qat"):
@@ -111,6 +112,80 @@ def get_question(question: str, models : str):
     else:
         question = questions[numberQuestion - 1]
     return question
+
+def get_reponse(contenue :str, prompt: str):
+    class QueryResponse(BaseModel):
+        questions: List[str] = Field(description="Liste de 5 mots-clés de recherche en anglais")
+        categories: str = Field(description="Catégorie principale de la recherche")
+
+    # Étape 2: Initialiser le parser
+    parser = PydanticOutputParser(pydantic_object=QueryResponse)
+
+    system_prompt = """Tu es un assistant de recherche qui doit générer des mots clés qui seront utilisés dans un moteur de recherche. 
+    Fais en sorte que ces mots clés représentent au mieux ce qui serait nécessaire à la recherche. 
+    Donne uniquement les mots clés et rien d'autre en anglais. Génère exactement 5 mots clés et une catégorie principale.
+
+    Format de réponse requis :
+    {format_instructions}"""
+
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{input}")
+    ])
+
+    chain = prompt | get_model(models) | parser
+
+
+    try:
+        response = chain.invoke({
+            "input": questions,
+            "format_instructions": parser.get_format_instructions()
+        })
+        return [response.questions, response.categories]
+    
+    except Exception as e:
+        print(f"Erreur de parsing : {e}")
+        return None
+
+
+def get_response_question(contenue: str, inputPrompt: str, models: str = "gemma-3-12b-it-qat"):
+    # Adapte le prompt aux variables attendues
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", """ You must generate a response and cite the source of the data you use. Your response must be in the same language of the user input.
+    at the end of a paragraph using a source add respect the writing condition : (source_name)[link]
+         
+         exemple :  
+         (datascientest.com)[https://datascientest.com/transformer-models-tout-savoir]
+
+    Here are the result of the web search you have to use to respond to the question :
+         
+         
+         {snippet}"""),
+        ("user", "{question}")
+    ])
+
+
+
+    chain = prompt | get_model(models)
+
+
+
+    try:
+        response = chain.invoke({
+            "snippet": contenue,
+            "question": inputPrompt
+        })
+        if isinstance(response, dict) and "content" in response:
+            return response["content"]
+        elif isinstance(response, str):
+            return response
+        else:
+            return str(response)
+    except Exception as e:
+        print(f"Erreur de parsing : {e}")
+        return None
+
+
 
 def deep_search(prompt: str, models : str):
     question = get_question(prompt, models)
