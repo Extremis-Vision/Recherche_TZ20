@@ -20,7 +20,7 @@ def simple_search(question : str, model : str = "ministral-8b-instruct-2410"):
     keywords = gen.get_key_word_search(question,1,model)
     print(keywords)
     results = search.results(keywords[0], engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
-    return gen.response_with_context(str(results), question, model,keywords[1])
+    return gen.response_with_context(question, str(results), model, keywords[1])
 
 
 def get_search_info(query : str, engines : str = None, categories : str  = None, acceptScore : int = 0.5):
@@ -118,4 +118,16 @@ def deepsearch(question: str, model : str = "ministral-8b-instruct-2410"):
 # Modifier la fonction de rechercher en penant en compte : https://github.com/rashadphz/farfalle
 # Refaire le RAG pour l'optimiser avec LlamaIndex ou Langchain
 
-print(simple_search("C'est quoi Crawl4AI ?")) 
+#print(simple_search("C'est quoi Crawl4AI ?")) 
+
+
+question = "C'est quoi Crawl4AI ?"
+keywords = gen.get_key_word_search(question,1)
+print(keywords)
+results = search.results(keywords[0], engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
+questions = gen.get_research_question(question,results)
+print(questions)
+
+nb_question = int(input("Quels questions expliques le mieux vaut besoin ?"))
+if questions[nb_question] : 
+    print(gen.get_research_plan(question, str(questions[nb_question] + results)))

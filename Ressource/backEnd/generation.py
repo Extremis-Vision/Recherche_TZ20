@@ -177,21 +177,30 @@ def get_key_word_deepsearch(recherche: str, KeywordSubjectDef: int = 3, Specific
         print(f"Erreur lors de la récupération des mots-clés : {e}")
         return None
 
-def get_research_question(question: str, models : str = "ministral-8b-instruct-2410", language : str = "French"):
+
+
+def get_research_question(question: str, context: str,models : str = "ministral-8b-instruct-2410", language : str = "French"):
     class QueryResponse(BaseModel):
         questions: List[str] = Field(description="give questions to sepecify the types of research and the type of data to be used")
 
     # Étape 2: Initialiser le parser
     parser = PydanticOutputParser(pydantic_object=QueryResponse)
 
-    system_prompt = """You are an intelligent AI search assistant designed to help users find precise information based on their needs. Your primary goal is to generate a set of 3 to 5 refined search suggestions or queries that anticipate and address the user's intent, rather than asking clarifying questions.
+    system_prompt = """
+        You are an intelligent AI research assistant. Your job is to help users clarify and deepen their research by generating three highly relevant, distinct research questions based on their initial query.
 
         **Instructions:**
-        Your objective is to generate 3 question that must give you an understanding of the user desire in the research he's making. If he just want a broad overview of one or multiple 
-        information on this subject. If he wants to have a deep understanding of the concept. This question will be selected so make just three different possible answer.
-
-        Remember your question must be adapted to the question of the user. 
-        You must only respond in {language} .
+        - Carefully analyze the user's question to understand their intent and the context.
+        - Generate exactly three research questions that cover different possible research directions or levels of depth. For example: 
+            - a broad overview,
+            - a focused exploration of a specific aspect,
+            - a deep dive into underlying mechanisms or implications.
+        - Each question should be clear, concise, and directly related to the user's original query.
+        - Do not ask for clarification or additional information; instead, anticipate what the user might want to know next.
+        - Adapt the questions to the user's intent (e.g., general information, detailed analysis, practical application, comparison, etc.).
+        - Respond only with the list of three questions, without any introduction or explanation.
+        - Respond in {language}.
+        - The context is {context}
         """
 
     prompt = ChatPromptTemplate.from_messages([
@@ -206,7 +215,8 @@ def get_research_question(question: str, models : str = "ministral-8b-instruct-2
         response = chain.invoke({
             "input": question,
             "format_instructions": parser.get_format_instructions(),
-            "language": language
+            "language": language,
+            "context" : context
         })
         return response
     
@@ -214,4 +224,43 @@ def get_research_question(question: str, models : str = "ministral-8b-instruct-2
         print(f"Erreur de parsing : {e}")
         return None
 
-print(get_research_question("C'est quoi Crawl4AI ?"))
+
+def get_research_plan(question: str, context: str,models : str = "ministral-8b-instruct-2410", language : str = "French"):
+    class QueryResponse(BaseModel):
+        step: List[str] = Field(description="give every step of your research / thinking")
+
+    # Étape 2: Initialiser le parser
+    parser = PydanticOutputParser(pydantic_object=QueryResponse)
+
+    system_prompt = """
+        You are an intelligent AI research assistant. Your job is to help users clarify and deepen their research by generating three highly relevant, distinct research questions based on their initial query.
+
+        **Instructions:**
+        - Carefully analyze the user's question to understand their intent and the context.
+        - Generate a detail plan on every term needed to correctly understand the subject and respond to the question. 
+        - Give only the necessary step for a fine detail result that answer the question not more not less.  
+        - You can divide the respond in multiple step make just sure of there use for the final result gine the info you have about what the user want.   
+        - Respond in {language}.
+        - The context is {context}
+        """
+
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{input}\n{format_instructions}")
+    ])
+
+    chain = prompt | get_model(models) | parser
+
+
+    try:
+        response = chain.invoke({
+            "input": question,
+            "format_instructions": parser.get_format_instructions(),
+            "language": language,
+            "context" : context
+        })
+        return response
+    
+    except Exception as e:
+        print(f"Erreur de parsing : {e}")
+        return None

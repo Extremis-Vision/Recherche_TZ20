@@ -1,0 +1,16 @@
+<div id="cy"></div>
+<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+<script>
+  var cy = cytoscape({
+    container: document.getElementById('cy'),
+    elements: [
+      { data: { id: 'a', label: 'Note A' } },
+      { data: { id: 'b', label: 'Note B' } },
+      { data: { source: 'a', target: 'b' } }
+    ],
+    style: [
+      { selector: 'node', style: { 'label': 'data(label)' } }
+    ],
+    layout: { name: 'cose' }
+  });
+</script>
