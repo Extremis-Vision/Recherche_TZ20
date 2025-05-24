@@ -5,8 +5,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional
 from dotenv import load_dotenv
 import os
-import httpx
-
+import lmstudio as lms
 
 load_dotenv()
 AIURL = os.getenv("AIURL")
@@ -146,24 +145,39 @@ def response_with_context(prompt: str, context: str, model_name: str = "ministra
             {context}
             """
 
-    chat_prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompt),
-        ("user", "{prompt}")
-    ])
-
-    chain = chat_prompt | get_model(model_name) 
+    
 
     try:
-        response = chain.invoke({
-            "context": context,
-            "prompt": prompt
-        })
-        # response is a Pydantic model instance, so access the answer attribute
-        return response.answer
+        model = lms.llm(model_name)
+        chat = lms.Chat(system_prompt)
+        chat.add_user_message(prompt)
+
+        prediction_stream = model.respond_stream(chat)
+
+        print("Bot :", end=" ", flush=True)
+        for fragment in prediction_stream:
+            print(fragment.content, end="", flush=True)
+        print()
+        while True:
+            user_input = input("Vous (laisser vide pour quitter) : ")
+            if not user_input:
+                break
+            chat.add_user_message(user_input)
+
+            # Lancement du streaming de la réponse
+            prediction_stream = model.respond_stream(chat)
+
+            print("Bot :", end=" ", flush=True)
+            for fragment in prediction_stream:
+                print(fragment.content, end="", flush=True)
+            print()
+
+
 
     except Exception as e:
         print(f"Erreur lors de la génération de la réponse : {e}")
         return None
+    
 
 def response_deepsearch(prompt: str, context: str, model_name: str = "ministral-8b-instruct-2410") -> Optional[str]:
     """

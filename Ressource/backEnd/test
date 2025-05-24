@@ -1,85 +1,71 @@
-import asyncio
-from typing import AsyncGenerator
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import PydanticOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
-from langchain.output_parsers import PydanticOutputParser
+from typing import List, Optional
+from dotenv import load_dotenv
+import os
+import lmstudio as lms
 
-AIURL = "http://localhost:1234/v1"
-
-class AnswerResponse(BaseModel):
-    answer: str = Field(description="R�ponse � la question de l'utilisateur avec sources cit�es.")
-
-def get_model_streaming(
-    model: str = "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
-    temperature: float = 0.3,
-    max_tokens: int = 2048,
-    timeout: int = 300
-) -> ChatOpenAI:
-    return ChatOpenAI(
-        base_url=AIURL,
-        api_key="no-key-required",
-        model=model,
-        temperature=temperature,
-        max_tokens=max_tokens,
-        streaming=True,  # IMPORTANT : active le streaming
-        request_timeout=timeout,
-    )
-
-async def stream_response_with_context(
-    prompt: str,
-    context: str,
-    model_name: str = "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
-    language: str = "French"
-) -> AsyncGenerator[str, None]:
+def response_with_context(prompt: str, context: str, model_name: str = "ministral-8b-instruct-2410", language : str = "French" ) -> Optional[str]:
     """
-    G�n�re une r�ponse en streaming � partir d'un prompt et contexte.
-    Renvoie un async generator qui yield les morceaux de texte au fur et � mesure.
+    Génère une réponse structurée à partir d'un prompt utilisateur et d'un contexte, en utilisant un output parser.
     """
 
-    example = {
-        "French": "(datascientest.com)[https://datascientest.com/transformer-models-tout-savoir]",
-        "English": "(wikipedia.org)[https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)]"
-    }.get(language, "(example.com)[https://example.com]")
+    system_prompt = f"""
+            You must generate a response using only the context provided below, and you must cite the sources of any information you use.
+            Your response must be in the same language as the user's input here {language}.
+            Citation format:
+            At the end of each paragraph that uses information from a source, add the following citation format: (source_name)[link]
 
-    system_prompt = f"""IMPORTANT : Vous DEVEZ r�pondre en {language} !
-R�gles strictes :
-1. Utilisez UNIQUEMENT le contexte fourni.
-2. Citez TOUTES les informations avec le format : (source)[lien]
+            Example:
+            (datascientest.com)[https://datascientest.com/transformer-models-tout-savoir]
 
-Exemple en {language} :
-"Le mod�le Transformer a r�volutionn� le NLP. {example}"
+            Instructions:
+            - Use only the provided context to answer the user's question.
+            - Do not use any external information or sources.
+            - For every factual statement or paragraph that uses information from the context, cite the relevant source in the specified format.
+            - Write your response in the same language as the user's input here {language}.
+            - Do not invent or hallucinate sources.
+            - Only respond to the user query no more no less, but always source what you say in the user query language.
+            - If your not capable to respond correctly just says what you lack of.
 
-Contexte utilisable :
-{context}
-"""
+            Context to use:
+            {context}
+            """
 
-    parser = PydanticOutputParser(pydantic_object=AnswerResponse)
+    
 
-    chat_prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompt),
-        ("human", "{prompt}\n\n{format_instructions}")
-    ])
+    try:
+        model = lms.llm(model_name)
+        chat = lms.Chat(system_prompt)
+        chat.add_user_message(prompt)
 
-    chain = chat_prompt | get_model_streaming(model_name)
+        prediction_stream = model.respond_stream(chat)
 
-    # Appel asynchrone en streaming
-    # La m�thode invoke_stream() est suppos�e exister dans ta version de Langchain
-    # Sinon, adapte selon ta librairie pour r�cup�rer un async generator
-    async for chunk in chain.invoke_stream({
-        "prompt": prompt,
-        "context": context,
-        "format_instructions": parser.get_format_instructions()
-    }):
-        # chunk contient une partie de la r�ponse g�n�r�e
-        yield chunk
+        print("Bot :", end=" ", flush=True)
+        for fragment in prediction_stream:
+            print(fragment.content, end="", flush=True)
+        print()
+        while True:
+            user_input = input("Vous (laisser vide pour quitter) : ")
+            if not user_input:
+                break
+            chat.add_user_message(user_input)
 
-# Exemple d'utilisation async
-async def main():
-    prompt = "Explique le fonctionnement des transformers en NLP."
-    context = "Les transformers sont des mod�les d'apprentissage profond introduits en 2017..."
-    async for piece in stream_response_with_context(prompt, context):
-        print(piece, end="", flush=True)
+            # Lancement du streaming de la réponse
+            prediction_stream = model.respond_stream(chat)
 
-if __name__ == "__main__":
-    asyncio.run(main())
+            print("Bot :", end=" ", flush=True)
+            for fragment in prediction_stream:
+                print(fragment.content, end="", flush=True)
+            print()
+
+
+
+    except Exception as e:
+        print(f"Erreur lors de la génération de la réponse : {e}")
+        return None
+    
+
+response_with_context("Quels est la météo à Seppois", "La météo à Seppois est assez gris une température de 13C° avec un peu ded pluie. LA météo à rio est ensoleilé ")
