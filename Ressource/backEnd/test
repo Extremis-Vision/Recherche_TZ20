@@ -1,0 +1,85 @@
+import asyncio
+from typing import AsyncGenerator
+from langchain.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+from pydantic import BaseModel, Field
+from langchain.output_parsers import PydanticOutputParser
+
+AIURL = "http://localhost:1234/v1"
+
+class AnswerResponse(BaseModel):
+    answer: str = Field(description="R�ponse � la question de l'utilisateur avec sources cit�es.")
+
+def get_model_streaming(
+    model: str = "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+    temperature: float = 0.3,
+    max_tokens: int = 2048,
+    timeout: int = 300
+) -> ChatOpenAI:
+    return ChatOpenAI(
+        base_url=AIURL,
+        api_key="no-key-required",
+        model=model,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        streaming=True,  # IMPORTANT : active le streaming
+        request_timeout=timeout,
+    )
+
+async def stream_response_with_context(
+    prompt: str,
+    context: str,
+    model_name: str = "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+    language: str = "French"
+) -> AsyncGenerator[str, None]:
+    """
+    G�n�re une r�ponse en streaming � partir d'un prompt et contexte.
+    Renvoie un async generator qui yield les morceaux de texte au fur et � mesure.
+    """
+
+    example = {
+        "French": "(datascientest.com)[https://datascientest.com/transformer-models-tout-savoir]",
+        "English": "(wikipedia.org)[https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)]"
+    }.get(language, "(example.com)[https://example.com]")
+
+    system_prompt = f"""IMPORTANT : Vous DEVEZ r�pondre en {language} !
+R�gles strictes :
+1. Utilisez UNIQUEMENT le contexte fourni.
+2. Citez TOUTES les informations avec le format : (source)[lien]
+
+Exemple en {language} :
+"Le mod�le Transformer a r�volutionn� le NLP. {example}"
+
+Contexte utilisable :
+{context}
+"""
+
+    parser = PydanticOutputParser(pydantic_object=AnswerResponse)
+
+    chat_prompt = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("human", "{prompt}\n\n{format_instructions}")
+    ])
+
+    chain = chat_prompt | get_model_streaming(model_name)
+
+    # Appel asynchrone en streaming
+    # La m�thode invoke_stream() est suppos�e exister dans ta version de Langchain
+    # Sinon, adapte selon ta librairie pour r�cup�rer un async generator
+    async for chunk in chain.invoke_stream({
+        "prompt": prompt,
+        "context": context,
+        "format_instructions": parser.get_format_instructions()
+    }):
+        # chunk contient une partie de la r�ponse g�n�r�e
+        yield chunk
+
+# Exemple d'utilisation async
+async def main():
+    prompt = "Explique le fonctionnement des transformers en NLP."
+    context = "Les transformers sont des mod�les d'apprentissage profond introduits en 2017..."
+    async for piece in stream_response_with_context(prompt, context):
+        print(piece, end="", flush=True)
+
+if __name__ == "__main__":
+    asyncio.run(main())

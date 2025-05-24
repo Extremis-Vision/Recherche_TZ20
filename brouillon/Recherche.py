@@ -106,7 +106,7 @@ def deepsearch(question: str, model : str = "gemma-3-12b-it-qat"):
             urls.extend(result)
         else:
             urls.append(result)
-    # Filtre les URLs PDF et vides
+    
     flattened_urls = [u for u in urls if u and isinstance(u, str) and not u.lower().endswith('.pdf')]
     get_website_info(flattened_urls, model)
 
@@ -114,12 +114,12 @@ def deepsearch(question: str, model : str = "gemma-3-12b-it-qat"):
 def get_simple_search(question : str, model : str ):
     search = SearxSearchWrapper(searx_host= SEARCHURL)
     
-    results = search.results(CallTemplate.get_key_word(question, model), engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
+    results = search.results("Transformer ai", engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
     print(CallTemplate.response_with_context(results, question, model)) 
 
 
 
 
-question = "Qu'est ce qu'un transformer ?"
-
+question = "Qu'est ce qu'un transformer en ia? explique l'architecture en détails"
+get_simple_search(question, "ministral-8b-instruct-2410")
 deepsearch(question, "ministral-8b-instruct-2410")

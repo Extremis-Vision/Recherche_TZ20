@@ -104,8 +104,6 @@ def get_research_question(question: str, models : str):
         print(f"Erreur de parsing : {e}")
         return None
 
-
-
 def clean_output(output: str):
     response = re.sub(r'<thought>.*?</thought>', '', output)
     return response
