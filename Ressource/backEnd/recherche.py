@@ -18,9 +18,9 @@ search = SearxSearchWrapper(searx_host= SEARCHURL)
 
 def simple_search(question : str, model : str = "ministral-8b-instruct-2410"):
     keywords = gen.get_key_word_search(question,1,model)
-
+    print(keywords)
     results = search.results(keywords[0], engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
-    return gen.response_with_context(results, question, model,keywords[1])
+    return gen.response_with_context(str(results), question, model,keywords[1])
 
 
 def get_search_info(query : str, engines : str = None, categories : str  = None, acceptScore : int = 0.5):
@@ -118,6 +118,4 @@ def deepsearch(question: str, model : str = "ministral-8b-instruct-2410"):
 # Modifier la fonction de rechercher en penant en compte : https://github.com/rashadphz/farfalle
 # Refaire le RAG pour l'optimiser avec LlamaIndex ou Langchain
 
-print(simple_search("Quels est la météo")) 
-
-#print(gen.get_key_word_search("Quels est la météo à seppois ?",1,"ministral-8b-instruct-2410"))
+print(simple_search("C'est quoi Crawl4AI ?")) 
