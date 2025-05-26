@@ -121,13 +121,9 @@ def deepsearch(question: str, model : str = "ministral-8b-instruct-2410"):
 #print(simple_search("C'est quoi Crawl4AI ?")) 
 
 
-question = "C'est quoi Crawl4AI ?"
+question = "est ce qu'avec llamaindex je peux enregistrer les donn�es g�n�rer par llamaindex pour un graphrag dans une base de donn�e ou plutot est ce qu'il y a des base de donn�e pour les graphrag"
 keywords = gen.get_key_word_search(question,1)
 print(keywords)
 results = search.results(keywords[0], engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
-questions = gen.get_research_question(question,results)
-print(questions)
 
-nb_question = int(input("Quels questions expliques le mieux vaut besoin ?"))
-if questions[nb_question] : 
-    print(gen.get_research_plan(question, str(questions[nb_question] + results)))
+gen.response_with_context(question, results)

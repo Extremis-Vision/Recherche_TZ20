@@ -1,0 +1,1 @@
+https://github.com/Hellyom/Obsidian-Vault-HTML-Graph-Generator/blob/main/Obsidian-Vault-HTML-Graph-Generator.py

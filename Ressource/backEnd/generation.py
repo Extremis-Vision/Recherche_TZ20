@@ -264,3 +264,5 @@ def get_research_plan(question: str, context: str,models : str = "ministral-8b-i
     except Exception as e:
         print(f"Erreur de parsing : {e}")
         return None
+    
+
