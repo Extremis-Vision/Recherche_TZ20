@@ -121,7 +121,7 @@ def deepsearch(question: str, model : str = "ministral-8b-instruct-2410"):
 #print(simple_search("C'est quoi Crawl4AI ?")) 
 
 
-question = "est ce qu'avec llamaindex je peux enregistrer les donn�es g�n�rer par llamaindex pour un graphrag dans une base de donn�e ou plutot est ce qu'il y a des base de donn�e pour les graphrag"
+question = "Est ce que NeoJ4 permet d'enregistrer des données normalement ?"
 keywords = gen.get_key_word_search(question,1)
 print(keywords)
 results = search.results(keywords[0], engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Graphe Obsidian-like</title>
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+  <style>
+    body { margin:0; background: #222; color: white; font-family: Arial, sans-serif; }
+    #topbar {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background: #222;
+    }
+    #searchbar { width: 250px; margin-right: 10px; padding: 5px; font-size: 16px; }
+    #addNodeBtn { padding: 6px 14px; font-size: 16px; cursor: pointer; }
+    #cy { width: 100vw; height: 90vh; display: block; }
+    .highlighted { border-color: yellow !important; border-width: 6px !important; }
+    #addNodeForm {
+      background: #333;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px;
+      display: none;
+      width: 350px;
+    }
+    #addNodeForm input {
+      margin: 5px 0;
+      width: 100%;
+      padding: 5px;
+      font-size: 15px;
+    }
+    #addNodeForm button {
+      margin-top: 5px;
+      width: 100%;
+      padding: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="topbar">
+    <input id="searchbar" type="text" placeholder="Recherche un nœud...">
+    <button id="addNodeBtn" onclick="showAddNodeForm()">Ajouter un nœud</button>
+  </div>
+  <div id="addNodeForm">
+    <input id="nodeLabel" placeholder="Label (ex: Personne)">
+    <input id="nodeProps" placeholder='Propriétés JSON (ex: {"nom":"Alice"})'>
+    <button onclick="submitAddNode()">Valider</button>
+  </div>
+  <div id="cy"></div>
+  <script>
+    let cy;
+
+    fetch('/graph')
+      .then(response => response.json())
+      .then(data => {
+        // === AJOUT : définir displayLabel comme la première propriété utile ===
+        data.nodes.forEach(nodeObj => {
+          const nodeData = nodeObj.data;
+          let display = null;
+          // Cherche la première clé qui n'est ni 'id', 'label', ni 'background-color'
+          for (let key in nodeData) {
+            if (!['id','label' ,'background-color'].includes(key)) {
+              display = nodeData['nom'];
+              break;
+            }
+          }
+          nodeData.displayLabel = display || nodeData.label || nodeData.id;
+        });
+
+        cy = cytoscape({
+          container: document.getElementById('cy'),
+          elements: {
+            nodes: data.nodes,
+            edges: data.edges
+          },
+          style: [
+            {
+              selector: 'node',
+              style: {
+                'label': 'data(displayLabel)',
+                'background-color': 'data(backgroundcolor)',
+                'color': '#fff',
+                'font-size': '14px',
+                'text-valign': 'center',
+                'text-halign': 'center',
+                'border-width': 2,
+                'border-color': '#333'
+              }
+            },
+            {
+              selector: 'node.highlighted',
+              style: {
+                'border-color': 'yellow',
+                'border-width': 6
+              }
+            },
+            {
+              selector: 'edge',
+              style: {
+                'width': 2,
+                'line-color': '#aaa',
+                'target-arrow-shape': 'triangle',
+                'target-arrow-color': '#aaa',
+                'curve-style': 'bezier'
+              }
+            }
+          ],
+          layout: { name: 'cose' }
+        });
+
+        // Recherche dynamique
+        document.getElementById('searchbar').addEventListener('input', function(e) {
+          let query = e.target.value.trim().toLowerCase();
+          cy.nodes().removeClass('highlighted');
+          if(query.length > 0){
+            let found = cy.nodes().filter(node => node.data('displayLabel').toLowerCase().includes(query));
+            found.addClass('highlighted');
+            if(found.length > 0) cy.center(found);
+          }
+        });
+
+        // Double-clic sur un nœud : zoom dessus
+        cy.on('dbltap', 'node', function(evt){
+          cy.animate({
+            fit: {
+              eles: evt.target,
+              padding: 50
+            },
+            duration: 500
+          });
+        });
+
+        // Clic sur un nœud : afficher toutes les propriétés
+        cy.on('tap', 'node', function(evt){
+          var nodeData = evt.target.data();
+          var props = "";
+          for (let key in nodeData) {
+            props += key + " : " + JSON.stringify(nodeData[key]) + "\n";
+          }
+          alert("Propriétés du nœud :\n" + props);
+        });
+      });
+
+    function showAddNodeForm() {
+      document.getElementById('addNodeForm').style.display = 'block';
+    }
+
+    function submitAddNode() {
+      const label = document.getElementById('nodeLabel').value || "Noeud";
+      let props = {};
+      try {
+        props = JSON.parse(document.getElementById('nodeProps').value || '{}');
+      } catch (e) {
+        alert("Propriétés JSON invalides !");
+        return;
+      }
+      fetch('/add_node', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({label: label, properties: props})
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Nœud ajouté !");
+        location.reload(); // recharge le graphe
+      });
+    }
+  </script>
+</body>
+</html>
