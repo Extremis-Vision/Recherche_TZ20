@@ -43,3 +43,4 @@ def modifier_noeud(element_id, properties):
         print(f"Une erreur s'est produite : {e}")
         return None
 
+

@@ -2,13 +2,29 @@ from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict
 from dotenv import load_dotenv
 import os
 import lmstudio as lms
 
 load_dotenv()
 AIURL = os.getenv("AIURL")
+
+class Relation(BaseModel):
+    source: str = Field(description="Name of the source node")
+    target: str = Field(description="Name of the target node")
+    type: str = Field(description="Type of the relationship (e.g., USES, BELONGS_TO, etc.)")
+    description: str = Field(description="Description of the relationship")
+
+class Node(BaseModel):
+    nom: str
+    description: str
+    type: str
+    category: str
+
+class GraphSchema(BaseModel):
+    nodes: List[Node]
+    relations: List[Relation]
 
 def get_model(models: str):
     return ChatOpenAI(
@@ -115,24 +131,14 @@ def response_with_context(prompt: str, context: str, model_name: str = "ministra
         chat.add_user_message(prompt)
 
         prediction_stream = model.respond_stream(chat)
-
+        full_response = ""
         print("Bot :", end=" ", flush=True)
         for fragment in prediction_stream:
+            full_response += fragment.content
             print(fragment.content, end="", flush=True)
+        
         print()
-        while True:
-            user_input = input("Vous (laisser vide pour quitter) : ")
-            if not user_input:
-                break
-            chat.add_user_message(user_input)
-
-            # Lancement du streaming de la réponse
-            prediction_stream = model.respond_stream(chat)
-
-            print("Bot :", end=" ", flush=True)
-            for fragment in prediction_stream:
-                print(fragment.content, end="", flush=True)
-            print()
+        return full_response.strip()
 
 
 
@@ -234,44 +240,46 @@ def get_research_question(question: str, context: str,models : str = "ministral-
         return None
 
 
-def get_research_plan(question: str, context: str,models : str = "ministral-8b-instruct-2410", language : str = "French"):
-    class QueryResponse(BaseModel):
-        step: List[str] = Field(description="give every step of your research / thinking")
+def generate_graph(context: str, models: str = "ministral-8b-instruct-2410", language: str = "French"):
+    parser = PydanticOutputParser(pydantic_object=GraphSchema)
+    format_instructions = parser.get_format_instructions().replace("{", "{{").replace("}", "}}")
 
-    # Étape 2: Initialiser le parser
-    parser = PydanticOutputParser(pydantic_object=QueryResponse)
+    system_prompt = (
+    "You are an intelligent AI research assistant. Your job is to help users clarify and deepen their research by generating a knowledge graph structure: nodes (key concepts) and relationships (how these concepts are linked).\n"
+    "\n"
+    "INSTRUCTIONS:\n"
+    "- Carefully analyze the provided context.\n"
+    "- For each essential term or concept, generate a node with: nom, description, type, and category.\n"
+    "- For each relevant relationship, generate a relation with: source (node name), target (node name), type (relationship type), and description.\n"
+    "- Output a single JSON object with two keys: 'nodes' (list of node objects) and 'relations' (list of relation objects).\n"
+    "- DO NOT add any explanation or text outside the JSON.\n"
+    f"- Respond values must only be in {language}.\n"
+    f"- The context is: {context}\n"
+    "\n"
+    "EXAMPLE OUTPUT:\n"
+    "{{\n"
+    "  \"nodes\": [\n"
+    "    {{\"nom\": \"NeoJ4\", \"description\": \"A graph database management system.\", \"type\": \"software\", \"category\": \"technology\"}},\n"
+    "    {{\"nom\": \"data storage\", \"description\": \"The process of saving digital information in a persistent medium.\", \"type\": \"concept\", \"category\": \"computer science\"}}\n"
+    "  ],\n"
+    "  \"relations\": [\n"
+    "    {{\"source\": \"NeoJ4\", \"target\": \"data storage\", \"type\": \"USES\", \"description\": \"NeoJ4 uses data storage to persist information.\"}}\n"
+    "  ]\n"
+    "}}\n"
+    f"{format_instructions}\n"
+)
 
-    system_prompt = """
-        You are an intelligent AI research assistant. Your job is to help users clarify and deepen their research by generating three highly relevant, distinct research questions based on their initial query.
-
-        **Instructions:**
-        - Carefully analyze the user's question to understand their intent and the context.
-        - Generate a detail plan on every term needed to correctly understand the subject and respond to the question. 
-        - Give only the necessary step for a fine detail result that answer the question not more not less.  
-        - You can divide the respond in multiple step make just sure of there use for the final result gine the info you have about what the user want.   
-        - Respond in {language}.
-        - The context is {context}
-        """
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
-        ("user", "{input}\n{format_instructions}")
+        ("user", "{input}")
     ])
 
     chain = prompt | get_model(models) | parser
 
-
     try:
-        response = chain.invoke({
-            "input": question,
-            "format_instructions": parser.get_format_instructions(),
-            "language": language,
-            "context" : context
-        })
+        response = chain.invoke({"input": context})
         return response
-    
     except Exception as e:
         print(f"Erreur de parsing : {e}")
         return None
-    
-

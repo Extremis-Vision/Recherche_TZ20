@@ -43,3 +43,26 @@ def modifier_noeud(element_id, properties):
         print(f"Une erreur s'est produite : {e}")
         return None
 
+def create_graph_in_neo4j(graph_data):
+    with driver.session() as session:
+        # Créer les nœuds
+        for node in graph_data.nodes:
+            properties = {
+                "nom": node.nom,  # Utilisation de 'nom' au lieu de 'name'
+                "description": node.description,
+                "type": node.type,
+                "category": node.category
+            }
+            session.run(
+                "MERGE (n:Node {nom: $nom}) "  # Utilisation de 'nom' au lieu de 'name'
+                "SET n.description = $description, n.type = $type, n.category = $category",
+                **properties
+            )
+        # Créer les relations
+        for rel in graph_data.relations:
+            session.run(
+                f"MATCH (a:Node {{nom: $source}}), (b:Node {{nom: $target}}) "  # Utilisation de 'nom' au lieu de 'name'
+                f"MERGE (a)-[r:{rel.type}]->(b) "
+                f"SET r.description = $description",
+                {"source": rel.source, "target": rel.target, "description": rel.description}
+            )
