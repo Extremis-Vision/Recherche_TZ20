@@ -1,5 +1,0 @@
-NoteA -> NoteB
-NoteA -> NoteC
-NoteB -> NoteD
-NoteC -> NoteD
-NoteD -> NoteE
