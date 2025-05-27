@@ -1,0 +1,25 @@
+services:
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    ports:
+      - 4000:8080
+    networks:
+      - perplexica-network
+    restart: unless-stopped
+  neo4j:
+    image: neo4j:5.19
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    env_file:
+      - .env
+    volumes:
+      - neo4j_data:/data
+      - neo4j_conf:/conf
+    restart: always
+
+volumes:
+  neo4j_data:
+  neo4j_conf:

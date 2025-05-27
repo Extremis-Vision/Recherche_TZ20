@@ -16,10 +16,10 @@ load_dotenv()
 SEARCHURL = os.getenv("SEARCHURL")
 search = SearxSearchWrapper(searx_host= SEARCHURL)
 
-def simple_search(question : str, model : str = "ministral-8b-instruct-2410"):
-    keywords = gen.get_key_word_search(question,1,model)
-    print(keywords)
-    results = search.results(keywords[0], engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
+def simple_search(question : str, model : str = "ministral-8b-instruct-2410", engines :List[str] = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results : int = 10, keywords : List[str] = None):
+    results = []
+    for keyword in (keywords or gen.get_key_word_search(question, 1)):
+        results.extend(search.results(keyword, engines, num_results))
     return gen.response_with_context(question, str(results), model, keywords[1])
 
 
@@ -119,11 +119,3 @@ def deepsearch(question: str, model : str = "ministral-8b-instruct-2410"):
 # Refaire le RAG pour l'optimiser avec LlamaIndex ou Langchain
 
 #print(simple_search("C'est quoi Crawl4AI ?")) 
-
-
-question = "Est ce que NeoJ4 permet d'enregistrer des données normalement ?"
-keywords = gen.get_key_word_search(question,1)
-print(keywords)
-results = search.results(keywords[0], engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=10)
-
-gen.response_with_context(question, results)

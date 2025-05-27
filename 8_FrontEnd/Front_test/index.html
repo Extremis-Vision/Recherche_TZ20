@@ -15,7 +15,7 @@
     #addNodeBtn { padding: 6px 14px; font-size: 16px; cursor: pointer; }
     #cy { width: 100vw; height: 90vh; display: block; }
     .highlighted { border-color: yellow !important; border-width: 6px !important; }
-    #addNodeForm {
+    #addNodeForm, #editNodeForm {
       background: #333;
       padding: 10px;
       border-radius: 8px;
@@ -23,20 +23,20 @@
       display: none;
       width: 350px;
     }
-    #addNodeForm input {
+    #addNodeForm input, #editNodeForm input {
       margin: 5px 0;
       width: 100%;
       padding: 5px;
       font-size: 15px;
     }
-    #addNodeForm button {
+    #addNodeForm button, #editNodeForm button {
       margin-top: 5px;
       width: 100%;
       padding: 6px;
       font-size: 15px;
       cursor: pointer;
     }
-    #contextMenu {
+    #contextMenu, #nodePropertiesMenu {
       display: none;
       position: absolute;
       z-index: 10;
@@ -47,7 +47,7 @@
       padding: 8px;
       min-width: 150px;
     }
-    #contextMenu div:hover { background: #444; }
+    #contextMenu div:hover, #nodePropertiesMenu div:hover { background: #444; }
   </style>
 </head>
 <body>
@@ -60,17 +60,27 @@
     <input id="nodeProps" placeholder='Propriétés JSON (ex: {"nom":"Alice"})'>
     <button onclick="submitAddNode()">Valider</button>
   </div>
+  <div id="editNodeForm">
+    <input id="editNodeLabel" placeholder="Label (ex: Personne)">
+    <input id="editNodeProps" placeholder='Propriétés JSON (ex: {"nom":"Alice"})'>
+    <button onclick="submitEditNode()">Valider</button>
+  </div>
   <div id="cy"></div>
   <div id="contextMenu">
     <div id="createEdgeOption" style="cursor:pointer; padding:4px 10px;">➕ Créer une relation</div>
+  </div>
+  <div id="nodePropertiesMenu">
+    <!-- Les propriétés du nœud seront affichées ici -->
   </div>
   <script>
     let cy;
     let addEdgeSource = null;
     let tempEdge = null;
+    let currentNodeId = null;
 
     function hideContextMenu() {
       document.getElementById('contextMenu').style.display = 'none';
+      document.getElementById('nodePropertiesMenu').style.display = 'none';
     }
 
     fetch('/graph')
@@ -220,14 +230,41 @@
           }
         }
 
-        // Clic sur un nœud : afficher toutes les propriétés
+        // Clic sur un nœud : afficher le menu des propriétés du nœud
         cy.on('tap', 'node', function(evt){
           var nodeData = evt.target.data();
-          var props = "";
+          currentNodeId = evt.target.id();
+          const menu = document.getElementById('nodePropertiesMenu');
+          menu.innerHTML = ''; // Vider le menu
+
+          // Ajouter les propriétés du nœud au menu
           for (let key in nodeData) {
-            props += key + " : " + JSON.stringify(nodeData[key]) + "\n";
+            if (key !== 'id' && key !== 'label' && key !== 'background-color') {
+              const div = document.createElement('div');
+              div.style.cursor = 'pointer';
+              div.style.padding = '4px 10px';
+              div.textContent = `${key}: ${JSON.stringify(nodeData[key])}`;
+              menu.appendChild(div);
+            }
           }
-          alert("Propriétés du nœud :\n" + props);
+
+          // Ajouter une option pour modifier le nœud
+          const editOption = document.createElement('div');
+          editOption.style.cursor = 'pointer';
+          editOption.style.padding = '4px 10px';
+          editOption.textContent = '✏️ Modifier le nœud';
+          editOption.onclick = function() {
+            document.getElementById('editNodeLabel').value = nodeData.label || '';
+            document.getElementById('editNodeProps').value = JSON.stringify(nodeData, null, 2);
+            document.getElementById('editNodeForm').style.display = 'block';
+            hideContextMenu();
+          };
+          menu.appendChild(editOption);
+
+          // Afficher le menu
+          menu.style.display = 'block';
+          menu.style.left = evt.originalEvent.pageX + 'px';
+          menu.style.top = evt.originalEvent.pageY + 'px';
         });
 
         // Clic sur une flèche : édition du nom/type de la relation
@@ -304,6 +341,27 @@
       .then(res => res.json())
       .then(data => {
         alert("Nœud ajouté !");
+        location.reload();
+      });
+    }
+
+    function submitEditNode() {
+      const label = document.getElementById('editNodeLabel').value || "Noeud";
+      let props = {};
+      try {
+        props = JSON.parse(document.getElementById('editNodeProps').value || '{}');
+      } catch (e) {
+        alert("Propriétés JSON invalides !");
+        return;
+      }
+      fetch('/edit_node', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: currentNodeId, label: label, properties: props})
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Nœud modifié !");
         location.reload();
       });
     }
