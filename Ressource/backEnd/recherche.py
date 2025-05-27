@@ -16,10 +16,11 @@ load_dotenv()
 SEARCHURL = os.getenv("SEARCHURL")
 search = SearxSearchWrapper(searx_host= SEARCHURL)
 
-def simple_search(question : str, model : str = "ministral-8b-instruct-2410", engines :List[str] = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results : int = 10, keywords : List[str] = None):
+def simple_search(question : str,  keywords : List[str] = None, number_results : int = 10, source :List[str] = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], model : str = "ministral-8b-instruct-2410"):
     results = []
-    for keyword in (keywords or gen.get_key_word_search(question, 1)):
-        results.extend(search.results(keyword, engines, num_results))
+    for keyword in (keywords[0]):
+        result_temp = search.results(keyword, engines=source, num_results=number_results)
+        results.extend(result_temp)
     return gen.response_with_context(question, str(results), model, keywords[1])
 
 

@@ -32,7 +32,7 @@ def get_key_word_search(recherche: str, numberKeyWord: int = 5, models: str = "m
             description=f"Give the categorie/ domain of the question"
         )
         boolean: str = Field(
-            description=f"Can the information demanded be given by a specific function respond true if (function : get a price, get the weather)"
+            description=f"Can the information demanded be given by a specific function respond true if (function : get a price, get the weather), fasle if not."
         )
 
     
@@ -42,15 +42,24 @@ def get_key_word_search(recherche: str, numberKeyWord: int = 5, models: str = "m
     format_instructions = parser.get_format_instructions().replace("{", "{{").replace("}", "}}")
 
     system_prompt = (
-    f"Your main objective is to return a set of keywords or key sentences to perform a web search. \n"
-    f"Generate exactly {numberKeyWord} terms that will be used to answer the user's question. "
-    f"Choose them carefully and make sure they are precise and relevant to the question.\n"
-    f"EXAMPLE OUTPUT FORMAT (for 2 keywords):\n"
-    f'{{{{"questions": ["keyword1", "keyword2"]}}}}\n'
-    f"IMPORTANT: You must generate exactly {numberKeyWord} keywords or key sentences as instructed above, "
-    f"and return them in the same JSON format as the example.\n"
-    f"{format_instructions}\n"
-)
+        f"Your main objective is to return a set of keywords or key sentences to perform a web search, your response must be only and only in the JSON format.\n"
+        f"You must generate exactly {numberKeyWord} keywords or key sentences that are precise and directly relevant to the user's question.\n"
+        f"\n"
+        f"IMPORTANT INSTRUCTIONS:\n"
+        f"- Your response MUST be a single JSON object, with no extra text, comments, or explanations.\n"
+        f"- The JSON object must contain the following fields:\n"
+        f"    - 'questions': a list of exactly {numberKeyWord} keywords or key sentences, the keywords must always be in English.\n"
+        f"    - 'language': the full name of the language of the USER PROMPT (e.g., 'English', 'French').\n"
+        f"    - 'categorie': the category or domain of the question (e.g., 'technology', 'health').\n"
+        f"    - 'boolean': 'true' if the information requested can be provided by a specific function (such as getting a price or the weather), otherwise 'false'.\n"
+        f"\n"
+        f"EXAMPLE OUTPUT FORMAT (for 2 keywords):\n"
+        f'{{{{"questions": ["keyword1", "keyword2"], "language": "language", "categorie": "technology", "boolean": "false"}}}}\n'
+        f"\n"
+        f"Do not add any explanations or text outside this JSON format.\n"
+        f"\n"
+        f"{format_instructions}\n"
+    )
 
 
     prompt = ChatPromptTemplate.from_messages([
