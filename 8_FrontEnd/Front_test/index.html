@@ -36,6 +36,18 @@
       font-size: 15px;
       cursor: pointer;
     }
+    #contextMenu {
+      display: none;
+      position: absolute;
+      z-index: 10;
+      background: #333;
+      color: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px #0008;
+      padding: 8px;
+      min-width: 150px;
+    }
+    #contextMenu div:hover { background: #444; }
   </style>
 </head>
 <body>
@@ -49,17 +61,25 @@
     <button onclick="submitAddNode()">Valider</button>
   </div>
   <div id="cy"></div>
+  <div id="contextMenu">
+    <div id="createEdgeOption" style="cursor:pointer; padding:4px 10px;">➕ Créer une relation</div>
+  </div>
   <script>
     let cy;
+    let addEdgeSource = null;
+    let tempEdge = null;
+
+    function hideContextMenu() {
+      document.getElementById('contextMenu').style.display = 'none';
+    }
 
     fetch('/graph')
       .then(response => response.json())
       .then(data => {
-        // === AJOUT : définir displayLabel comme la première propriété utile ===
+        // Définir displayLabel comme la première propriété utile
         data.nodes.forEach(nodeObj => {
           const nodeData = nodeObj.data;
           let display = null;
-          // Cherche la première clé qui n'est ni 'id', 'label', ni 'background-color'
           for (let key in nodeData) {
             if (!['id','label' ,'background-color'].includes(key)) {
               display = nodeData['nom'];
@@ -103,11 +123,141 @@
                 'line-color': '#aaa',
                 'target-arrow-shape': 'triangle',
                 'target-arrow-color': '#aaa',
-                'curve-style': 'bezier'
+                'curve-style': 'bezier',
+                'label': 'data(label)',
+                'font-size': '12px',
+                'color': '#fff',
+                'text-background-color': '#444',
+                'text-background-opacity': 0.7,
+                'text-background-padding': 2
+              }
+            },
+            {
+              selector: '.temp-edge',
+              style: {
+                'line-style': 'dashed',
+                'line-color': '#f80',
+                'target-arrow-color': '#f80',
+                'opacity': 0.7
               }
             }
           ],
           layout: { name: 'cose' }
+        });
+
+        // Menu contextuel personnalisé
+        cy.on('cxttap', 'node', function(evt){
+          evt.preventDefault();
+          const nodeId = evt.target.id();
+          const menu = document.getElementById('contextMenu');
+          menu.style.display = 'block';
+          menu.style.left = evt.originalEvent.pageX + 'px';
+          menu.style.top = evt.originalEvent.pageY + 'px';
+          menu.setAttribute('data-node-id', nodeId);
+        });
+
+        // Cacher le menu si on clique ailleurs
+        cy.on('tap', function(){
+          hideContextMenu();
+        });
+        document.body.addEventListener('click', hideContextMenu);
+
+        // Lancer la création de relation
+        document.getElementById('createEdgeOption').onclick = function(e){
+          e.stopPropagation();
+          hideContextMenu();
+          addEdgeSource = document.getElementById('contextMenu').getAttribute('data-node-id');
+          cy.nodes().unselect();
+          cy.$id(addEdgeSource).select();
+
+          cy.on('mousemove', drawTempEdge);
+          cy.on('tap', 'node', completeEdgeCreation);
+        };
+
+        function drawTempEdge(e){
+          if(addEdgeSource && e.position){
+            if(tempEdge) tempEdge.remove();
+            tempEdge = cy.add({
+              group: 'edges',
+              data: { source: addEdgeSource, target: addEdgeSource + '_temp' },
+              classes: 'temp-edge'
+            });
+            tempEdge.target().position(e.position);
+          }
+        }
+
+        function completeEdgeCreation(evt){
+          if(addEdgeSource && evt.target.id() !== addEdgeSource){
+            const addEdgeTarget = evt.target.id();
+            if(tempEdge) { tempEdge.remove(); tempEdge = null; }
+            cy.off('mousemove', drawTempEdge);
+            cy.off('tap', 'node', completeEdgeCreation);
+            cy.nodes().unselect();
+
+            const label = prompt("Nom/type de la relation :", "RELATION");
+            if(label){
+              fetch('/add_relation', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                  id_source: addEdgeSource,
+                  id_cible: addEdgeTarget,
+                  nom_relation: label,
+                  properties: {}
+                })
+              })
+              .then(res => res.json())
+              .then(data => {
+                if(data.status === "success"){
+                  alert("Relation ajoutée !");
+                  location.reload();
+                }else{
+                  alert("Erreur lors de l'ajout.");
+                }
+              });
+            }
+            addEdgeSource = null;
+          }
+        }
+
+        // Clic sur un nœud : afficher toutes les propriétés
+        cy.on('tap', 'node', function(evt){
+          var nodeData = evt.target.data();
+          var props = "";
+          for (let key in nodeData) {
+            props += key + " : " + JSON.stringify(nodeData[key]) + "\n";
+          }
+          alert("Propriétés du nœud :\n" + props);
+        });
+
+        // Clic sur une flèche : édition du nom/type de la relation
+        cy.on('tap', 'edge', function(evt){
+          const edgeData = evt.target.data();
+          let newLabel = prompt(
+            "Nom/type de la relation :",
+            edgeData.label || ""
+          );
+          if (newLabel && newLabel !== edgeData.label) {
+            fetch('/edit_relation', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                source: edgeData.source,
+                target: edgeData.target,
+                old_label: edgeData.label,
+                new_label: newLabel
+              })
+            })
+            .then(res => res.json())
+            .then(data => {
+              if(data.status === "success") {
+                alert("Relation modifiée !");
+                location.reload();
+              } else {
+                alert("Erreur : " + (data.message || "Modification impossible"));
+              }
+            });
+          }
         });
 
         // Recherche dynamique
@@ -130,16 +280,6 @@
             },
             duration: 500
           });
-        });
-
-        // Clic sur un nœud : afficher toutes les propriétés
-        cy.on('tap', 'node', function(evt){
-          var nodeData = evt.target.data();
-          var props = "";
-          for (let key in nodeData) {
-            props += key + " : " + JSON.stringify(nodeData[key]) + "\n";
-          }
-          alert("Propriétés du nœud :\n" + props);
         });
       });
 
@@ -164,7 +304,7 @@
       .then(res => res.json())
       .then(data => {
         alert("Nœud ajouté !");
-        location.reload(); // recharge le graphe
+        location.reload();
       });
     }
   </script>

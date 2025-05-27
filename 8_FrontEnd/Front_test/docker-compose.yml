@@ -10,6 +10,7 @@ services:
     volumes:
       - neo4j_data:/data
       - neo4j_conf:/conf
+    restart: always
 volumes:
   neo4j_data:
   neo4j_conf:
