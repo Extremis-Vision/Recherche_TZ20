@@ -92,7 +92,7 @@ def get_response_from_raginfo(query: str, collection, limitContext : int = 5, mo
     Answer using only the information provided in the context."""
     
     # Get model response
-    response = gen.response_deepsearch(prompt, context, model_name)
+    response = gen.response_with_context(prompt, context, model_name)
     return response
 
 

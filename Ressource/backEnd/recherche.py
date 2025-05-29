@@ -112,8 +112,34 @@ def deepsearch(question: str, model : str = "ministral-8b-instruct-2410"):
     print(urls)
     flattened_urls = [u for u in urls if u and isinstance(u, str) and not u.lower().endswith('.pdf')]
     data = get_website_info(flattened_urls, model, 20)
-    print(search.results(gen.get_key_word_search(question,1), engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=5))
+    #data.append(search.results(gen.get_key_word_search(question,1), engines=['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], num_results=5))
     rg.get_RAG_response(data,question,5,model)
+
+def expert(question : str, source :List[str] = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo'], model : str = "ministral-8b-instruct-2410"):
+    keywords =  gen.get_key_word_search(question, 3)
+    results = []
+    
+    for keyword in keywords: 
+        results.extend(search.results(keyword, engines=source, num_results=5))
+    
+    print(keywords)
+    questions = gen.get_research_question(question, results ,model)
+    print(questions)
+
+    for question in questions :
+        key_words = gen.get_key_word_deepsearch(question, model)
+        urls = []
+        print(key_words)
+        for word in (key_words["KeywordSubjectDef"] and key_words["SpecificKeyWord"]):
+            result = get_search_info(word)
+            if isinstance(result, list):
+                urls.extend(result)
+            else:
+                urls.append(result)
+        flattened_urls = [u for u in urls if u and isinstance(u, str) and not u.lower().endswith('.pdf')]
+    data = get_website_info(flattened_urls, model, 20)
+    #data += results
+    rg.get_RAG_response(str(data),question,5,model)
 
 
 # Modifier la fonction de rechercher en penant en compte : https://github.com/rashadphz/farfalle

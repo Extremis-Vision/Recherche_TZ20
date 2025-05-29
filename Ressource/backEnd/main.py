@@ -3,7 +3,7 @@ import recherche as rec
 import node_bdd 
 
 
-question = "Comment fonctionne l'armé française ?"
+question = "What quantum programming should learn from software engineering ? "
 keywords = gen.get_key_word_search(question,3)
 
 print("Keywords:", keywords)

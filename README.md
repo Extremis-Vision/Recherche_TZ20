@@ -1,7 +1,6 @@
 # 🚀 Function Calling Project
 
 ## 🌟 Overview
-Z
 The goal of this project is to evaluate the performance of models, specific techniques, and the quality of responses provided and adapt this technics to retrive knowledge from different sources ( Web, Document). The project is divided into several parts:
 
 1. **[Keyword Generation for Search](1_generation_words_search_basic/1_generation_words_search_basic.md)**: Contained in the `1_generation_words_search_basic` folder. 🔍
