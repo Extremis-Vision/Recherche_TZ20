@@ -557,16 +557,3 @@ class RechercheEspace:
             print(f"Erreur lors de la suppression de l'espace {self.id} : {e}")
             self.bdd.conn.rollback()
             return False
-
-if __name__ == "__main__":
-    bdd = Bdd()
-    try:
-        # Cr�e un mot-cl�
-        mot_cle = MotCle.create("test_postgresql", bdd)
-        print("Mot-cl� cr�� :", mot_cle)
-
-        # Charge le mot-cl�
-        mot_cle_charge = MotCle.load(mot_cle.id, bdd)
-        print("Mot-cl� charg� :", mot_cle_charge)
-    finally:
-        bdd.close()
