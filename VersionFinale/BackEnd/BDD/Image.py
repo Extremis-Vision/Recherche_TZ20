@@ -1,5 +1,4 @@
 from typing import Optional
-from BDD import Bdd
 
 class Image:
     def __init__(self, id: int, image_data):

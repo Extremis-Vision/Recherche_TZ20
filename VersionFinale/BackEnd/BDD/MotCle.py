@@ -1,5 +1,4 @@
 from typing import Optional
-from BDD import Bdd
 
 class MotCle:
     def __init__(self, id: int, mot: str):

@@ -1,5 +1,4 @@
 from typing import Optional
-from BDD import Bdd
 
 class Source:
     def __init__(self, id: int, url: str, description: str = ""):
