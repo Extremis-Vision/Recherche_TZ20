@@ -1,5 +1,5 @@
 import sqlite3
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from datetime import datetime
 
 class MotCle:
@@ -196,26 +196,72 @@ class Bdd:
         ''', (id_recherche, id_espace))
         self.conn.commit()
 
-    def get_recherche_id(self, recherche: 'Recherche') -> Optional[int]:
+    def get_EspaceRecherche(self) -> List["RechercheEspace"]:
         self.cursor.execute('''
-            SELECT id FROM recherches WHERE prompt = ? AND response = ? AND date_time = ?
-        ''', (recherche.prompt, recherche.response, recherche.date_time))
-        result = self.cursor.fetchone()
-        return result[0] if result else None
+            SELECT id FROM recherche_espaces
+        ''')
+        espaces = []
+        for (id_espace,) in self.cursor.fetchall():
+            espace = RechercheEspace.load(id_espace, self)
+            if espace:
+                espaces.append(espace)
+        return espaces
 
     def close(self):
         self.conn.close()
 
 class Recherche:
-    def __init__(self, id_espace: int, prompt: str, response: str, bdd: Bdd):
+    def __init__(self, id: int, id_espace: int, prompt: str, response: str, date_time: str, bdd: Bdd):
+        self.id = id
         self.id_espace = id_espace
         self.prompt = prompt
         self.response = response
-        self.date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.date_time = date_time
         self.bdd = bdd
         self.images = []
         self.mots_cles = []
         self.sources = []
+
+    @classmethod
+    def create(cls, id_espace: int, prompt: str, response: str, bdd: Bdd) -> 'Recherche':
+        # Ajoute la recherche dans la base
+        id_recherche = bdd.addRecherche(prompt, response)
+        # Lie � l'espace
+        bdd.addRechercheVersEspace(id_recherche, id_espace)
+        # R�cup�re la date_time si besoin (ici, on suppose que addRecherche la renseigne)
+        # � adapter selon ta m�thode
+        date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        return cls(id_recherche, id_espace, prompt, response, date_time, bdd)
+
+    @classmethod
+    def load(cls, id_recherche: int, bdd: "Bdd") -> "Recherche":
+        # 1. R�cup�re les infos de la recherche
+        bdd.cursor.execute('''
+            SELECT id, prompt, response, date_time FROM recherches WHERE id = ?
+        ''', (id_recherche,))
+        row = bdd.cursor.fetchone()
+        if row:
+            id_rec, prompt, response, date_time = row
+            # 2. R�cup�re l'id_espace depuis la table de jointure
+            bdd.cursor.execute('''
+                SELECT id_espace FROM recherche_espace WHERE id_recherche = ?
+            ''', (id_recherche,))
+            id_espace_row = bdd.cursor.fetchone()
+            id_espace = id_espace_row[0] if id_espace_row else None
+            # 3. Cr�e l'objet Recherche (attention � adapter le constructeur si besoin)
+            return cls(
+                id=id_rec,
+                id_espace=id_espace,
+                prompt=prompt,
+                response=response,
+                date_time=date_time,
+                bdd=bdd
+            )
+        else:
+            return None
+
+    def __str__(self) -> str:
+        return f"Recherche(id={self.id}, idEspace={self.id_espace}, prompt={self.prompt}, response={self.response}, date={self.date_time}"
 
     def ajouter_image(self, image) -> Image:
         img = Image(image)
@@ -239,12 +285,38 @@ class Recherche:
         return source
 
 class RechercheEspace:
-    def __init__(self, subject: str, objectif: str = "", bdd: Bdd = None):
+    def __init__(self, id: int, subject: str, objectif: str, date_time: str, bdd: Bdd):
+        self.id = id
         self.subject = subject
-        self.date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.objectif = objectif
+        self.date_time = date_time
         self.bdd = bdd
-        self.id = None
+
+    
+    @classmethod
+    def create(cls, subject: str, objectif: str, bdd: Bdd) -> 'RechercheEspace':
+        # Ajoute l'espace dans la base
+        id_espace = bdd.addRechercheEspace(subject, objectif)
+        # R�cup�re la date_time si besoin
+        # (� adapter selon ta m�thode addRechercheEspace)
+        # Ici, on suppose que addRechercheEspace renvoie l'id
+        return cls(id_espace, subject, objectif, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), bdd)
+
+    @classmethod
+    def load(cls, id_espace: int, bdd: Bdd) -> 'RechercheEspace':
+        # Charge l'espace depuis la base
+        bdd.cursor.execute('''
+            SELECT subject, date_time, objectif FROM recherche_espaces WHERE id = ?
+        ''', (id_espace,))
+        row = bdd.cursor.fetchone()
+        if row:
+            subject, date_time, objectif = row
+            return cls(id_espace, subject, objectif, date_time, bdd)
+        else:
+            return None
+
+    def __str__(self) -> str:
+        return f"RechercheEspace(id={self.id}, subject='{self.subject}', objectif='{self.objectif}', date_time='{self.date_time}')"
 
     def create_recherche(self, prompt: str, response: str) -> 'Recherche':
         recherche = Recherche(self.id, prompt, response, self.bdd)
@@ -252,43 +324,31 @@ class RechercheEspace:
         self.bdd.addRechercheEspaceVersRecherche(recherche_id, self.id)
         return recherche
 
-    def get_recherche(self, recherche_id: int) -> 'Recherche':
-        # R�cup�rer une recherche existante � partir de la base de donn�es
+    def get_recherches(self) -> List["Recherche"]:
+        # R�cup�re les IDs des recherches associ�es � cet espace
         self.bdd.cursor.execute('''
-            SELECT prompt, response, date_time FROM recherches WHERE id = ?
-        ''', (recherche_id,))
-        result = self.bdd.cursor.fetchone()
-        if result:
-            prompt, response, date_time = result
-            return Recherche(self.id, prompt, response, self.bdd)
-        else:
-            return None
+            SELECT id_recherche FROM recherche_espace WHERE id_espace = ?
+        ''', (self.id,))
+        ids = [row[0] for row in self.bdd.cursor.fetchall()]
+        recherches = []
+        for id in ids:
+            recherche = Recherche.load(id, self.bdd)
+            if recherche is not None:
+                recherches.append(recherche)
+        return recherches
 
 
 
 # Cr�er une instance de Bdd
 bdd = Bdd("http://localhost:5444", "ndsds", "sd3qd32")
 
-# Cr�er un nouvel espace de recherche
-espace_recherche = RechercheEspace("test", "faire en sorte de tester le projet", bdd)
-espace_recherche.id = bdd.addRechercheEspace(espace_recherche)
+espaces = bdd.get_EspaceRecherche()
 
-# Cr�er une nouvelle recherche li�e � l'espace de recherche
-recherche = espace_recherche.create_recherche("Qu'est ce qu'un test", "R�ponse de recherche")
+for espace in espaces:
+    print(espace)
+    recherches = espace.get_recherches()
+    for recherche in recherches:
+        print(recherche)
 
-# Ajouter une image � la recherche
-image = recherche.ajouter_image("exemple_image")
 
-# Ajouter un mot-cl� � la recherche
-mot_cle = recherche.ajouter_mot_cle("exemple")
-
-# Ajouter une source � la recherche
-source = recherche.ajouter_source("http://exemple.com", "description_exemple")
-
-# R�cup�rer une recherche existante
-recherche_existante = espace_recherche.get_recherche(recherche_id=1)
-if recherche_existante:
-    print("Recherche existante trouv�e:", recherche_existante.prompt)
-
-# Fermer la connexion � la base de donn�es
 bdd.close()
