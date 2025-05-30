@@ -2,20 +2,36 @@ import sys, os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Generation.model_provider import get_model
 from Recherche.RechercheBasique import RechercheBasique
 from Recherche.Keywords import keywords_simplesearch
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from typing import List, Optional
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
 
+chemin_env = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
 
+load_dotenv(chemin_env)
 
 class SimpleSearch(RechercheBasique):
-    def __init__(self, engines = ...):
+    def __init__(self,  model_name="ministral-8b-instruct-2410", engines=None):
         super().__init__(engines)
+        self.model_name = model_name
+        self.api_key = os.getenv("AI_API_KEY", "lm-studio")
+        self.base_url = os.getenv("AI_URL", "http://localhost:1234/v1")
 
-    def get_key_word_search(recherche: str, numberKeyWord: int = 5, models: str = "ministral-8b-instruct-2410") -> Optional[List[str]]:
+    def get_model(self):
+            return ChatOpenAI(
+                api_key=self.api_key,
+                base_url=self.base_url,
+                model=self.model_name,
+                temperature=0.7,
+                max_tokens=4096,
+                streaming=True
+            )
+
+    def get_key_word_search(self,recherche: str, numberKeyWord: int = 5, models: str = "ministral-8b-instruct-2410") -> Optional[List[str]]:
         parser = PydanticOutputParser(pydantic_object=keywords_simplesearch(numberKeyWord))
         # Échappe les accolades pour LangChain
         format_instructions = parser.get_format_instructions().replace("{", "{{").replace("}", "}}")
@@ -45,7 +61,7 @@ class SimpleSearch(RechercheBasique):
             ("user", "{input}")
         ])
 
-        chain = prompt | get_model(models) | parser
+        chain = prompt | self.get_model() | parser
 
         try:
             response = chain.invoke({
