@@ -4,10 +4,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Generation.model_provider import get_model
 from Recherche.RechercheBasique import RechercheBasique
-from Recherche.Keywords import keywords_model
+from Recherche.Keywords import keywords_simplesearch
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
 from typing import List, Optional
 
 
@@ -17,7 +16,7 @@ class SimpleSearch(RechercheBasique):
         super().__init__(engines)
 
     def get_key_word_search(recherche: str, numberKeyWord: int = 5, models: str = "ministral-8b-instruct-2410") -> Optional[List[str]]:
-        parser = PydanticOutputParser(pydantic_object=keywords_model(numberKeyWord))
+        parser = PydanticOutputParser(pydantic_object=keywords_simplesearch(numberKeyWord))
         # Échappe les accolades pour LangChain
         format_instructions = parser.get_format_instructions().replace("{", "{{").replace("}", "}}")
 
@@ -58,4 +57,5 @@ class SimpleSearch(RechercheBasique):
             return None
         
 
-print(SimpleSearch.get_key_word_search("Qu'est ce que l'ia "))
+# Exemple utilisation 
+# print(SimpleSearch.get_key_word_search("Qu'est ce que l'ia "))
