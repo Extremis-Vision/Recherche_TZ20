@@ -59,7 +59,6 @@ def get_key_word_search(recherche: str, numberKeyWord: int = 5, models: str = "m
 
     system_prompt = (
         f"Your main objective is to return a set of keywords or key sentences to perform a web search, your response must be only and only in the JSON format.\n"
-        f"You must generate exactly {numberKeyWord} keywords or key sentences that are precise and directly relevant to the user's question.\n"
         f"\n"
         f"IMPORTANT INSTRUCTIONS:\n"
         f"- Your response MUST be a single JSON object, with no extra text, comments, or explanations.\n"

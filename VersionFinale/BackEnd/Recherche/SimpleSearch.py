@@ -1,14 +1,14 @@
-from RechercheBasique import RechercheBasique
-from langchain_core.output_parsers import PydanticOutputParser
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
-from typing import List, Optional
-from .Keywords import KeyWords
 import sys, os 
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Generation.model_provider import get_model
+from Recherche.RechercheBasique import RechercheBasique
+from Recherche.Keywords import keywords_model
+from langchain_core.output_parsers import PydanticOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+from typing import List, Optional
 
 
 
@@ -17,7 +17,7 @@ class SimpleSearch(RechercheBasique):
         super().__init__(engines)
 
     def get_key_word_search(recherche: str, numberKeyWord: int = 5, models: str = "ministral-8b-instruct-2410") -> Optional[List[str]]:
-        parser = PydanticOutputParser(pydantic_object=KeyWords)
+        parser = PydanticOutputParser(pydantic_object=keywords_model(numberKeyWord))
         # Échappe les accolades pour LangChain
         format_instructions = parser.get_format_instructions().replace("{", "{{").replace("}", "}}")
 
@@ -29,7 +29,6 @@ class SimpleSearch(RechercheBasique):
             f"- Your response MUST be a single JSON object, with no extra text, comments, or explanations.\n"
             f"- The JSON object must contain the following fields:\n"
             f"    - 'questions': a list of exactly {numberKeyWord} keywords or key sentences, the keywords must always be in English.\n"
-            f"    - 'language': the full name of the language of the USER PROMPT (e.g., 'English', 'French').\n"
             f"    - 'categorie': the category or domain of the question (e.g., 'technology', 'health').\n"
             f"    - 'boolean': 'true' if the information requested can be provided by a specific function (such as getting a price or the weather), otherwise 'false'.\n"
             f"\n"
