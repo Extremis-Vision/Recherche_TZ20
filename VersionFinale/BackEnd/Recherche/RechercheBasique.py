@@ -7,9 +7,12 @@ load_dotenv()
 SEARCHURL = os.getenv("SEARCHURL")
 
 class RechercheBasique:
-    def __init__(self,engines : List[str] = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo']):
+    def __init__(self,engines : List[str] = None):
         self.search = SearxSearchWrapper(searx_host=SEARCHURL)
-        self.engines = engines
+        if engines == None:
+            self.engines = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo']
+        else :
+            self.engines = engines
 
     def search_results(self, keyword: str, num_results: int = 5, engines: List[str] = None) -> List[Dict]:
         engines = engines if engines is not None else self.engines

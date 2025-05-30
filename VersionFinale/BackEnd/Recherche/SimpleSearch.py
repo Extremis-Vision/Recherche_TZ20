@@ -15,13 +15,16 @@ chemin_env = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
 load_dotenv(chemin_env)
 
 class SimpleSearch(RechercheBasique):
-    def __init__(self,  model_name="ministral-8b-instruct-2410", engines=None):
+    def __init__(self,  model_name : str = None, engines : str = None):
         super().__init__(engines)
-        self.model_name = model_name
+        if model_name == None:
+            self.model_name = "ministral-8b-instruct-2410"
+        else :
+            self.model_name = model_name
         self.api_key = os.getenv("AI_API_KEY", "lm-studio")
         self.base_url = os.getenv("AI_URL", "http://localhost:1234/v1")
 
-    def get_model(self):
+    def _get_model(self):
             return ChatOpenAI(
                 api_key=self.api_key,
                 base_url=self.base_url,
@@ -61,7 +64,7 @@ class SimpleSearch(RechercheBasique):
             ("user", "{input}")
         ])
 
-        chain = prompt | self.get_model() | parser
+        chain = prompt | self._get_model() | parser
 
         try:
             response = chain.invoke({

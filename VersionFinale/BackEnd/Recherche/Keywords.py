@@ -17,10 +17,15 @@ def keywords_simplesearch(NombreMotCle: int = 5):
 
 def keywords_deepsearch(NB_MotClee_Sujet: int = 3, NB_MotClee_Specifique : int = 2):
     class KeyWords_DeepSearch(BaseModel):
-            MotClee_Sujet: List[str] = Field(
+            KeywordSubjectDef: List[str] = Field(
             description=f"A list of {NB_MotClee_Sujet} broad keywords or key subjects for wide domain search."
         )
-            MotClee_Specifique: List[str] = Field(
+            SpecificKeyWord: List[str] = Field(
             description=f"A list of {NB_MotClee_Specifique} more specific keywords or key sentences for detailed research."
         )
-    return keywords_deepsearch
+    return KeyWords_DeepSearch
+
+def question_expertsearch(NB_Question: int = 3):
+    class Question(BaseModel):
+            questions: List[str] = Field(description=f"give {NB_Question} questions to sepecify the types of research and the type of data to be used")
+    return Question

@@ -2,16 +2,19 @@ import sys, os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Generation.model_provider import get_model
-from Recherche.RechercheBasique import RechercheBasique
+from Recherche.SimpleSearch import SimpleSearch
 from Recherche.Keywords import keywords_deepsearch
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from typing import List, Optional
 
+class DeepSearch(SimpleSearch):
+    def __init__(self, engines=None, model_name : str = "ministral-8b-instruct-2410", score : int = 0.5):
+        # Appel du constructeur parent
+        super().__init__(engines, model_name)
+        self.score = score
 
-class DeepSearch:
-    def get_key_word_deepsearch(recherche: str, NB_MotClee_Sujet: int = 3, NB_MotClee_Specifique : int = 2, models: str = "ministral-8b-instruct-2410") -> Optional[List[str]]:
+    def get_key_word_deepsearch(self, recherche: str, NB_MotClee_Sujet: int = 3, NB_MotClee_Specifique : int = 2, models: str = "ministral-8b-instruct-2410") -> Optional[List[str]]:
 
         parser = PydanticOutputParser(pydantic_object=keywords_deepsearch(NB_MotClee_Sujet,NB_MotClee_Specifique))
         # Échappe les accolades pour LangChain
@@ -32,7 +35,7 @@ class DeepSearch:
             ("user", "{input}")
         ])
 
-        chain = prompt | get_model(models) | parser
+        chain = prompt | self._get_model() | parser
 
         try:
             response = chain.invoke({
@@ -45,3 +48,9 @@ class DeepSearch:
         except Exception as e:
             print(f"Erreur lors de la récupération des mots-clés : {e}")
             return None
+        
+
+# Exemple utilisation 
+#deep = DeepSearch()
+#resultat = deep.get_key_word_deepsearch("Qu'est ce que l'ia")
+#print(resultat)
