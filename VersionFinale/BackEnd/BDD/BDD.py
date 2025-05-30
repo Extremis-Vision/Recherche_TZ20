@@ -2,11 +2,11 @@ import psycopg2
 from typing import List
 from dotenv import load_dotenv
 import os
-from Image import Image
-from Source import Source
-from MotCle import MotCle
-from Recherche import Recherche
-from RechercheEspace import RechercheEspace
+from .Image import Image
+from .Source import Source
+from .MotCle import MotCle
+from .Recherche import Recherche
+from .RechercheEspace import RechercheEspace
 
 
 chemin_env = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
@@ -207,6 +207,17 @@ class Bdd:
             if espace:
                 espaces.append(espace)
         return espaces
+    
+    def get_MotCle(self) -> List["MotCle"]:
+        self.cursor.execute('''
+            SELECT id FROM keywords
+        ''')
+        mot_cles = []
+        for (id_espace,) in self.cursor.fetchall():
+            motcle = MotCle.load(id_espace, self)
+            if motcle:
+                mot_cles.append(motcle)
+        return mot_cles
 
     def close(self):
         self.conn.close()

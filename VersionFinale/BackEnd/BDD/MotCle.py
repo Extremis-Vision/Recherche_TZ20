@@ -30,13 +30,13 @@ class MotCle:
             bdd.cursor.execute('SELECT COUNT(*) FROM recherche_vers_mot WHERE id_mot_cle = %s', (self.id,))
             count = bdd.cursor.fetchone()[0]
             if count > 0:
-                print(f"Le mot-cl� {self.id} est encore utilis� dans {count} recherche(s).")
+                print(f"Le mot-clé {self.id} est encore utilisé dans {count} recherche(s).")
                 return False
             bdd.cursor.execute('DELETE FROM keywords WHERE id = %s', (self.id,))
             bdd.conn.commit()
             return True
         except Exception as e:
-            print(f"Erreur lors de la suppression du mot-cl� {self.id} : {e}")
+            print(f"Erreur lors de la suppression du mot-clé {self.id} : {e}")
             bdd.conn.rollback()
             return False
 

@@ -1,6 +1,6 @@
 from typing import List, Optional
 from datetime import datetime
-from Recherche import Recherche
+from .Recherche import Recherche
 
 
 class RechercheEspace:

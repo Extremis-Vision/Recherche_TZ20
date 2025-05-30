@@ -1,8 +1,8 @@
 from typing import Optional
 from datetime import datetime
-from Image import Image
-from Source import Source
-from MotCle import MotCle
+from .Image import Image
+from .Source import Source
+from .MotCle import MotCle
 
 class Recherche:
     def __init__(self, id: int, id_espace: int, prompt: str, response: str, date_time: str, bdd: "Bdd"):
