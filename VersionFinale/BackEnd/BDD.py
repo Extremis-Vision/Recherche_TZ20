@@ -503,29 +503,3 @@ class RechercheEspace:
             print(f"Erreur lors de la suppression de l'espace {self.id} : {e}")
             self.bdd.conn.rollback()
             return False
-
-
-
-# Cr�er une instance de Bdd
-bdd = Bdd("http://localhost:5444", "ndsds", "sd3qd32")
-
-espaces = bdd.get_EspaceRecherche()
-
-for espace in espaces:
-    print(espace)
-    recherches = espace.get_recherches()
-    for recherche in recherches:
-        print(recherche)
-
-espaces[1].supprimer()
-
-espaces = bdd.get_EspaceRecherche()
-for espace in espaces:
-    print(espace)
-    recherches = espace.get_recherches()
-    for recherche in recherches:
-        print(recherche)
-
-espaces[0].supprimer()
-
-bdd.close()
