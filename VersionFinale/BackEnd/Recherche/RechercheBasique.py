@@ -15,7 +15,6 @@ class RechercheBasique:
             self.engines = engines
 
     def search_results(self, keyword: str, num_results: int = 5, engines: List[str] = None) -> List[Dict]:
-        engines = engines if engines is not None else self.engines
         return self.search.results(keyword, engines=engines, num_results=num_results)
 
     def multiplesearch(self, keywords: List[str], num_results: int = 5, engines: List[str] = None ) -> List[Dict]:
@@ -27,4 +26,4 @@ class RechercheBasique:
 
 # Exemple utilisation de RechercheBasique
 #resultat_recherche = RechercheBasique()
-#print(resultat_recherche.search_results("Transformer",10))
+#print(resultat_recherche.search_results("C'est quoi Crawl4AI ?",5))

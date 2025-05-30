@@ -145,4 +145,4 @@ def expert(question : str, source :List[str] = ['wikipedia', 'bing', 'yahoo', 'g
 # Modifier la fonction de rechercher en penant en compte : https://github.com/rashadphz/farfalle
 # Refaire le RAG pour l'optimiser avec LlamaIndex ou Langchain
 
-#print(simple_search("C'est quoi Crawl4AI ?")) 
+print(search.results("C'est quoi Crawl4AI ?", 5)) 
