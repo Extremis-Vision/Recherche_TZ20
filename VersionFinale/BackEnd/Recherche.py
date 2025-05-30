@@ -11,70 +11,60 @@ load_dotenv()
 SEARCHURL = os.getenv("SEARCHURL")
 
 class RechercheBasique:
-    def __init__(self):
+    def __init__(self,engines : List[str] = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo']):
         self.search = SearxSearchWrapper(searx_host=SEARCHURL)
-        self.model = model
+        self.engines = engines
 
-    def search_results(self, query: str, engines: List[str] = None, num_results: int = 5) -> List[Dict]:
-        """
-        Effectue une recherche simple sur les moteurs de recherche.
-        :param query: Requ�te de recherche
-        :param engines: Liste des moteurs (ex: ['wikipedia', 'bing', 'google'])
-        :param num_results: Nombre de r�sultats � retourner
-        :return: Liste de r�sultats au format dict
-        """
-        if engines is None:
-            engines = ['wikipedia', 'bing', 'yahoo', 'google', 'duckduckgo']
-        return self.search.results(query, engines=engines, num_results=num_results)
+    def search_results(self, keyword: str, num_results: int = 5, engines: List[str] = None) -> List[Dict]:
+        engines = engines if engines is not None else self.engines
+        return self.search.results(keyword, engines=engines, num_results=num_results)
 
-    def get_info(self, query: str, engines: List[str] = None, num_results: int = 5) -> List[Dict]:
-        """
-        Retourne les r�sultats bruts de la recherche.
-        :param query: Requ�te de recherche
-        :param engines: Liste des moteurs (optionnel)
-        :param num_results: Nombre de r�sultats � retourner
-        :return: Liste de r�sultats au format dict
-        """
-        return self.search_results(query, engines, num_results)
-
-class RechercheCrawling:
-    def __init__(self, model: str = "ministral-8b-instruct-2410"):
-        self.model = model
-
-    async def crawl_urls(self, urls: List[str]) -> List[Dict]:
-        """
-        Crawle une liste d?URLs et retourne le contenu au format Markdown.
-        :param urls: Liste d?URLs � crawler
-        :return: Liste de dictionnaires {'url': ..., 'markdown': ...}
-        """
-        run_conf = CrawlerRunConfig(cache_mode=CacheMode.BYPASS, stream=True)
+    def multiplesearch(self, keywords: List[str], num_results: int = 5, engines: List[str] = None ) -> List[Dict]:
+        engines = engines if engines is not None else self.engines
         results = []
-        total = len(urls)
-        async with AsyncWebCrawler() as crawler:
-            idx = 1
-            async for result in await crawler.arun_many(urls, config=run_conf):
-                if result.success:
-                    print(f"[{idx}/{total}] URL: {result.url} - Markdown length: {len(result.markdown.raw_markdown)}")
-                    results.append({
-                        "url": result.url,
-                        "markdown": result.markdown.raw_markdown,
-                    })
-                else:
-                    print(f"[{idx}/{total}] Error crawling {result.url}: {result.error_message}")
-                idx += 1
+        for keyword in keywords:
+            results.extends(self.search_results(keyword,num_results,engines))
         return results
 
-    def get_website_info(self, urls: List[str], limit: int = 3) -> List[Dict]:
-        """
-        Retourne le contenu Markdown d?une liste d?URLs (synchrone).
-        :param urls: Liste d?URLs � crawler
-        :param limit: Nombre maximal d?URLs � traiter
-        :return: Liste de dictionnaires {'url': ..., 'markdown': ...}
-        """
+
+class RechercheCrawling(RechercheBasique):        
+    async def crawl_urls(self, url: str) -> List[Dict]:
+        run_conf = CrawlerRunConfig(cache_mode=CacheMode.BYPASS, stream=True)
+        try:
+            async with asyncio.timeout(10):  # Timeout de 10 secondes
+                async with AsyncWebCrawler() as crawler:
+                    result = await crawler.arun(url, config=run_conf)
+                    if result.success:
+                        return [{
+                            "url": result.url,
+                            "markdown": result.markdown.raw_markdown
+                        }]
+                    else:
+                        print(f"Erreur lors du crawl de {url}")
+                        return []
+        except asyncio.TimeoutError:
+            print(f"Timeout: Le crawl de {url} a pris plus de 10 secondes.")
+            return []
+        except Exception as e:
+            print(f"Erreur inattendue lors du crawl de {url}: {e}")
+            return []
+
+
+
+
+    def get_websites_contend(self, urls: List[str], limit: int = 3) -> List[Dict]:
         data = []
         for url in urls[:limit]:
-            data += asyncio.run(self.crawl_urls([url]))
-        data = [d for d in data if d.get("markdown")]
-        if not data:
-            print("Aucun contenu Markdown r�cup�r�.")
+            data += asyncio.run(self.crawl_urls(url))
         return data
+
+        
+
+# Exemple utilisation de RechercheBasique
+#resultat_recherche = RechercheBasique()
+#print(resultat_recherche.search_results("Transformer",10))
+
+#Exemple utilisation de RechercheCrawling
+#urls = ["https://sbert.net/"]
+#resultat_recherche = RechercheCrawling()
+#print(resultat_recherche.get_websites_contend(urls))
