@@ -3,17 +3,124 @@ from typing import List, Optional, Tuple
 from datetime import datetime
 
 class MotCle:
-    def __init__(self, mot: str):
+    def __init__(self, id: int, mot: str):
+        self.id = id
         self.mot = mot
 
+    @classmethod
+    def create(cls, mot: str, bdd: "Bdd") -> "MotCle":
+        bdd.cursor.execute('INSERT INTO keywords (mot) VALUES (?)', (mot,))
+        id = bdd.cursor.lastrowid
+        bdd.conn.commit()
+        return cls(id, mot)
+
+    @classmethod
+    def load(cls, id: int, bdd: "Bdd") -> Optional["MotCle"]:
+        bdd.cursor.execute('SELECT mot FROM keywords WHERE id = ?', (id,))
+        row = bdd.cursor.fetchone()
+        if row:
+            return cls(id, row[0])
+        return None
+
+    def supprimer(self, bdd: "Bdd") -> bool:
+        try:
+            # V�rifie si le mot-cl� est encore utilis�
+            bdd.cursor.execute('SELECT COUNT(*) FROM recherche_vers_mot WHERE id_mot_cle = ?', (self.id,))
+            count = bdd.cursor.fetchone()[0]
+            if count > 0:
+                print(f"Le mot-cl� {self.id} est encore utilis� dans {count} recherche(s).")
+                return False
+            bdd.cursor.execute('DELETE FROM keywords WHERE id = ?', (self.id,))
+            bdd.conn.commit()
+            return True
+        except Exception as e:
+            print(f"Erreur lors de la suppression du mot-cl� {self.id} : {e}")
+            bdd.conn.rollback()
+            return False
+
+    def __str__(self) -> str:
+        return f"MotCle(id={self.id}, mot='{self.mot}')"
+
 class Image:
-    def __init__(self, image):
-        self.image = image
+    def __init__(self, id: int, image_data):
+        self.id = id
+        self.image_data = image_data
+
+    @classmethod
+    def create(cls, image_data, bdd: "Bdd") -> "Image":
+        bdd.cursor.execute('INSERT INTO images (image) VALUES (?)', (image_data,))
+        id = bdd.cursor.lastrowid
+        bdd.conn.commit()
+        return cls(id, image_data)
+
+    @classmethod
+    def load(cls, id: int, bdd: "Bdd") -> Optional["Image"]:
+        bdd.cursor.execute('SELECT image FROM images WHERE id = ?', (id,))
+        row = bdd.cursor.fetchone()
+        if row:
+            return cls(id, row[0])
+        return None
+
+    def supprimer(self, bdd: "Bdd") -> bool:
+        try:
+            # V�rifie si l'image est encore utilis�e
+            bdd.cursor.execute('SELECT COUNT(*) FROM recherche_vers_image WHERE id_image = ?', (self.id,))
+            count = bdd.cursor.fetchone()[0]
+            if count > 0:
+                print(f"L'image {self.id} est encore utilis�e dans {count} recherche(s).")
+                return False
+            bdd.cursor.execute('DELETE FROM images WHERE id = ?', (self.id,))
+            bdd.conn.commit()
+            return True
+        except Exception as e:
+            print(f"Erreur lors de la suppression de l'image {self.id} : {e}")
+            bdd.conn.rollback()
+            return False
+
+    def __str__(self) -> str:
+        return f"Image(id={self.id}, image_data='{self.image_data[:20]}...')"  # Affichage raccourci pour l'exemple
+
 
 class Source:
-    def __init__(self, url: str, description: str = ""):
+    def __init__(self, id: int, url: str, description: str = ""):
+        self.id = id
         self.url = url
         self.description = description
+
+    @classmethod
+    def create(cls, url: str, description: str, bdd: "Bdd") -> "Source":
+        bdd.cursor.execute('INSERT INTO sources (url, description) VALUES (?, ?)', (url, description))
+        id = bdd.cursor.lastrowid
+        bdd.conn.commit()
+        return cls(id, url, description)
+
+    @classmethod
+    def load(cls, id: int, bdd: "Bdd") -> Optional["Source"]:
+        bdd.cursor.execute('SELECT url, description FROM sources WHERE id = ?', (id,))
+        row = bdd.cursor.fetchone()
+        if row:
+            return cls(id, row[0], row[1])
+        return None
+
+    def supprimer(self, bdd: "Bdd") -> bool:
+        try:
+            # V�rifie si la source est encore utilis�e
+            bdd.cursor.execute('SELECT COUNT(*) FROM recherche_vers_source WHERE id_source = ?', (self.id,))
+            count = bdd.cursor.fetchone()[0]
+            if count > 0:
+                print(f"La source {self.id} est encore utilis�e dans {count} recherche(s).")
+                return False
+            bdd.cursor.execute('DELETE FROM sources WHERE id = ?', (self.id,))
+            bdd.conn.commit()
+            return True
+        except Exception as e:
+            print(f"Erreur lors de la suppression de la source {self.id} : {e}")
+            bdd.conn.rollback()
+            return False
+
+    def __str__(self) -> str:
+        return f"Source(id={self.id}, url='{self.url}', description='{self.description}')"
+
 
 class Bdd:
     def __init__(self, url: str, username: str, mdp: str):
@@ -211,7 +318,7 @@ class Bdd:
         self.conn.close()
 
 class Recherche:
-    def __init__(self, id: int, id_espace: int, prompt: str, response: str, date_time: str, bdd: Bdd):
+    def __init__(self, id: int, id_espace: int, prompt: str, response: str, date_time: str, bdd: "Bdd"):
         self.id = id
         self.id_espace = id_espace
         self.prompt = prompt
@@ -223,66 +330,101 @@ class Recherche:
         self.sources = []
 
     @classmethod
-    def create(cls, id_espace: int, prompt: str, response: str, bdd: Bdd) -> 'Recherche':
+    def create(cls, id_espace: int, prompt: str, response: str, bdd: "Bdd") -> "Recherche":
         # Ajoute la recherche dans la base
-        id_recherche = bdd.addRecherche(prompt, response)
+        bdd.cursor.execute('INSERT INTO recherches (prompt, response, date_time) VALUES (?, ?, ?)',
+                          (prompt, response, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        id_recherche = bdd.cursor.lastrowid
         # Lie � l'espace
-        bdd.addRechercheVersEspace(id_recherche, id_espace)
-        # R�cup�re la date_time si besoin (ici, on suppose que addRecherche la renseigne)
-        # � adapter selon ta m�thode
-        date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        return cls(id_recherche, id_espace, prompt, response, date_time, bdd)
+        bdd.cursor.execute('INSERT INTO recherche_espace (id_recherche, id_espace) VALUES (?, ?)',
+                          (id_recherche, id_espace))
+        bdd.conn.commit()
+        return cls(id_recherche, id_espace, prompt, response, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), bdd)
 
     @classmethod
-    def load(cls, id_recherche: int, bdd: "Bdd") -> "Recherche":
-        # 1. R�cup�re les infos de la recherche
-        bdd.cursor.execute('''
-            SELECT id, prompt, response, date_time FROM recherches WHERE id = ?
-        ''', (id_recherche,))
+    def load(cls, id_recherche: int, bdd: "Bdd") -> Optional["Recherche"]:
+        bdd.cursor.execute('SELECT id, prompt, response, date_time FROM recherches WHERE id = ?', (id_recherche,))
         row = bdd.cursor.fetchone()
         if row:
             id_rec, prompt, response, date_time = row
-            # 2. R�cup�re l'id_espace depuis la table de jointure
-            bdd.cursor.execute('''
-                SELECT id_espace FROM recherche_espace WHERE id_recherche = ?
-            ''', (id_recherche,))
+            bdd.cursor.execute('SELECT id_espace FROM recherche_espace WHERE id_recherche = ?', (id_recherche,))
             id_espace_row = bdd.cursor.fetchone()
             id_espace = id_espace_row[0] if id_espace_row else None
-            # 3. Cr�e l'objet Recherche (attention � adapter le constructeur si besoin)
-            return cls(
-                id=id_rec,
-                id_espace=id_espace,
-                prompt=prompt,
-                response=response,
-                date_time=date_time,
-                bdd=bdd
-            )
-        else:
-            return None
+            recherche = cls(id_rec, id_espace, prompt, response, date_time, bdd)
+            # Charge les images, mots-cl�s, sources associ�s
+            # (Optionnel, tu peux le faire � la demande avec des m�thodes sp�cifiques)
+            return recherche
+        return None
 
     def __str__(self) -> str:
-        return f"Recherche(id={self.id}, idEspace={self.id_espace}, prompt={self.prompt}, response={self.response}, date={self.date_time}"
+        return f"Recherche(id={self.id}, idEspace={self.id_espace}, prompt={self.prompt}, response={self.response}, date={self.date_time})"
 
-    def ajouter_image(self, image) -> Image:
-        img = Image(image)
-        self.images.append(img)
-        img_id = self.bdd.addImage(img)
-        self.bdd.addRechercheVersImage(img_id, self.bdd.get_recherche_id(self))
-        return img
+    def ajouter_image(self, image_data) -> "Image":
+        image = Image.create(image_data, self.bdd)
+        self.images.append(image)
+        self.bdd.cursor.execute('INSERT INTO recherche_vers_image (id_image, id_recherche) VALUES (?, ?)',
+                              (image.id, self.id))
+        self.bdd.conn.commit()
+        return image
 
-    def ajouter_mot_cle(self, mot: str) -> MotCle:
-        mot_cle = MotCle(mot)
+    def ajouter_mot_cle(self, mot: str) -> "MotCle":
+        mot_cle = MotCle.create(mot, self.bdd)
         self.mots_cles.append(mot_cle)
-        mot_cle_id = self.bdd.addKeyword(mot_cle)
-        self.bdd.addRechercheVersMot(mot_cle_id, self.bdd.get_recherche_id(self))
+        self.bdd.cursor.execute('INSERT INTO recherche_vers_mot (id_mot_cle, id_recherche) VALUES (?, ?)',
+                              (mot_cle.id, self.id))
+        self.bdd.conn.commit()
         return mot_cle
 
-    def ajouter_source(self, url: str, description: str = "") -> Source:
-        source = Source(url, description)
+    def ajouter_source(self, url: str, description: str = "") -> "Source":
+        source = Source.create(url, description, self.bdd)
         self.sources.append(source)
-        source_id = self.bdd.addSource(source)
-        self.bdd.addRechercheVersSource(source_id, self.bdd.get_recherche_id(self))
+        self.bdd.cursor.execute('INSERT INTO recherche_vers_source (id_source, id_recherche) VALUES (?, ?)',
+                              (source.id, self.id))
+        self.bdd.conn.commit()
         return source
+
+    def supprimer(self) -> bool:
+        try:
+            # 1. R�cup�re les objets associ�s � la recherche
+            self.bdd.cursor.execute('SELECT id_image FROM recherche_vers_image WHERE id_recherche = ?', (self.id,))
+            image_ids = [row[0] for row in self.bdd.cursor.fetchall()]
+            self.bdd.cursor.execute('SELECT id_mot_cle FROM recherche_vers_mot WHERE id_recherche = ?', (self.id,))
+            mot_cle_ids = [row[0] for row in self.bdd.cursor.fetchall()]
+            self.bdd.cursor.execute('SELECT id_source FROM recherche_vers_source WHERE id_recherche = ?', (self.id,))
+            source_ids = [row[0] for row in self.bdd.cursor.fetchall()]
+
+            # 2. Supprime les liens de la recherche
+            self.bdd.cursor.execute('DELETE FROM recherche_vers_image WHERE id_recherche = ?', (self.id,))
+            self.bdd.cursor.execute('DELETE FROM recherche_vers_mot WHERE id_recherche = ?', (self.id,))
+            self.bdd.cursor.execute('DELETE FROM recherche_vers_source WHERE id_recherche = ?', (self.id,))
+            self.bdd.cursor.execute('DELETE FROM recherche_espace WHERE id_recherche = ?', (self.id,))
+
+            # 3. Supprime la recherche elle-m�me
+            self.bdd.cursor.execute('DELETE FROM recherches WHERE id = ?', (self.id,))
+
+            # 4. Pour chaque image/mot-cl�/source, v�rifie s'il est encore utilis� ailleurs
+            # Si non, supprime-le (avec la m�thode supprimer de la classe)
+            for image_id in image_ids:
+                image = Image.load(image_id, self.bdd)
+                if image:
+                    image.supprimer(self.bdd)  # La m�thode supprimer v�rifie l'utilisation
+
+            for mot_cle_id in mot_cle_ids:
+                mot_cle = MotCle.load(mot_cle_id, self.bdd)
+                if mot_cle:
+                    mot_cle.supprimer(self.bdd)
+
+            for source_id in source_ids:
+                source = Source.load(source_id, self.bdd)
+                if source:
+                    source.supprimer(self.bdd)
+
+            self.bdd.conn.commit()
+            return True
+        except Exception as e:
+            print(f"Erreur lors de la suppression de la recherche {self.id} : {e}")
+            self.bdd.conn.rollback()
+            return False
 
 class RechercheEspace:
     def __init__(self, id: int, subject: str, objectif: str, date_time: str, bdd: Bdd):
@@ -336,6 +478,31 @@ class RechercheEspace:
             if recherche is not None:
                 recherches.append(recherche)
         return recherches
+    
+    
+    def supprimer(self) -> bool:
+        """
+        Supprime l'espace de recherche et toutes ses recherches (et leurs �l�ments li�s).
+        Retourne True si la suppression a r�ussi, False sinon.
+        """
+        try:
+            # 1. R�cup�re toutes les recherches de cet espace
+            recherches = self.get_recherches()
+
+            # 2. Supprime chaque recherche (et ses �l�ments li�s)
+            for recherche in recherches:
+                if not recherche.supprimer():  # Utilise la m�thode supprimer de la classe Recherche
+                    print(f"Erreur lors de la suppression de la recherche {recherche.id}")
+                    # On pourrait choisir de continuer ou d'arr�ter ici
+
+            # 3. Supprime l'espace de recherche lui-m�me
+            self.bdd.cursor.execute('DELETE FROM recherche_espaces WHERE id = ?', (self.id,))
+            self.bdd.conn.commit()
+            return True
+        except Exception as e:
+            print(f"Erreur lors de la suppression de l'espace {self.id} : {e}")
+            self.bdd.conn.rollback()
+            return False
 
 
 
@@ -350,5 +517,15 @@ for espace in espaces:
     for recherche in recherches:
         print(recherche)
 
+espaces[1].supprimer()
+
+espaces = bdd.get_EspaceRecherche()
+for espace in espaces:
+    print(espace)
+    recherches = espace.get_recherches()
+    for recherche in recherches:
+        print(recherche)
+
+espaces[0].supprimer()
 
 bdd.close()
