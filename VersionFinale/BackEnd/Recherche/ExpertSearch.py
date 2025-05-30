@@ -9,7 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from typing import List, Optional
 
 class ExpertSearch(DeepSearch):
-    def get_research_question(question: str, context: str, NB_Question : int = 3 , language : str = "French"):
+    def get_research_question(self, question: str, context: str, NB_Question : int = 3 , language : str = "French"):
         parser = PydanticOutputParser(pydantic_object=question_expertsearch(NB_Question))
 
         system_prompt = f"""
@@ -49,4 +49,7 @@ class ExpertSearch(DeepSearch):
             print(f"Erreur de parsing : {e}")
             return None
 
-    
+# Exemple utilisation 
+#expert = ExpertSearch()
+#resultat = expert.get_research_question("Qu'est ce que l'ia","Veut avoir des informations sur l'ia")
+#print(resultat)
