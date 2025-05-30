@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+function BarreDeRecherche() {
   const [recherche, setRecherche] = useState('');
   const [keywords, setKeywords] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -11,13 +10,15 @@ function App() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setKeywords(null);
     try {
-      const response = await fetch('http://localhost:8888/recherche/keywords/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ recherche, numberKeyWord: 5 }),
-      });
+      const response = await fetch(
+        'http://localhost:8888/recherche/keywords/',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ recherche, numberKeyWord: 5 }),
+        }
+      );
       if (!response.ok) throw new Error('Erreur lors de la génération des mots-clés');
       const data = await response.json();
       setKeywords(data);
@@ -29,36 +30,34 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1>Recherche de mots-clés IA</h1>
+    <div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={recherche}
           onChange={(e) => setRecherche(e.target.value)}
-          placeholder="Tape ta recherche ici..."
-          className="search-bar"
+          placeholder="Entrez votre recherche..."
         />
-        <button type="submit" disabled={loading || !recherche}>
-          {loading ? 'Chargement...' : 'Générer les mots-clés'}
+        <button type="submit" disabled={loading}>
+          {loading ? 'Chargement...' : 'G�n�rer les mots-cl�s'}
         </button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {keywords && (
-        <div className="result">
-          <h2>Mots-clés générés :</h2>
+        <div>
+          <h3>Mots-clés générés :</h3>
           <ul>
-            {keywords.questions.map((q, i) => (
-              <li key={i}>{q}</li>
+            {keywords.questions.map((question, index) => (
+              <li key={index}>{question}</li>
             ))}
           </ul>
           {/* Langue retir�e */}
-          <p><strong>Catégorie :</strong> {keywords.categorie}</p>
-          <p><strong>Fonction spécifique :</strong> {keywords.boolean ? 'Oui' : 'Non'}</p>
+          <p>Catégorie : {keywords.categorie}</p>
+          <p>Peut être traité par une fonction locale spécifique ? : {keywords.boolean ? 'Oui' : 'Non'}</p>
         </div>
       )}
     </div>
   );
 }
 
-export default App;
+export default BarreDeRecherche;

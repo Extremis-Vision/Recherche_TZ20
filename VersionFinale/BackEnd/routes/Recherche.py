@@ -26,12 +26,12 @@ async def get_keywords(recherche: RechercheRequest):
     try:
         search = SimpleSearch(model_name=recherche.model_name)
         result = search.get_key_word_search(recherche.recherche, recherche.numberKeyWord)
+        print(result)
         if result is None:
             raise HTTPException(status_code=400, detail="Erreur lors de la génération des mots-clés")
-        questions, language, categorie, boolean = result
+        questions, categorie, boolean = result
         return {
             "questions": questions,
-            "language": language,
             "categorie": categorie,
             "boolean": boolean
         }

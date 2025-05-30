@@ -70,11 +70,12 @@ class SimpleSearch(RechercheBasique):
             response = chain.invoke({
             "input": recherche
             })
-            return [response.questions,response.language,response.categorie,response.boolean]
+            return [response.questions,response.categorie,response.boolean]
         except Exception as e:
             print(f"Erreur lors de la récupération des mots-clés : {e}")
             return None
         
 
 # Exemple utilisation 
-# print(SimpleSearch.get_key_word_search("Qu'est ce que l'ia "))
+#search = SimpleSearch()
+#print(search.get_key_word_search("Qu'est ce que l'ia "))
