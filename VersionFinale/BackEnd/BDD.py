@@ -189,7 +189,7 @@ class Bdd:
         ''', (id_source, id_recherche))
         self.conn.commit()
 
-    def addRechercheEspace(self, id_recherche: int, id_espace: int):
+    def addRechercheEspaceVersRecherche(self, id_recherche: int, id_espace: int):
         self.cursor.execute('''
             INSERT INTO recherche_espace (id_recherche, id_espace)
             VALUES (?, ?)
@@ -249,7 +249,7 @@ class RechercheEspace:
     def create_recherche(self, prompt: str, response: str) -> 'Recherche':
         recherche = Recherche(self.id, prompt, response, self.bdd)
         recherche_id = self.bdd.addRecherche(recherche)
-        self.bdd.addRechercheEspace(recherche_id, self.id)
+        self.bdd.addRechercheEspaceVersRecherche(recherche_id, self.id)
         return recherche
 
     def get_recherche(self, recherche_id: int) -> 'Recherche':
