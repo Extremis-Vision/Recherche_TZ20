@@ -1,6 +1,10 @@
-import sqlite3
+import psycopg2
 from typing import List, Optional, Tuple
 from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv(os.path.join('..', '.env'))
 
 class MotCle:
     def __init__(self, id: int, mot: str):
@@ -123,11 +127,19 @@ class Source:
 
 
 class Bdd:
-    def __init__(self, url: str, username: str, mdp: str):
-        self.url = url
-        self.username = username
-        self.mdp = mdp
-        self.conn = sqlite3.connect('bdd.db')
+    def __init__(self):
+        self.url = os.getenv('POSTGRES_HOST', 'localhost')
+        self.username = os.getenv('POSTGRES_USER')
+        self.mdp = os.getenv('POSTGRES_PASSWORD')
+        self.db_name = os.getenv('POSTGRES_DB')
+        self.port = os.getenv('POSTGRES_PORT', '5432')
+        self.conn = psycopg2.connect(
+            host=self.url,
+            port=self.port,
+            database=self.db_name,
+            user=self.username,
+            password=self.mdp
+        )
         self.cursor = self.conn.cursor()
         self._init_db()
 
