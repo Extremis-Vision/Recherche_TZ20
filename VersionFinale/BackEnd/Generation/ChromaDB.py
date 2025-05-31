@@ -263,5 +263,3 @@ class ChromaDB:
         except Exception as e:
             print(f"Erreur lors de la génération de la réponse : {e}")
             return None
-
-

@@ -111,15 +111,11 @@ class RechercheCrawling(SimpleSearch):
 
 #Exemple utilisation de RechercheCrawling
 #urls = ["https://sbert.net/"]
+#resultat_recherche = RechercheCrawling()
+#docs = resultat_recherche.multiplesearch_deep(["Crawler"])
 
-
-resultat_recherche = RechercheCrawling()
-docs = resultat_recherche.multiplesearch_deep(["Crawler"])
-
-from Generation.ChromaDB import ChromaDB
-
-chroma_db = ChromaDB()
-
-chroma_db.add_documents_deepsearch(docs)
+#from Generation.ChromaDB import ChromaDB
+#chroma_db = ChromaDB()
+#chroma_db.add_documents_deepsearch(docs)
 
 
