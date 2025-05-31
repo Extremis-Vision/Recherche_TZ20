@@ -5,6 +5,8 @@ import './App.css';
 function App() {
   const [recherche, setRecherche] = useState('');
   const [keywords, setKeywords] = useState(null);
+  const [editingKeywordIndex, setEditingKeywordIndex] = useState(null);
+  const [editingKeywordValue, setEditingKeywordValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [step, setStep] = useState(1); // 1 = génération mots-clés, 2 = recherche RAG
@@ -75,6 +77,40 @@ function App() {
     setRagResult('');
     setStep(1);
     setError(null);
+    setEditingKeywordIndex(null);
+    setEditingKeywordValue('');
+  };
+
+  // Supprimer un mot-clé
+  const handleDeleteKeyword = (index) => {
+    setKeywords((prev) => prev.filter((_, i) => i !== index));
+    if (editingKeywordIndex === index) {
+      setEditingKeywordIndex(null);
+      setEditingKeywordValue('');
+    }
+  };
+
+  // Cliquer sur un mot-clé pour le modifier
+  const handleEditKeyword = (index) => {
+    setEditingKeywordIndex(index);
+    setEditingKeywordValue(keywords[index]);
+  };
+
+  // Valider la modification du mot-clé
+  const handleEditKeywordSubmit = (e) => {
+    e.preventDefault();
+    if (editingKeywordValue.trim() === '') return;
+    setKeywords((prev) =>
+      prev.map((kw, i) => (i === editingKeywordIndex ? editingKeywordValue.trim() : kw))
+    );
+    setEditingKeywordIndex(null);
+    setEditingKeywordValue('');
+  };
+
+  // Annuler la modification du mot-clé
+  const handleEditKeywordCancel = () => {
+    setEditingKeywordIndex(null);
+    setEditingKeywordValue('');
   };
 
   return (
@@ -85,11 +121,99 @@ function App() {
       {keywords && (
         <div className="result" style={{ marginBottom: '1em' }}>
           <h2>Mots-clés générés :</h2>
-          <ul>
-            {keywords.map((q, i) => (
-              <li key={i}>{q}</li>
-            ))}
-          </ul>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5em' }}>
+            {keywords.map((keyword, index) =>
+              editingKeywordIndex === index ? (
+                <form
+                  key={index}
+                  onSubmit={handleEditKeywordSubmit}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    background: '#e0e0e0',
+                    borderRadius: '16px',
+                    padding: '0.2em 0.6em',
+                  }}
+                >
+                  <input
+                    type="text"
+                    value={editingKeywordValue}
+                    autoFocus
+                    onChange={(e) => setEditingKeywordValue(e.target.value)}
+                    style={{
+                      border: 'none',
+                      outline: 'none',
+                      background: 'transparent',
+                      fontSize: '1em',
+                      width: '7em',
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    style={{
+                      marginLeft: '0.3em',
+                      border: 'none',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'green',
+                      fontWeight: 'bold',
+                    }}
+                    title="Valider"
+                  >
+                    ✓
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleEditKeywordCancel}
+                    style={{
+                      marginLeft: '0.1em',
+                      border: 'none',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'red',
+                      fontWeight: 'bold',
+                    }}
+                    title="Annuler"
+                  >
+                    ✗
+                  </button>
+                </form>
+              ) : (
+                <span
+                  key={index}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    background: '#e0e0e0',
+                    borderRadius: '16px',
+                    padding: '0.2em 0.6em',
+                    cursor: 'pointer',
+                    fontSize: '1em',
+                  }}
+                  onClick={() => handleEditKeyword(index)}
+                  title="Cliquez pour modifier"
+                >
+                  {keyword}
+                  <span
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteKeyword(index);
+                    }}
+                    style={{
+                      marginLeft: '0.4em',
+                      color: '#b71c1c',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      fontSize: '1.1em',
+                    }}
+                    title="Supprimer"
+                  >
+                    ×
+                  </span>
+                </span>
+              )
+            )}
+          </div>
         </div>
       )}
 
