@@ -51,7 +51,7 @@ function BarreDeRecherche() {
           body: JSON.stringify({
             recherche_prompt: recherche,
             MotCLee: keywords,
-            number_result: 5,
+            number_result: 10,
           }),
         }
       );

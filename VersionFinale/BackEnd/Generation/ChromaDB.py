@@ -7,7 +7,6 @@ import numpy as np
 import lmstudio as lms
 from typing import List, Optional
 
-
 # Load environment variables from .env file
 dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 load_dotenv(dotenv_path)
@@ -28,13 +27,15 @@ class NomicEmbeddingFunction:
             # Mock embedding function
             return [np.array([0.1 * i] * 5) for i in range(len(input))]
 
+    def name(self):
+        return "nomic-embed-text-v1.5"
+
 class ChromaDB:
     def __init__(self, embedding_function=None):
         self.host = os.getenv("CHROMA_SERVER_HOST", "localhost")
         self.port = int(os.getenv("CHROMA_SERVER_PORT", "8000"))
         self.token = os.getenv("CHROMA_SERVER_AUTH_CREDENTIALS", "")
         self.collection_name = os.getenv("CHROMA_COLLECTION_NAME", "nomic_collection")
-
 
         if embedding_function is None:
             embedding_function = NomicEmbeddingFunction()
@@ -79,6 +80,7 @@ class ChromaDB:
                 metadatas=metadatas,
                 ids=ids
             )
+            print(f"Added {len(documents)} documents to the collection.")
 
     def get_documents(self, n_results: int = 5, query: str = None) -> List[dict]:
         if query:
@@ -87,8 +89,11 @@ class ChromaDB:
                 n_results=n_results
             )
             metadatas = results['metadatas'][0] if results['metadatas'] else []
+            print(f"Found {len(metadatas)} documents for the query: {query}")
         else:
-            metadatas = self.collection.peek(n_results=n_results)['metadatas']
+            results = self.collection.get(limit=n_results)
+            metadatas = results['metadatas'] if results['metadatas'] else []
+            print(f"Retrieved {len(metadatas)} documents without a query.")
 
         docs = []
         for meta in metadatas:
@@ -98,20 +103,29 @@ class ChromaDB:
                 "snippet": meta.get("snippet")
             })
         return docs
-    
+
+    def clear_collection(self):
+        # R�cup�rer tous les documents de la collection
+        results = self.collection.get()
+        ids = results['ids'] if results and 'ids' in results else []
+
+        if ids:
+            # Supprimer tous les documents de la collection
+            self.collection.delete(ids=ids)
+            print(f"Deleted {len(ids)} documents from the collection.")
+        else:
+            print("No documents to delete.")
+
     def response_with_context(self, prompt: str, NB_result_use=5, model_name: str = "ministral-8b-instruct-2410") -> Optional[str]:
-        """
-        RAG optimisé : recherche, formatage du contexte, génération de réponse.
-        """
         # 1. Recherche des documents pertinents
         docs = self.get_documents(n_results=NB_result_use, query=prompt)
         if not docs:
-            return "Aucune information pertinente trouvée dans la base de connaissances."
+            return "Aucune information pertinente trouv�e dans la base de connaissances."
 
-        # 2. Construction du contexte formaté et limité en taille
+        # 2. Construction du contexte format� et limit� en taille
         context_blocks = []
         total_tokens = 0
-        max_tokens = 2048  # Adapte selon la capacité de ton modèle
+        max_tokens = 2048  # Adapte selon la capacit� de ton mod�le
         for doc in docs:
             block = (
                 f"\nSource: {doc['title']}\n"
@@ -125,7 +139,7 @@ class ChromaDB:
             total_tokens += block_tokens
         context = "\n".join(context_blocks)
 
-        # 3. Prompt system amélioré
+        # 3. Prompt system am�lior�
         system_prompt = f"""
         You must generate a response using only the context provided below, and you must cite the sources of any information you use.
         Your response must be in the same language as the user's input.
@@ -158,44 +172,5 @@ class ChromaDB:
             for fragment in prediction_stream:
                 yield fragment.content
         except Exception as e:
-            print(f"Erreur lors de la génération de la réponse : {e}")
+            print(f"Erreur lors de la g�n�ration de la r�ponse : {e}")
             return None
-
-class NomicEmbeddingFunction:
-    def __init__(self):
-        try:
-            import lmstudio as lms
-            self.model = lms.embedding_model("nomic-embed-text-v1.5")
-        except ImportError:
-            print("lmstudio not found. Using mock embedding function.")
-            self.model = None
-
-    def __call__(self, input: List[str]) -> List[np.ndarray]:
-        if self.model is not None:
-            return [np.array(self.model.embed(text)) for text in input]
-        else:
-            # Mock embedding function
-            return [np.array([0.1 * i] * 5) for i in range(len(input))]
-
-    def name(self):
-        # Retourne un nom unique pour l'embedding utilisé
-        return "nomic-embed-text-v1.5"
-
-
-# Example usage
-#if __name__ == "__main__":
-#    snippets = [{'title': 'Transformer (deep learning architecture) - Wikipedia','link': 'https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)','snippet': 'Transformer is a neural network ...'}]
-#    chroma_db = ChromaDB()
-#    chroma_db.add_documents(snippets)
-
-#    important_docs = chroma_db.get_documents(n_results=5, query="Qu'est-ce qu'un Transformer ?")
-#    for doc in important_docs:
-#        print("Titre:", doc["title"])
-#        print("Lien:", doc["link"])
-#        print("Snippet:", doc["snippet"])
-#        print("---")
-
-#Exemple RAG
-#chroma_db = ChromaDB()
-
-#chroma_db.response_with_context("Qu'est-ce qu'un Transformer ?")

@@ -40,23 +40,26 @@ class SimpleSearch(RechercheBasique):
         format_instructions = parser.get_format_instructions().replace("{", "{{").replace("}", "}}")
 
         system_prompt = (
-            f"Your main objective is to return a set of keywords or key sentences to perform a web search, your response must be only and only in the JSON format.\n"
-            f"You must generate exactly {numberKeyWord} keywords or key sentences that are precise and directly relevant to the user's question.\n"
+            f"Your main objective is to return a set of precise keywords to perform a web search for the given question. Only generate keywords that are highly specific to the domain, such as proper nouns, names of tools, companies, organizations, or other unique terms directly relevant to the question.\n"
+            f"Do not generate general or broad keywords—focus only on unique, domain-specific terms, including names the model may not know but are essential for targeted search.\n"
+            f"Your response must be strictly in JSON format.\n"
+            f"You must generate exactly {numberKeyWord} keywords, always in English.\n"
             f"\n"
-            f"IMPORTANT INSTRUCTIONS:\n"
-            f"- Your response MUST be a single JSON object, with no extra text, comments, or explanations.\n"
-            f"- The JSON object must contain the following fields:\n"
-            f"    - 'questions': a list of exactly {numberKeyWord} keywords or key sentences, the keywords must always be in English.\n"
-            f"    - 'categorie': the category or domain of the question (e.g., 'technology', 'health').\n"
-            f"    - 'boolean': 'true' if the information requested can be provided by a specific function (such as getting a price or the weather), otherwise 'false'.\n"
+            f"INSTRUCTIONS:\n"
+            f"- Respond with a single JSON object only—no extra text, comments, or explanations.\n"
+            f"- The JSON object must include:\n"
+            f"    - 'questions': a list of exactly {numberKeyWord} specific English keywords (proper nouns, tool names, company names, etc.).\n"
+            f"    - 'categorie': the main category or domain of the question (e.g., 'technology', 'health').\n"
+            f"    - 'boolean': 'true' if a specific function (such as price lookup or weather) can provide the answer; otherwise, 'false'.\n"
             f"\n"
             f"EXAMPLE OUTPUT FORMAT (for 2 keywords):\n"
-            f'{{{{"questions": ["keyword1", "keyword2"], "language": "language", "categorie": "technology", "boolean": "false"}}}}\n'
+            f'{{{{"questions": ["OpenAI", "ChatGPT"], "categorie": "technology", "boolean": "false"}}}}\n'
             f"\n"
             f"Do not add any explanations or text outside this JSON format.\n"
             f"\n"
             f"{format_instructions}\n"
         )
+
 
 
         prompt = ChatPromptTemplate.from_messages([
