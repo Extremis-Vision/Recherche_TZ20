@@ -8,6 +8,7 @@ from typing import List,Optional
 from pydantic import BaseModel
 from Recherche.SimpleSearch import SimpleSearch
 from Recherche.RechercheBasique import RechercheBasique
+from Recherche.DeepSearch import DeepSearch
 from Generation.ChromaDB import ChromaDB
 from fastapi.responses import StreamingResponse
 
@@ -65,3 +66,24 @@ async def get_keywords(rercherchesimpleinput: RerchercheSimpleInput):
         return StreamingResponse(response_generator, media_type="text/plain")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+
+@router.post("/DeepSearch")
+async def get_keywords(rercherchesimpleinput: RerchercheSimpleInput):
+    """
+    Retourne la réponse de la recherche avec les mots clés, en streaming.
+    """
+    try:
+        # Recherche des mots clées puis ajout de ces mots clées au rag en utilisant la forme prédéfinie 
+        chromaDB.add_documents(
+            resultat_recherche.multiplesearch(
+                rercherchesimpleinput.MotCLee,
+                rercherchesimpleinput.number_result
+            )
+        )
+
+        response_generator = chromaDB.response_with_context(rercherchesimpleinput.recherche_prompt)
+        return StreamingResponse(response_generator, media_type="text/plain")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
