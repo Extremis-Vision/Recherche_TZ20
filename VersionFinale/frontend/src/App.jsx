@@ -7,6 +7,8 @@ function App() {
   const [keywords, setKeywords] = useState(null);
   const [editingKeywordIndex, setEditingKeywordIndex] = useState(null);
   const [editingKeywordValue, setEditingKeywordValue] = useState('');
+  const [addingKeyword, setAddingKeyword] = useState(false);
+  const [newKeyword, setNewKeyword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [step, setStep] = useState(1); // 1 = génération mots-clés, 2 = recherche RAG
@@ -79,6 +81,8 @@ function App() {
     setError(null);
     setEditingKeywordIndex(null);
     setEditingKeywordValue('');
+    setAddingKeyword(false);
+    setNewKeyword('');
   };
 
   // Supprimer un mot-clé
@@ -113,6 +117,21 @@ function App() {
     setEditingKeywordValue('');
   };
 
+  // Ajouter un mot-clé
+  const handleAddKeyword = (e) => {
+    e.preventDefault();
+    const value = newKeyword.trim();
+    if (!value) return;
+    if (keywords && keywords.includes(value)) {
+      setNewKeyword('');
+      setAddingKeyword(false);
+      return; // Pas de doublon
+    }
+    setKeywords((prev) => (prev ? [...prev, value] : [value]));
+    setNewKeyword('');
+    setAddingKeyword(false);
+  };
+
   return (
     <div className="container">
       <h1>Recherche de mots-clés IA</h1>
@@ -121,7 +140,7 @@ function App() {
       {keywords && (
         <div className="result" style={{ marginBottom: '1em' }}>
           <h2>Mots-clés générés :</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5em' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5em', alignItems: 'center' }}>
             {keywords.map((keyword, index) =>
               editingKeywordIndex === index ? (
                 <form
@@ -212,6 +231,86 @@ function App() {
                   </span>
                 </span>
               )
+            )}
+            {/* Ajout du bouton + et du champ d'ajout */}
+            {addingKeyword ? (
+              <form
+                onSubmit={handleAddKeyword}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  background: '#e0e0e0',
+                  borderRadius: '16px',
+                  padding: '0.2em 0.6em',
+                  marginLeft: '0.5em',
+                }}
+              >
+                <input
+                  type="text"
+                  value={newKeyword}
+                  autoFocus
+                  onChange={(e) => setNewKeyword(e.target.value)}
+                  style={{
+                    border: 'none',
+                    outline: 'none',
+                    background: 'transparent',
+                    fontSize: '1em',
+                    width: '7em',
+                  }}
+                  placeholder="Nouveau mot-clé"
+                />
+                <button
+                  type="submit"
+                  style={{
+                    marginLeft: '0.3em',
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    color: 'green',
+                    fontWeight: 'bold',
+                  }}
+                  title="Ajouter"
+                >
+                  ✓
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAddingKeyword(false);
+                    setNewKeyword('');
+                  }}
+                  style={{
+                    marginLeft: '0.1em',
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    color: 'red',
+                    fontWeight: 'bold',
+                  }}
+                  title="Annuler"
+                >
+                  ✗
+                </button>
+              </form>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setAddingKeyword(true)}
+                style={{
+                  marginLeft: '0.5em',
+                  border: 'none',
+                  background: '#e0e0e0',
+                  borderRadius: '16px',
+                  padding: '0.2em 0.6em',
+                  cursor: 'pointer',
+                  fontSize: '1em',
+                  color: '#1976d2',
+                  fontWeight: 'bold',
+                }}
+                title="Ajouter un mot-clé"
+              >
+                + Ajouter un mot-clé
+              </button>
             )}
           </div>
         </div>
