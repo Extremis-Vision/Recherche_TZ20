@@ -84,6 +84,86 @@ class ChromaDB:
             )
             print(f"Added {len(documents)} documents to the collection.")
 
+    def split_text_into_chunks(self, text, max_chunk_size=800, overlap=100):
+        import re
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+        chunks = []
+        current_chunk = ""
+        for sentence in sentences:
+            if len(current_chunk) + len(sentence) + 1 <= max_chunk_size:
+                current_chunk += (" " if current_chunk else "") + sentence
+            else:
+                if current_chunk:
+                    chunks.append(current_chunk.strip())
+                    # Overlap : on reprend la fin du chunk précédent
+                    if overlap > 0 and len(current_chunk) > overlap:
+                        current_chunk = current_chunk[-overlap:] + " " + sentence
+                    else:
+                        current_chunk = sentence
+                else:
+                    # phrase trop longue seule, on la coupe brutalement
+                    chunks.append(sentence[:max_chunk_size])
+                    current_chunk = sentence[max_chunk_size:]
+        if current_chunk.strip():
+            chunks.append(current_chunk.strip())
+        return chunks
+
+    def add_documents_deepsearch(self, docs: list, max_chunk_size: int = 800, chunk_overlap: int = 100):
+        import datetime
+
+        documents = []
+        metadatas = []
+        ids = []
+
+        def sanitize_value(k, v):
+            # On retire publishedDate des métadatas pour ChromaDB
+            if k == "publishedDate":
+                return None  # ou: return None pour que le champ soit absent, ou: return "REMOVED"
+            if isinstance(v, (str, int, float, bool)) or v is None:
+                return v
+            return str(v)
+
+        def sanitize_metadata(meta):
+            new_meta = {}
+            for k, v in meta.items():
+                if k == "publishedDate":
+                    continue  # On ignore complètement ce champ
+                new_meta[k] = sanitize_value(k, v)
+            return new_meta
+
+        for i, doc in enumerate(docs):
+            title = doc.get("title")
+            link = doc.get("url") or doc.get("link")
+            content = doc.get("snippet") or doc.get("content", "")
+            if not title or not link or not content:
+                continue
+
+            chunks = self.split_text_into_chunks(content, max_chunk_size, chunk_overlap)
+            for chunk_id, chunk_text in enumerate(chunks):
+                documents.append(f"{title}. {chunk_text}")
+                meta = {
+                    "link": link,
+                    "title": title,
+                    "snippet": chunk_text,
+                    "chunk_id": chunk_id,
+                }
+                for key in doc:
+                    if key not in meta and key not in ["content", "snippet", "title", "url", "link"]:
+                        meta[key] = doc[key]
+                meta = sanitize_metadata(meta)
+                metadatas.append(meta)
+                ids.append(f"doc_{i}_chunk_{chunk_id}")
+
+        if documents:
+            self.collection.add(
+                documents=documents,
+                metadatas=metadatas,
+                ids=ids
+            )
+            print(f"Added {len(documents)} chunks to the collection.")
+
+
+
     def get_documents(self, n_results: int = 5, query: str = None) -> List[dict]:
         """
         Récupère les documents pertinents pour la query.
@@ -183,3 +263,5 @@ class ChromaDB:
         except Exception as e:
             print(f"Erreur lors de la génération de la réponse : {e}")
             return None
+
+

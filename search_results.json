@@ -74,9 +74,9 @@
     ],
     "positions": [
       3,
-      5
+      4
     ],
-    "score": 1.0666666666666667,
+    "score": 1.1666666666666665,
     "category": "general",
     "snippet": "A web crawler, spider, or search engine bot downloads and indexes content from all over the Internet. The goal of such a bot is to learn what (almost) every webpage on the web is about, so that the information can be retrieved when it's needed. Search engines use these bots to find relevant pages to display in search results."
   },
