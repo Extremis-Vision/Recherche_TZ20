@@ -6,6 +6,12 @@ import asyncio
 from typing import List, Dict
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
 from Recherche.SimpleSearch import SimpleSearch
+from dotenv import load_dotenv
+import requests
+import json
+
+load_dotenv()
+SEARCHURL = os.getenv("SEARCHURL")
 
 class RechercheCrawling(SimpleSearch):        
     async def crawl_url_and_update(self, doc: Dict, max_retries: int = 3) -> Dict:
@@ -47,23 +53,67 @@ class RechercheCrawling(SimpleSearch):
 
         docs_to_crawl = docs[:limit]
         return asyncio.run(crawl_all(docs_to_crawl))
+    
+    def search_results_deep(self, query: str, engines: List[str] = None, categories: List[str] = None, acceptScore: float = 0.5, num_results: int = 5) -> List[Dict]:
+        """
+        Effectue une requête de recherche via l'API SearchX et renvoie les résultats avec 'snippet' au lieu de 'content'.
+        """
+        params = {
+            'q': query,
+            'engines': ','.join(engines) if engines else None,
+            'categories': ','.join(categories) if categories else None,
+            'format': 'json',
+        }
+        params = {k: v for k, v in params.items() if v is not None}
+
+        response = requests.get(SEARCHURL, params=params)
+
+        if response.status_code == 200:
+            resultats = response.json()
+            results = []
+
+            for i in resultats.get("results", []):
+                if i.get("score", 0) >= acceptScore:
+                    # On copie le dict et on renomme 'content' en 'snippet'
+                    item = i.copy()
+                    if 'content' in item:
+                        item['snippet'] = item.pop('content')
+                    results.append(item)
+                if len(results) >= num_results:
+                    break
+
+            # Sauvegarde pour debug
+            with open('search_results.json', 'w', encoding='utf-8') as f:
+                json.dump(results, f, ensure_ascii=False, indent=2)
+
+            return results
+
+        else:
+            print(f"Erreur: {response.status_code}, {response.text}")
+            return []
+
+    def multiplesearch_deep(self, keywords: List[str], num_results: int = 5, engines: List[str] = None, categories: List[str] = None, acceptScore: float = 0.5) -> List[Dict]:
+        """
+        Effectue une recherche pour chaque mot-clé, agrège et retourne tous les résultats avec 'snippet' au lieu de 'content'.
+        """
+        all_results = []
+        for keyword in keywords:
+            res = self.search_results_deep(
+                query=keyword,
+                engines=engines,
+                categories=categories,
+                acceptScore=acceptScore,
+                num_results=num_results
+            )
+            all_results.extend(res)
+        return all_results
 
 
 #Exemple utilisation de RechercheCrawling
 #urls = ["https://sbert.net/"]
+
+
 #resultat_recherche = RechercheCrawling()
-#print(resultat_recherche.get_websites_contend(urls))
+#print(resultat_recherche.multiplesearch_deep(["Crawler"]))
 
-from Recherche.RechercheBasique import RechercheBasique
 
-resultat_recherche = RechercheBasique()
-
-docs = resultat_recherche.multiplesearch(
-                ["Output parser"],
-                5
-            )
-
-crawling = RechercheCrawling()
-result = crawling.get_websites_content(docs, limit=5)
-
-print(result)
