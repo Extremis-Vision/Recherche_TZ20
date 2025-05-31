@@ -1,11 +1,10 @@
 import os
 import chromadb
 from chromadb.config import Settings
-from typing import List
+from typing import List, Optional
 from dotenv import load_dotenv
 import numpy as np
 import lmstudio as lms
-from typing import List, Optional
 
 # Load environment variables from .env file
 dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
@@ -55,6 +54,9 @@ class ChromaDB:
         )
 
     def add_documents(self, docs: List[dict]):
+        """
+        Ajoute des documents à la collection ChromaDB.
+        """
         documents = []
         metadatas = []
         ids = []
@@ -83,19 +85,22 @@ class ChromaDB:
             print(f"Added {len(documents)} documents to the collection.")
 
     def get_documents(self, n_results: int = 5, query: str = None) -> List[dict]:
+        """
+        Récupère les documents pertinents pour la query.
+        """
+        docs = []
         if query:
             results = self.collection.query(
                 query_texts=[query],
                 n_results=n_results
             )
-            metadatas = results['metadatas'][0] if results['metadatas'] else []
+            metadatas = results['metadatas'][0] if results.get('metadatas') else []
             print(f"Found {len(metadatas)} documents for the query: {query}")
         else:
             results = self.collection.get(limit=n_results)
-            metadatas = results['metadatas'] if results['metadatas'] else []
+            metadatas = results['metadatas'] if results.get('metadatas') else []
             print(f"Retrieved {len(metadatas)} documents without a query.")
 
-        docs = []
         for meta in metadatas:
             docs.append({
                 "title": meta.get("title"),
@@ -105,27 +110,31 @@ class ChromaDB:
         return docs
 
     def clear_collection(self):
-        # R�cup�rer tous les documents de la collection
+        """
+        Supprime tous les documents de la collection.
+        """
         results = self.collection.get()
         ids = results['ids'] if results and 'ids' in results else []
 
         if ids:
-            # Supprimer tous les documents de la collection
             self.collection.delete(ids=ids)
             print(f"Deleted {len(ids)} documents from the collection.")
         else:
             print("No documents to delete.")
 
     def response_with_context(self, prompt: str, NB_result_use=5, model_name: str = "ministral-8b-instruct-2410") -> Optional[str]:
+        """
+        Génère une réponse à partir du contexte extrait des documents pertinents.
+        """
         # 1. Recherche des documents pertinents
         docs = self.get_documents(n_results=NB_result_use, query=prompt)
         if not docs:
-            return "Aucune information pertinente trouv�e dans la base de connaissances."
+            return "Aucune information pertinente trouvée dans la base de connaissances."
 
-        # 2. Construction du contexte format� et limit� en taille
+        # 2. Construction du contexte formaté et limité en taille
         context_blocks = []
         total_tokens = 0
-        max_tokens = 2048  # Adapte selon la capacit� de ton mod�le
+        max_tokens = 2048  # Adapte selon la capacité de ton modèle
         for doc in docs:
             block = (
                 f"\nSource: {doc['title']}\n"
@@ -139,7 +148,7 @@ class ChromaDB:
             total_tokens += block_tokens
         context = "\n".join(context_blocks)
 
-        # 3. Prompt system am�lior�
+        # 3. Prompt system amélioré
         system_prompt = f"""
         You must generate a response using only the context provided below, and you must cite the sources of any information you use.
         Your response must be in the same language as the user's input.
@@ -172,5 +181,5 @@ class ChromaDB:
             for fragment in prediction_stream:
                 yield fragment.content
         except Exception as e:
-            print(f"Erreur lors de la g�n�ration de la r�ponse : {e}")
+            print(f"Erreur lors de la génération de la réponse : {e}")
             return None
