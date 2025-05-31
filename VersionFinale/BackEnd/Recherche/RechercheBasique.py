@@ -21,9 +21,10 @@ class RechercheBasique:
         engines = engines if engines is not None else self.engines
         results = []
         for keyword in keywords:
-            results.extends(self.search_results(keyword,num_results,engines))
+            results.extend(self.search_results(keyword, num_results, engines))
         return results
 
 # Exemple utilisation de RechercheBasique
 #resultat_recherche = RechercheBasique()
 #print(resultat_recherche.search_results("C'est quoi Crawl4AI ?",5))
+#print(resultat_recherche.multiplesearch(["C'est quoi Crawl4AI ?"],5))

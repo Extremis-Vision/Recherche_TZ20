@@ -179,6 +179,7 @@ class ChromaDB:
 #        print("Snippet:", doc["snippet"])
 #        print("---")
 
-chroma_db = ChromaDB()
+#Exemple RAG
+#chroma_db = ChromaDB()
 
-chroma_db.response_with_context("Qu'est-ce qu'un Transformer ?")
+#chroma_db.response_with_context("Qu'est-ce qu'un Transformer ?")

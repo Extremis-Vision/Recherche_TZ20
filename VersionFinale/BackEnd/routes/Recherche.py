@@ -4,9 +4,11 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from fastapi import APIRouter, HTTPException
-from typing import Optional
+from typing import List,Optional
 from pydantic import BaseModel
 from Recherche.SimpleSearch import SimpleSearch
+from Recherche.RechercheBasique import RechercheBasique
+from Generation.ChromaDB import ChromaDB
 
 router = APIRouter(prefix="/recherche")
 
@@ -34,3 +36,11 @@ async def get_keywords(recherche: RechercheRequest):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/SimpleSearch")
+async def get_keywords(MotCLee: List[str]):
+    """
+    Retourne la réponse de la recherche avec les mots clées
+    """
+    try:
