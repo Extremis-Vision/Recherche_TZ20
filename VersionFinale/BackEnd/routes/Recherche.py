@@ -1,14 +1,11 @@
 import sys
 from pathlib import Path
 
-# Ajoute le dossier parent au PYTHONPATH
 sys.path.append(str(Path(__file__).parent.parent))
 
-from Recherche.Keywords import keywords_simplesearch
 from fastapi import APIRouter, HTTPException
-from typing import List, Optional
+from typing import Optional
 from pydantic import BaseModel
-from langchain_core.output_parsers import PydanticOutputParser
 from Recherche.SimpleSearch import SimpleSearch
 
 router = APIRouter(prefix="/recherche")
