@@ -33,7 +33,8 @@ class ChromaDB:
         self.host = os.getenv("CHROMA_SERVER_HOST", "localhost")
         self.port = int(os.getenv("CHROMA_SERVER_PORT", "8000"))
         self.token = os.getenv("CHROMA_SERVER_AUTH_CREDENTIALS", "")
-        self.collection_name = os.getenv("CHROMA_COLLECTION_NAME", "default_collection")
+        self.collection_name = os.getenv("CHROMA_COLLECTION_NAME", "nomic_collection")
+
 
         if embedding_function is None:
             embedding_function = NomicEmbeddingFunction()
@@ -154,16 +155,31 @@ class ChromaDB:
             chat.add_user_message(prompt)
 
             prediction_stream = model.respond_stream(chat)
-            full_response = ""
-            print("Bot :", end=" ", flush=True)
             for fragment in prediction_stream:
-                full_response += fragment.content
-                print(fragment.content, end="", flush=True)
-            print()
-            return full_response.strip()
+                yield fragment.content
         except Exception as e:
             print(f"Erreur lors de la génération de la réponse : {e}")
             return None
+
+class NomicEmbeddingFunction:
+    def __init__(self):
+        try:
+            import lmstudio as lms
+            self.model = lms.embedding_model("nomic-embed-text-v1.5")
+        except ImportError:
+            print("lmstudio not found. Using mock embedding function.")
+            self.model = None
+
+    def __call__(self, input: List[str]) -> List[np.ndarray]:
+        if self.model is not None:
+            return [np.array(self.model.embed(text)) for text in input]
+        else:
+            # Mock embedding function
+            return [np.array([0.1 * i] * 5) for i in range(len(input))]
+
+    def name(self):
+        # Retourne un nom unique pour l'embedding utilisé
+        return "nomic-embed-text-v1.5"
 
 
 # Example usage
