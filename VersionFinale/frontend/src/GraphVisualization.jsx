@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
 import coseBilkent from 'cytoscape-cose-bilkent';
 import './GraphVisualization.css';
@@ -9,6 +9,13 @@ const GraphVisualization = ({ width = '100%', height = 600 }) => {
   const cyRef = useRef(null);
   const cyInstance = useRef(null);
 
+  // Pour stocker toutes les données originales
+  const [allNodes, setAllNodes] = useState([]);
+  const [allEdges, setAllEdges] = useState([]);
+  const [search, setSearch] = useState('');
+  const [includeNeighbors, setIncludeNeighbors] = useState(false);
+
+  // Chargement initial des données du graphe
   useEffect(() => {
     let cy;
 
@@ -40,6 +47,9 @@ const GraphVisualization = ({ width = '100%', height = 600 }) => {
             },
           };
         });
+
+        setAllNodes(nodes);
+        setAllEdges(edges);
 
         cy = cytoscape({
           container: cyRef.current,
@@ -117,14 +127,95 @@ const GraphVisualization = ({ width = '100%', height = 600 }) => {
     };
   }, []);
 
+  // Fonction de filtrage du graphe
+  useEffect(() => {
+    const cy = cyInstance.current;
+    if (!cy) return;
+
+    // Si pas de recherche, tout afficher
+    if (!search.trim()) {
+      cy.elements().remove();
+      cy.add([...allNodes, ...allEdges]);
+      cy.layout({ name: 'cose-bilkent', fit: true, animate: true }).run();
+      return;
+    }
+
+    // Recherche insensible à la casse sur displayLabel
+    const searchLower = search.trim().toLowerCase();
+    const matchedNodes = allNodes.filter(node =>
+      (node.data.displayLabel || '').toLowerCase().includes(searchLower)
+    );
+
+    let nodesToShow = [...matchedNodes];
+    let edgesToShow = [];
+
+    if (includeNeighbors) {
+      // Ajoute les voisins des nœuds trouvés
+      const matchedIds = new Set(matchedNodes.map(n => n.data.id));
+      const neighborIds = new Set();
+
+      allEdges.forEach(edge => {
+        const { source, target } = edge.data;
+        if (matchedIds.has(source)) neighborIds.add(target);
+        if (matchedIds.has(target)) neighborIds.add(source);
+      });
+
+      // Ajoute les voisins aux nœuds à afficher
+      allNodes.forEach(node => {
+        if (neighborIds.has(node.data.id)) nodesToShow.push(node);
+      });
+
+      // Affiche les arêtes qui relient les nœuds affichés
+      const idsToShow = new Set(nodesToShow.map(n => n.data.id));
+      edgesToShow = allEdges.filter(
+        edge => idsToShow.has(edge.data.source) && idsToShow.has(edge.data.target)
+      );
+    } else {
+      // Affiche seulement les arêtes entre les nœuds trouvés
+      const matchedIds = new Set(matchedNodes.map(n => n.data.id));
+      edgesToShow = allEdges.filter(
+        edge => matchedIds.has(edge.data.source) && matchedIds.has(edge.data.target)
+      );
+    }
+
+    // Met à jour le graphe
+    cy.elements().remove();
+    cy.add([...nodesToShow, ...edgesToShow]);
+    cy.layout({ name: 'cose-bilkent', fit: true, animate: true }).run();
+  }, [search, includeNeighbors, allNodes, allEdges]);
+
   return (
-    <div className="graph-container">
+    <div className="graph-container" style={{ width, height }}>
+      <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <input
+          type="text"
+          placeholder="Rechercher un nœud..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{
+            flex: 1,
+            padding: '6px 10px',
+            border: '1px solid #aaa',
+            borderRadius: 4,
+            fontSize: 14,
+          }}
+        />
+        <label style={{ fontSize: 13, display: 'flex', alignItems: 'center', gap: 4 }}>
+          <input
+            type="checkbox"
+            checked={includeNeighbors}
+            onChange={e => setIncludeNeighbors(e.target.checked)}
+            style={{ marginRight: 4 }}
+          />
+          Inclure voisins
+        </label>
+      </div>
       <div
         id="cy"
         ref={cyRef}
         style={{
-          width: typeof width === 'number' ? `${width}px` : width,
-          height: typeof height === 'number' ? `${height}px` : height,
+          width: '100%',
+          height: typeof height === 'number' ? `${height - 40}px` : `calc(${height} - 40px)`,
           minHeight: 120,
         }}
       ></div>
