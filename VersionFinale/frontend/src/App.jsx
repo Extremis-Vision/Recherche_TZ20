@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import KeywordList from './KeywordList';
 import ResultDisplay from './ResultDisplay';
 import GraphVisualization from './GraphVisualization';
+import EspacePage from './EspacePage'; // À créer séparément, voir plus bas
 import './App.css';
 
-function App() {
+function MainApp() {
+  const [espaces, setEspaces] = useState([]);
+  const [loadingEspaces, setLoadingEspaces] = useState(false);
+  const [errorEspaces, setErrorEspaces] = useState(null);
   const [recherche, setRecherche] = useState('');
   const [keywords, setKeywords] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -13,6 +18,16 @@ function App() {
   const [step, setStep] = useState(1);
   const [ragResult, setRagResult] = useState('');
   const [graphFullScreen, setGraphFullScreen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoadingEspaces(true);
+    fetch('http://localhost:8888/bdd/GetEspaceRecherches/')
+      .then(res => res.json())
+      .then(data => setEspaces(data))
+      .catch(() => setErrorEspaces('Erreur lors de la récupération des espaces'))
+      .finally(() => setLoadingEspaces(false));
+  }, []);
 
   const handleGenerateKeywords = async (e) => {
     e.preventDefault();
@@ -78,10 +93,46 @@ function App() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 1200 }}>
+    <div className="container" style={{ maxWidth: 1400 }}>
       <h1>Recherche de mots-clés IA</h1>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 24 }}>
-        {/* Colonne Recherche */}
+        {/* Colonne Espaces */}
+        <div style={{
+          width: 220,
+          background: '#f6f6f6',
+          borderRadius: 10,
+          minHeight: 350,
+          padding: 16,
+          marginRight: 10,
+          boxShadow: '0 2px 8px #0001'
+        }}>
+          <h3 style={{ fontSize: 18, marginBottom: 10 }}>Espaces</h3>
+          {loadingEspaces ? <div>Chargement...</div> : null}
+          {errorEspaces ? <div style={{ color: 'red' }}>{errorEspaces}</div> : null}
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {espaces.map(espace => (
+              <li key={espace.id} style={{ marginBottom: 8 }}>
+                <button
+                  onClick={() => navigate(`/espace/${espace.id}`)}
+                  style={{
+                    background: '#267dc5',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: 6,
+                    padding: '0.5em 1em',
+                    cursor: 'pointer',
+                    width: '100%',
+                    textAlign: 'left',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {espace.subject} <span style={{ color: '#b6e' }}>({espace.objectif})</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* Colonne principale */}
         <div style={{ flex: 1, minWidth: 0 }}>
           <SearchBar
             recherche={recherche}
@@ -94,98 +145,106 @@ function App() {
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <KeywordList keywords={keywords} setKeywords={setKeywords} />
           <ResultDisplay ragResult={ragResult} />
-        </div>
-        {/* Colonne Graphe (miniature) */}
-        <div style={{ width: 340, minWidth: 300, maxWidth: 400, position: 'relative' }}>
-          <div style={{
-            border: '1px solid #ccc',
-            borderRadius: 8,
-            background: '#fafafa',
-            boxShadow: '0 2px 8px #0001',
-            padding: 8,
-            position: 'relative'
-          }}>
-            <div style={{ fontWeight: 'bold', marginBottom: 6 }}>Aperçu du Graphe</div>
-            <div style={{ width: '100%', height: 220 }}>
-              <GraphVisualization height={220} />
+          <div style={{ width: 340, minWidth: 300, maxWidth: 400, position: 'relative', marginTop: 24 }}>
+            <div style={{
+              border: '1px solid #ccc',
+              borderRadius: 8,
+              background: '#fafafa',
+              boxShadow: '0 2px 8px #0001',
+              padding: 8,
+              position: 'relative'
+            }}>
+              <div style={{ fontWeight: 'bold', marginBottom: 6 }}>Aperçu du Graphe</div>
+              <div style={{ width: '100%', height: 220 }}>
+                <GraphVisualization height={220} />
+              </div>
+              <button
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  right: 10,
+                  background: '#267dc5',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 4,
+                  padding: '4px 10px',
+                  cursor: 'pointer'
+                }}
+                onClick={() => setGraphFullScreen(true)}
+                title="Agrandir le graphe"
+              >
+                Agrandir
+              </button>
             </div>
-            <button
-              style={{
-                position: 'absolute',
-                top: 10,
-                right: 10,
-                background: '#267dc5',
-                color: '#fff',
-                border: 'none',
-                borderRadius: 4,
-                padding: '4px 10px',
-                cursor: 'pointer'
-              }}
-              onClick={() => setGraphFullScreen(true)}
-              title="Agrandir le graphe"
-            >
-              Agrandir
-            </button>
           </div>
+          {/* Modal plein écran pour le graphe */}
+          {graphFullScreen && (
+            <div
+              style={{
+                position: 'fixed',
+                zIndex: 1000,
+                top: 0, left: 0, right: 0, bottom: 0,
+                background: 'rgba(0,0,0,0.7)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              onClick={() => setGraphFullScreen(false)}
+            >
+              <div
+                style={{
+                  background: '#fff',
+                  borderRadius: 12,
+                  padding: 20,
+                  width: '90vw',
+                  height: '90vh',
+                  position: 'relative',
+                  boxShadow: '0 4px 24px #0004',
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
+                onClick={e => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setGraphFullScreen(false)}
+                  style={{
+                    position: 'absolute',
+                    top: 20,
+                    right: 20,
+                    background: '#b71c1c',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: 4,
+                    padding: '6px 16px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    fontSize: '1.2em',
+                    zIndex: 10,
+                  }}
+                >
+                  Fermer
+                </button>
+                <div style={{ flex: 1, width: '100%', height: '100%' }}>
+                  <GraphVisualization width="100%" height="100%" />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Modal plein écran pour le graphe */}
-      {graphFullScreen && (
-  <div
-    style={{
-      position: 'fixed',
-      zIndex: 1000,
-      top: 0, left: 0, right: 0, bottom: 0,
-      background: 'rgba(0,0,0,0.7)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}
-    onClick={() => setGraphFullScreen(false)}
-  >
-    <div
-      style={{
-        background: '#fff',
-        borderRadius: 12,
-        padding: 20,
-        width: '90vw',
-        height: '90vh',
-        position: 'relative',
-        boxShadow: '0 4px 24px #0004',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-      onClick={e => e.stopPropagation()}
-    >
-      <button
-        onClick={() => setGraphFullScreen(false)}
-        style={{
-          position: 'absolute',
-          top: 20,
-          right: 20,
-          background: '#b71c1c',
-          color: '#fff',
-          border: 'none',
-          borderRadius: 4,
-          padding: '6px 16px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontSize: '1.2em',
-          zIndex: 10, // <-- Ajoute ceci
-        }}
-      >
-        Fermer
-      </button>
-
-      <div style={{ flex: 1, width: '100%', height: '100%' }}>
-        <GraphVisualization width="100%" height="100%" />
-      </div>
     </div>
-  </div>
-)}
+  );
+}
 
-    </div>
+// Routeur principal
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainApp />} />
+        <Route path="/espace/:id" element={<EspacePage />} />
+      </Routes>
+    </Router>
   );
 }
 
