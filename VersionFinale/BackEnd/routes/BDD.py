@@ -26,8 +26,8 @@ class AjoutRechercheEspace(BaseModel):
     objectif: str
     couleur : str 
 
-@router.post("/CreeEspaceRecherche/")
-async def get_keywords(EspaceRecherche: AjoutRechercheEspace):
+@router.get("/CreeEspaceRecherche/")
+async def CreeEspaceRecherche(EspaceRecherche: AjoutRechercheEspace):
     try:
         BDDEspace = RechercheEspace.create(EspaceRecherche.subject, EspaceRecherche.objectif, bdd)
         NodeBDDEspace = EspaceRechercheNode(graph_bdd,BDDEspace.id,BDDEspace.subject, BDDEspace.objectif,EspaceRecherche.couleur)
@@ -35,15 +35,27 @@ async def get_keywords(EspaceRecherche: AjoutRechercheEspace):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-r 
-
-@router.post("/GetEspaceRecherche/")
-async def get_keywords(id : str):
+@router.get("/GetEspaceRecherche/")
+async def getGetEspaceRecherche(id : str):
     try:
         BDDEspace = RechercheEspace.load(id, bdd)
         NodeBDDEspace = EspaceRechercheNode.load(graph_bdd,id)
 
+        return BDDEspace.dico(),NodeBDDEspace.dico()
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.get("/GetEspaceRecherches/")
+async def GetEspaceRecherches():
+    try:
+        ListEspaces = bdd.get_EspaceRecherche()
+
+        return ListEspaces
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+
 
 

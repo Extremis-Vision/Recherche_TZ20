@@ -1,7 +1,7 @@
 from neo4j import GraphDatabase
 import os
 from dotenv import load_dotenv
-from relation import Relation
+from .relation import Relation
 
 chemin_env = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
 
@@ -22,8 +22,6 @@ class Node_BDD:
                 node_dict["internal_id"] = record["internal_id"]
                 noeuds.append(node_dict)
             return noeuds
-
-
 
     def get_relations(self) -> list[dict]:
         """Retourne toutes les relations entre les n?uds."""
@@ -95,6 +93,10 @@ class Node_BDD:
                     for record in result
                 ]
             return relations
+
+    
+    
+
 
 #Exemple d'utilisation 
 #node_bdd = Node_BDD()

@@ -2,13 +2,13 @@ import sys, os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Recherche.Crawler import Crawler
+from Recherche.Crawler import RechercheCrawling
 from Recherche.Keywords import keywords_deepsearch
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from typing import List, Optional
 
-class DeepSearch(Crawler):
+class DeepSearch(RechercheCrawling):
     def __init__(self, engines=None, model_name : str = "ministral-8b-instruct-2410", score : int = 0.5):
         # Appel du constructeur parent
         super().__init__(engines, model_name)

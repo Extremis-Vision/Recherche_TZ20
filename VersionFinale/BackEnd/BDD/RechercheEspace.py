@@ -40,6 +40,14 @@ class RechercheEspace:
     def __str__(self) -> str:
         return f"RechercheEspace(id={self.id}, subject='{self.subject}', objectif='{self.objectif}', date_time='{self.date_time}')"
 
+    def dico(self) -> dict :
+        return {
+            "id": self.id,
+            "subject": self.subject,
+            "objectif": self.objectif,
+            "date_time": self.date_time
+        }
+
     def create_recherche(self, prompt: str, response: str) -> "Recherche":
         # Cr�e une recherche et la lie � cet espace
         # (� adapter selon ta m�thode de cr�ation de recherche)

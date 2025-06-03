@@ -10,16 +10,8 @@ services:
     ports:
       - "5444:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-  searxng:
-    image: docker.io/searxng/searxng:latest
-    volumes:
-      - ./searxng:/etc/searxng:rw
-    ports:
-      - 4000:8080
-    networks:
-      - perplexica-network
-    restart: unless-stopped
+      - postgres_data:/var/lib/postgresql/
+
   neo4j:
     image: neo4j:5.19
     ports:
