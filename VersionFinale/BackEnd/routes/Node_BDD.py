@@ -23,7 +23,6 @@ graph_bdd = BDD_Node()
 async def GetAllNode():
     try:
         graph_dico = graph_bdd.parse_graph_neo4j() 
-        print(graph_dico)
         return graph_dico   
     except Exception as e:
         print("Erreur lors de la création d'un espace :", e)

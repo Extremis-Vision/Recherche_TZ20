@@ -188,12 +188,12 @@ const GraphVisualization = ({ width = '100%', height = 600 }) => {
     <div className="graph-container" style={{ width, height }}>
       <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
         <input
+          className="barre-recherche"
           type="text"
           placeholder="Rechercher un nœud..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           style={{
-            flex: 1,
             padding: '6px 10px',
             border: '1px solid #aaa',
             borderRadius: 4,
