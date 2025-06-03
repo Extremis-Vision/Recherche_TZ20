@@ -5,19 +5,19 @@ import './GraphVisualization.css';
 
 cytoscape.use(coseBilkent);
 
-const GraphVisualization = () => {
+const GraphVisualization = ({ width = '100%', height = 600 }) => {
   const cyRef = useRef(null);
+  const cyInstance = useRef(null);
 
   useEffect(() => {
+    let cy;
+
     fetch('http://localhost:8888/nodebdd/GetAllNode/')
       .then((response) => response.json())
       .then((data) => {
-        // Pré-traitement pour garantir que chaque nœud ait un label et une couleur
         const nodes = (data.nodes || []).map((node) => {
           const d = node.data || {};
-          // Prend 'nom' ou 'name' comme label
           const displayLabel = d.nom || d.name || d.id;
-          // Prend la couleur si présente, sinon couleur par défaut
           const backgroundcolor = d.backgroundcolor || '#267dc5';
           return {
             ...node,
@@ -29,10 +29,8 @@ const GraphVisualization = () => {
           };
         });
 
-        // Pré-traitement des arêtes (edges)
         const edges = (data.edges || []).map((edge) => {
           const d = edge.data || {};
-          // Prend le label de la relation si présent
           const label = d.label || d.type || '';
           return {
             ...edge,
@@ -43,13 +41,9 @@ const GraphVisualization = () => {
           };
         });
 
-        // Initialiser Cytoscape
-        const cy = cytoscape({
+        cy = cytoscape({
           container: cyRef.current,
-          elements: {
-            nodes,
-            edges,
-          },
+          elements: { nodes, edges },
           style: [
             {
               selector: 'node',
@@ -64,8 +58,8 @@ const GraphVisualization = () => {
                 'border-color': '#333',
                 'text-outline-width': 2,
                 'text-outline-color': '#333',
-                'width': 60,
-                'height': 60,
+                width: 60,
+                height: 60,
               },
             },
             {
@@ -100,19 +94,27 @@ const GraphVisualization = () => {
           },
         });
 
-        // Optionnel : zoom/fit automatique au resize
-        window.addEventListener('resize', () => {
-          cy.fit();
-        });
+        cyInstance.current = cy;
 
-        // Nettoyage à la destruction du composant
+        // Optionnel: fit on resize
+        const handleResize = () => cy.resize() && cy.fit();
+        window.addEventListener('resize', handleResize);
+
         return () => {
-          cy.destroy();
+          window.removeEventListener('resize', handleResize);
+          if (cy) cy.destroy();
         };
       })
       .catch((error) => {
         console.error('There was a problem with the fetch operation:', error);
       });
+
+    return () => {
+      if (cyInstance.current) {
+        cyInstance.current.destroy();
+        cyInstance.current = null;
+      }
+    };
   }, []);
 
   return (
@@ -120,7 +122,11 @@ const GraphVisualization = () => {
       <div
         id="cy"
         ref={cyRef}
-        style={{ width: '100%', height: '600px', border: '1px solid #ccc', borderRadius: 8 }}
+        style={{
+          width: typeof width === 'number' ? `${width}px` : width,
+          height: typeof height === 'number' ? `${height}px` : height,
+          minHeight: 120,
+        }}
       ></div>
     </div>
   );

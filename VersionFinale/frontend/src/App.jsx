@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SearchBar from './SearchBar';
 import KeywordList from './KeywordList';
 import ResultDisplay from './ResultDisplay';
-import GraphVisualization from './GraphVisualization'; // Importez le composant GraphVisualization
+import GraphVisualization from './GraphVisualization';
 import './App.css';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   const [error, setError] = useState(null);
   const [step, setStep] = useState(1);
   const [ragResult, setRagResult] = useState('');
-  const [showGraph, setShowGraph] = useState(false); // État pour basculer entre les vues
+  const [graphFullScreen, setGraphFullScreen] = useState(false);
 
   const handleGenerateKeywords = async (e) => {
     e.preventDefault();
@@ -78,15 +78,11 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ maxWidth: 1200 }}>
       <h1>Recherche de mots-clés IA</h1>
-      <div className="tabs">
-        <button onClick={() => setShowGraph(false)}>Recherche</button>
-        <button onClick={() => setShowGraph(true)}>Visualisation du Graphe</button>
-      </div>
-
-      {!showGraph ? (
-        <>
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 24 }}>
+        {/* Colonne Recherche */}
+        <div style={{ flex: 1, minWidth: 0 }}>
           <SearchBar
             recherche={recherche}
             setRecherche={setRecherche}
@@ -98,10 +94,97 @@ function App() {
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <KeywordList keywords={keywords} setKeywords={setKeywords} />
           <ResultDisplay ragResult={ragResult} />
-        </>
-      ) : (
-        <GraphVisualization />
-      )}
+        </div>
+        {/* Colonne Graphe (miniature) */}
+        <div style={{ width: 340, minWidth: 300, maxWidth: 400, position: 'relative' }}>
+          <div style={{
+            border: '1px solid #ccc',
+            borderRadius: 8,
+            background: '#fafafa',
+            boxShadow: '0 2px 8px #0001',
+            padding: 8,
+            position: 'relative'
+          }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 6 }}>Aperçu du Graphe</div>
+            <div style={{ width: '100%', height: 220 }}>
+              <GraphVisualization height={220} />
+            </div>
+            <button
+              style={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                background: '#267dc5',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 4,
+                padding: '4px 10px',
+                cursor: 'pointer'
+              }}
+              onClick={() => setGraphFullScreen(true)}
+              title="Agrandir le graphe"
+            >
+              Agrandir
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal plein écran pour le graphe */}
+      {graphFullScreen && (
+  <div
+    style={{
+      position: 'fixed',
+      zIndex: 1000,
+      top: 0, left: 0, right: 0, bottom: 0,
+      background: 'rgba(0,0,0,0.7)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}
+    onClick={() => setGraphFullScreen(false)}
+  >
+    <div
+      style={{
+        background: '#fff',
+        borderRadius: 12,
+        padding: 20,
+        width: '90vw',
+        height: '90vh',
+        position: 'relative',
+        boxShadow: '0 4px 24px #0004',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+      onClick={e => e.stopPropagation()}
+    >
+      <button
+        onClick={() => setGraphFullScreen(false)}
+        style={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          background: '#b71c1c',
+          color: '#fff',
+          border: 'none',
+          borderRadius: 4,
+          padding: '6px 16px',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          fontSize: '1.2em',
+          zIndex: 10, // <-- Ajoute ceci
+        }}
+      >
+        Fermer
+      </button>
+
+      <div style={{ flex: 1, width: '100%', height: '100%' }}>
+        <GraphVisualization width="100%" height="100%" />
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
