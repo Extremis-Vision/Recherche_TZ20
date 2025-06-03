@@ -6,13 +6,20 @@ class Image:
         self.image_data = image_data
 
     @classmethod
-    def create(cls, image_data, bdd: "Bdd") -> "Image":
+    def create(cls, id_recherche : int, image_data, bdd: "Bdd") -> "Image":
         bdd.cursor.execute('''
             INSERT INTO images (image)
             VALUES (%s)
             RETURNING id
         ''', (image_data,))
         id = bdd.cursor.fetchone()[0]
+        bdd.conn.commit()
+        bdd.cursor.execute('''
+            INSERT INTO recherche_vers_image (id, id_recherche)
+            VALUES (%s, %s)
+            RETURNING id
+        ''', (id, id_recherche))
+        bdd.cursor.fetchone()[0]
         bdd.conn.commit()
         return cls(id, image_data)
 

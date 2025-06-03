@@ -7,13 +7,20 @@ class Source:
         self.description = description
 
     @classmethod
-    def create(cls, url: str, description: str, bdd: "Bdd") -> "Source":
+    def create(cls, id_recherche : int ,url: str, description: str, bdd: "Bdd") -> "Source":
         bdd.cursor.execute('''
             INSERT INTO sources (url, description)
             VALUES (%s, %s)
             RETURNING id
         ''', (url, description))
         id = bdd.cursor.fetchone()[0]
+        bdd.conn.commit()
+        bdd.cursor.execute('''
+            INSERT INTO recherche_vers_mot (id, id_recherche)
+            VALUES (%s, %s)
+            RETURNING id
+        ''', (id, id_recherche))
+        bdd.cursor.fetchone()[0]
         bdd.conn.commit()
         return cls(id, url, description)
 

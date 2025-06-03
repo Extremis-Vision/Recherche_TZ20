@@ -6,7 +6,7 @@ class MotCle:
         self.mot = mot
 
     @classmethod
-    def create(cls, mot: str, bdd: "Bdd") -> "MotCle":
+    def create(cls,id_recherche : int, mot: str, bdd: "Bdd") -> "MotCle":
         bdd.cursor.execute('''
             INSERT INTO keywords (mot)
             VALUES (%s)
@@ -14,6 +14,14 @@ class MotCle:
         ''', (mot,))
         id = bdd.cursor.fetchone()[0]
         bdd.conn.commit()
+        bdd.cursor.execute('''
+            INSERT INTO recherche_vers_mot (id, id_recherche)
+            VALUES (%s, %s)
+            RETURNING id
+        ''', (id, id_recherche))
+        bdd.cursor.fetchone()[0]
+        bdd.conn.commit()
+
         return cls(id, mot)
 
     @classmethod

@@ -104,99 +104,6 @@ class Bdd:
         ''')
         self.conn.commit()
 
-
-    def addKeyword(self, mot_cle: 'MotCle') -> int:
-        self.cursor.execute('''
-            INSERT INTO keywords (mot)
-            VALUES (%s)
-            RETURNING id
-        ''', (mot_cle.mot,))
-        self.conn.commit()
-        return self.cursor.fetchone()[0]
-
-    def addPrompt(self, prompt: str) -> int:
-        self.cursor.execute('''
-            INSERT INTO prompts (prompt)
-            VALUES (%s)
-            RETURNING id
-        ''', (prompt,))
-        self.conn.commit()
-        return self.cursor.fetchone()[0]
-
-    def addQuestionEngines(self, question: str, engines: List[str]) -> int:
-        engines_str = ','.join(engines)
-        self.cursor.execute('''
-            INSERT INTO question_engines (question, engines)
-            VALUES (%s, %s)
-            RETURNING id
-        ''', (question, engines_str))
-        self.conn.commit()
-        return self.cursor.fetchone()[0]
-
-    def addImage(self, image: 'Image') -> int:
-        self.cursor.execute('''
-            INSERT INTO images (image)
-            VALUES (%s)
-            RETURNING id
-        ''', (image.image,))
-        self.conn.commit()
-        return self.cursor.fetchone()[0]
-
-    def addRecherche(self, recherche: 'Recherche') -> int:
-        self.cursor.execute('''
-            INSERT INTO recherches (prompt, response, date_time)
-            VALUES (%s, %s, %s)
-            RETURNING id
-        ''', (recherche.prompt, recherche.response, recherche.date_time))
-        self.conn.commit()
-        return self.cursor.fetchone()[0]
-
-    def addRechercheEspace(self, espace_recherche: 'RechercheEspace') -> int:
-        self.cursor.execute('''
-            INSERT INTO recherche_espaces (subject, date_time, objectif)
-            VALUES (%s, %s, %s)
-            RETURNING id
-        ''', (espace_recherche.subject, espace_recherche.date_time, espace_recherche.objectif))
-        self.conn.commit()
-        return self.cursor.fetchone()[0]
-
-    def addSource(self, source: 'Source') -> int:
-        self.cursor.execute('''
-            INSERT INTO sources (url, description)
-            VALUES (%s, %s)
-            RETURNING id
-        ''', (source.url, source.description))
-        self.conn.commit()
-        return self.cursor.fetchone()[0]
-
-    def addRechercheVersMot(self, id_mot_cle: int, id_recherche: int):
-        self.cursor.execute('''
-            INSERT INTO recherche_vers_mot (id_mot_cle, id_recherche)
-            VALUES (%s, %s)
-        ''', (id_mot_cle, id_recherche))
-        self.conn.commit()
-
-    def addRechercheVersImage(self, id_image: int, id_recherche: int):
-        self.cursor.execute('''
-            INSERT INTO recherche_vers_image (id_image, id_recherche)
-            VALUES (%s, %s)
-        ''', (id_image, id_recherche))
-        self.conn.commit()
-
-    def addRechercheVersSource(self, id_source: int, id_recherche: int):
-        self.cursor.execute('''
-            INSERT INTO recherche_vers_source (id_source, id_recherche)
-            VALUES (%s, %s)
-        ''', (id_source, id_recherche))
-        self.conn.commit()
-
-    def addRechercheEspaceVersRecherche(self, id_recherche: int, id_espace: int):
-        self.cursor.execute('''
-            INSERT INTO recherche_espace (id_recherche, id_espace)
-            VALUES (%s, %s)
-        ''', (id_recherche, id_espace))
-        self.conn.commit()
-
     def get_EspaceRecherche(self) -> List["RechercheEspace"]:
         self.cursor.execute('''
             SELECT id FROM recherche_espaces
@@ -208,7 +115,7 @@ class Bdd:
                 espaces.append(espace)
         return espaces
     
-    def get_MotCle(self) -> List["MotCle"]:
+    def get_MotCles(self) -> List["MotCle"]:
         self.cursor.execute('''
             SELECT id FROM keywords
         ''')
@@ -218,6 +125,8 @@ class Bdd:
             if motcle:
                 mot_cles.append(motcle)
         return mot_cles
+
+    def ajout_MotCle(self, mots_cles : List[str])
 
     def close(self):
         self.conn.close()
