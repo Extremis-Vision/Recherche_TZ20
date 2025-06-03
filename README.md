@@ -27,3 +27,5 @@ The goal of this project is to evaluate the performance of models, specific tech
 - Affichage des sources ajouté pour une requ^ete de recherche
 - Choix du type préférer de recherche 
 - Utilisation de Farfalle pour reprendre sys prompt ou implémentation de la recherche surtout avec SearXNG
+
+- Remise en ordre du repo explication du code et autre ainsi que citation correcte. 
