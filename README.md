@@ -13,3 +13,17 @@ The goal of this project is to evaluate the performance of models, specific tech
 
 6. **[Agent](6_Agent/6_Agent.md)**: Additional information in the `6_Agent` folder. 🤖
 7. **[Finetuning](7_Finetunning/7_Finetunning.md)**: Details can be found in the `7_Finetunning` folder. 🛠️
+
+
+- fait création noeuds et relation dans le graph 
+- Choix du type de recherche et du modèle avec par défaut ministral 
+- Modifications du prompt de génération des mots clées (pour qu'il mette les mots les plus important dans un pompt)
+- Tester avec Gemma 4b, Granite 8b
+- Rajout du bouton de création de graphique / Choix dans les paramètre par défaut activation ou pas (choix du nombre de site à crawler)
+- rajout potentiellement d'une table paramètre relier à la bdd 
+-Modification du crawler et autre pour qu'il cherche de nouveau mot et autre a chaque fois qu'il en découvre ou nom d'outils 
+- Rajout de la capacité de recherche et autre des images 
+- Citations des sources correctes 
+- Affichage des sources ajouté pour une requ^ete de recherche
+- Choix du type préférer de recherche 
+- Utilisation de Farfalle pour reprendre sys prompt ou implémentation de la recherche surtout avec SearXNG
