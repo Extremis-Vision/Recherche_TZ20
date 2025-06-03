@@ -27,7 +27,7 @@ class Noeud:
 
     def cree(self, node_bdd):
         """Crée le noeud dans Neo4j et met à jour self.id avec l'id généré."""
-        if self.node == None :
+        if self.id == None :
             with node_bdd.driver.session() as session:
                 properties = self.to_dict()
                 properties.pop("id", None)

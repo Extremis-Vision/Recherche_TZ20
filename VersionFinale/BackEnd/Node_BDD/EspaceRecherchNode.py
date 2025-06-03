@@ -3,7 +3,7 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Node_BDD.noeud import Noeud
-from Node_BDD.graph import Node_BDD
+from Node_BDD.graph import BDD_Node
 from Node_BDD.relation import Relation as Neo4jRelation
 from langchain_core.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
@@ -126,7 +126,7 @@ class EspaceRechercheNode(Noeud):
 
 
 
-#node_bdd = Node_BDD()
+#node_bdd = GraphDatabase()
 #test_espace = EspaceRechercheNode(node_bdd,"Crée un moteur de recherche augmenté par IA","FAire un concurent concret à perplexity et you.com en ajoutant la possibilité de visualisé la recherche par un graphe.","#267dc5")
 
 #context = test_espace.generate_graph_from_prompt(""" Crawl4AI est un outil de crawling et de scraping très complet qui vise à générer du Markdown propre, idéal pour les pipelines RAG (Retrieval-Augmented Generation) ou une ingestion directe dans des modèles d'IA. Il permet également la structuration de données (Structured)[https://docs.crawl4ai.com/]. Crawl4AI peut être utilisé avec différents fournisseurs de LLM (Large Language Models), comme Azure OpenAI, en se référant au manuel des fournisseurs liteLLM (Lightweight Language Models) (https://www.pondhouse-data.com/blog/webcrawling-with-crawl4ai).Crawl4AI est une initiative open source qui vise à fournir des outils pour extraire et structurer les données, favorisant ainsi une économie de partage des données. L'outil est conçu pour être utilisé par des individus comme des organisations (https://pypi.org/project/Crawl4AI/).Bien qu'il soit puissant avec des mécanismes intégrés d'évasion de bot, Crawl4AI ne peut pas contourner les sites très protégés comme G2 qui utilisent des mesures anti-bot et anti-scraping rigoureuses (https://brightdata.com/blog/web-data/crawl4ai-and-deepseek-web-scraping). """)

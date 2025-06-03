@@ -7,7 +7,7 @@ chemin_env = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
 
 load_dotenv(chemin_env)
 
-class Node_BDD:
+class BDD_Node:
     def __init__(self):
         self.driver = GraphDatabase.driver(os.getenv('NEO4J_URI'), auth=(os.getenv('NEO4J_USER'), os.getenv('NEO4J_PASSWORD')))
 
@@ -99,5 +99,5 @@ class Node_BDD:
 
 
 #Exemple d'utilisation 
-#node_bdd = Node_BDD()
+#node_bdd = GraphDatabase()
 #print(node_bdd.get_noeuds())

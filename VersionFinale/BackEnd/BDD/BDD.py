@@ -104,10 +104,22 @@ class Bdd:
                 espaces.append(espace)
         return espaces
     
-    def get_Recherches(self) -> List["MotCle"]:
+    def get_Recherches(self, id_Espaces_Recherches) -> List["Recherche"]:
         self.cursor.execute('''
-            SELECT id FROM recherches
-        ''')
+            SELECT id_recherche FROM recherche_espace WHERE id_espace = %s
+        ''', (id_Espaces_Recherches,))
+        recherches = []
+        for (id_recherche,) in self.cursor.fetchall():
+            recherche = Recherche.load(id_recherche, self)
+            if recherche:
+                recherches.append(recherche)
+        return recherches
+
+
+    def get_MotCles(self, id_Recherche) -> List["MotCle"]:
+        self.cursor.execute('''
+            SELECT id_recherche FROM recherche_espace WHERE id_espace = %s
+        ''', (id_Recherche,))
         mot_cles = []
         for (id_espace,) in self.cursor.fetchall():
             motcle = MotCle.load(id_espace, self)
@@ -115,18 +127,7 @@ class Bdd:
                 mot_cles.append(motcle)
         return mot_cles
 
-    def get_MotCles(self) -> List["MotCle"]:
-        self.cursor.execute('''
-            SELECT id FROM keywords
-        ''')
-        mot_cles = []
-        for (id_espace,) in self.cursor.fetchall():
-            motcle = MotCle.load(id_espace, self)
-            if motcle:
-                mot_cles.append(motcle)
-        return mot_cles
-
-    def get_Images(self) -> List["MotCle"]:
+    def get_Images(self, id_Recherche) -> List["MotCle"]:
         self.cursor.execute('''
             SELECT id FROM images
         ''')

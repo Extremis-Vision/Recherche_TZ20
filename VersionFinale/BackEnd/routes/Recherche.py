@@ -54,7 +54,7 @@ async def get_keywords(rercherchesimpleinput: RerchercheSimpleInput):
     Retourne la réponse de la recherche avec les mots clés, en streaming.
     """
     try:
-        # Recherche des mots clées puis ajout de ces mots clées au rag en utilisant la forme prédéfinie 
+        
         chromaDB.add_documents(
             resultat_recherche.multiplesearch(
                 rercherchesimpleinput.MotCLee,
