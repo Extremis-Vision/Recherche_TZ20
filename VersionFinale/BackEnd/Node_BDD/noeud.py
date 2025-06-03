@@ -1,14 +1,14 @@
 class Noeud:
-    def __init__(self, couleur: str, nom: str, description: str):
+    def __init__(self, couleur: str, nom: str, description: str,  id: str = None):
         self.id = None  # L'id sera défini après création dans la BDD
         self.couleur = couleur
         self.nom = nom
         self.description = description
 
-    def to_dict(self):
+    def dico(self):
         return {
             "id": self.id,
-            "couleur": self.couleur,
+            "backgroundcolor": self.couleur,
             "nom": self.nom,
             "description": self.description
         }
@@ -27,32 +27,48 @@ class Noeud:
 
     def cree(self, node_bdd):
         """Crée le noeud dans Neo4j et met à jour self.id avec l'id généré."""
-        with node_bdd.driver.session() as session:
-            properties = self.to_dict()
-            properties.pop("id", None)
-            props = ", ".join([f"{k}: ${k}" for k in properties])
-            query = (
-                f"CREATE (n:Node {{ {props}, id: randomUUID() }}) "
-                f"RETURN n.id AS id"
-            )
-            try:
-                result = session.run(query, **properties)
-                data = result.single()
-                print(f"[DEBUG] data: {data}, type: {type(data)}")
-                if data:
-                    # Neo4j Record: accès par index ou méthode
-                    try:
-                        self.id = data["id"]
-                    except (KeyError, TypeError):
-                        self.id = data.get("id", None)
-                    return True if self.id else False
-                else:
-                    print(f"[DEBUG] Création échouée pour {self.nom}. Query: {query}, Properties: {properties}, Data: {data}")
+        if self.node == None :
+            with node_bdd.driver.session() as session:
+                properties = self.to_dict()
+                properties.pop("id", None)
+                props = ", ".join([f"{k}: ${k}" for k in properties])
+                query = (
+                    f"CREATE (n:Node {{ {props}, id: randomUUID() }}) "
+                    f"RETURN n.id AS id"
+                )
+                try:
+                    result = session.run(query, **properties)
+                    data = result.single()
+                    print(f"[DEBUG] data: {data}, type: {type(data)}")
+                    if data:
+                        # Neo4j Record: accès par index ou méthode
+                        try:
+                            self.id = data["id"]
+                        except (KeyError, TypeError):
+                            self.id = data.get("id", None)
+                        return True if self.id else False
+                    else:
+                        print(f"[DEBUG] Création échouée pour {self.nom}. Query: {query}, Properties: {properties}, Data: {data}")
+                        return False
+                except Exception as e:
+                    print(f"[EXCEPTION] Erreur lors de la création du noeud {self.nom}: {e}")
                     return False
-            except Exception as e:
-                print(f"[EXCEPTION] Erreur lors de la création du noeud {self.nom}: {e}")
-                return False
-
+        else :
+             with node_bdd.driver.session() as session:
+                properties = self.to_dict()
+                props = ", ".join([f"{k}: ${k}" for k in properties])
+                query = (
+                    f"CREATE (n:Node {{ {props} }}) "
+                    f"RETURN n.id AS id"
+                )
+                try:
+                    result = session.run(query, **properties)
+                    data = result.single()
+                    print(f"[DEBUG] data: {data}, type: {type(data)}")
+                    return data is not None
+                except Exception as e:
+                    print(f"[EXCEPTION] Erreur lors de la création du noeud {self.nom} (id imposé): {e}")
+                    return False
 
 
     def supprimer(self, node_bdd):

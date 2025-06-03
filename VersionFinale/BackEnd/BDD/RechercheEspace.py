@@ -13,7 +13,6 @@ class RechercheEspace:
 
     @classmethod
     def create(cls, subject: str, objectif: str, bdd: "Bdd") -> "RechercheEspace":
-        # Ajoute l'espace dans la base (supposons que addRechercheEspace renvoie l'id)
         date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         bdd.cursor.execute('''
             INSERT INTO recherche_espaces (subject, date_time, objectif)
@@ -23,6 +22,7 @@ class RechercheEspace:
         id_espace = bdd.cursor.fetchone()[0]
         bdd.conn.commit()
         return cls(id_espace, subject, objectif, date_time, bdd)
+
 
     @classmethod
     def load(cls, id_espace: int, bdd: "Bdd") -> Optional["RechercheEspace"]:

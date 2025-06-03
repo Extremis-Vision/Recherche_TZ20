@@ -27,8 +27,9 @@ class GraphSchema(BaseModel):
     nodes: List[Node]
     relations: List[Relation]
 
-class EspaceRechercheNode():
-    def __init__(self, node_bdd ,sujet : str, objectif : str, couleur_espace : str ):
+class EspaceRechercheNode(Noeud):
+    def __init__(self, node_bdd ,id : str, sujet : str, objectif : str, couleur_espace : str ):
+        self.id =id
         self.sujet = sujet 
         self.objectif = objectif
         self.noeud = Noeud(couleur_espace,sujet,objectif)
@@ -125,11 +126,11 @@ class EspaceRechercheNode():
 
 
 
-node_bdd = Node_BDD()
-test_espace = EspaceRechercheNode(node_bdd,"Crée un moteur de recherche augmenté par IA","FAire un concurent concret à perplexity et you.com en ajoutant la possibilité de visualisé la recherche par un graphe.","#267dc5")
+#node_bdd = Node_BDD()
+#test_espace = EspaceRechercheNode(node_bdd,"Crée un moteur de recherche augmenté par IA","FAire un concurent concret à perplexity et you.com en ajoutant la possibilité de visualisé la recherche par un graphe.","#267dc5")
 
-context = test_espace.generate_graph_from_prompt(""" Crawl4AI est un outil de crawling et de scraping très complet qui vise à générer du Markdown propre, idéal pour les pipelines RAG (Retrieval-Augmented Generation) ou une ingestion directe dans des modèles d'IA. Il permet également la structuration de données (Structured)[https://docs.crawl4ai.com/]. Crawl4AI peut être utilisé avec différents fournisseurs de LLM (Large Language Models), comme Azure OpenAI, en se référant au manuel des fournisseurs liteLLM (Lightweight Language Models) (https://www.pondhouse-data.com/blog/webcrawling-with-crawl4ai).Crawl4AI est une initiative open source qui vise à fournir des outils pour extraire et structurer les données, favorisant ainsi une économie de partage des données. L'outil est conçu pour être utilisé par des individus comme des organisations (https://pypi.org/project/Crawl4AI/).Bien qu'il soit puissant avec des mécanismes intégrés d'évasion de bot, Crawl4AI ne peut pas contourner les sites très protégés comme G2 qui utilisent des mesures anti-bot et anti-scraping rigoureuses (https://brightdata.com/blog/web-data/crawl4ai-and-deepseek-web-scraping). """)
+#context = test_espace.generate_graph_from_prompt(""" Crawl4AI est un outil de crawling et de scraping très complet qui vise à générer du Markdown propre, idéal pour les pipelines RAG (Retrieval-Augmented Generation) ou une ingestion directe dans des modèles d'IA. Il permet également la structuration de données (Structured)[https://docs.crawl4ai.com/]. Crawl4AI peut être utilisé avec différents fournisseurs de LLM (Large Language Models), comme Azure OpenAI, en se référant au manuel des fournisseurs liteLLM (Lightweight Language Models) (https://www.pondhouse-data.com/blog/webcrawling-with-crawl4ai).Crawl4AI est une initiative open source qui vise à fournir des outils pour extraire et structurer les données, favorisant ainsi une économie de partage des données. L'outil est conçu pour être utilisé par des individus comme des organisations (https://pypi.org/project/Crawl4AI/).Bien qu'il soit puissant avec des mécanismes intégrés d'évasion de bot, Crawl4AI ne peut pas contourner les sites très protégés comme G2 qui utilisent des mesures anti-bot et anti-scraping rigoureuses (https://brightdata.com/blog/web-data/crawl4ai-and-deepseek-web-scraping). """)
 
 
-print(context)
-test_espace.add_graph_NodeBDD(node_bdd,context)
+#print(context)
+#test_espace.add_graph_NodeBDD(node_bdd,context)
