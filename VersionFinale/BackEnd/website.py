@@ -6,6 +6,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 from fastapi import FastAPI
 from routes.Recherche import router as recherche_router
 from routes.BDD import router as bdd_router
+from routes.Node_BDD import router as Node_BDD
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -18,6 +19,7 @@ async def root():
 
 app.include_router(recherche_router)
 app.include_router(bdd_router)
+app.include_router(Node_BDD)
 
 app.add_middleware(
     CORSMiddleware,

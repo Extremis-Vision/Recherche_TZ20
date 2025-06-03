@@ -22,7 +22,9 @@ graph_bdd = BDD_Node()
 @router.get("/GetAllNode/")
 async def GetAllNode():
     try:
-        return graph_bdd.parse_graph_neo4j()    
+        graph_dico = graph_bdd.parse_graph_neo4j() 
+        print(graph_dico)
+        return graph_dico   
     except Exception as e:
         print("Erreur lors de la création d'un espace :", e)
         raise HTTPException(status_code=500, detail=str(e))
