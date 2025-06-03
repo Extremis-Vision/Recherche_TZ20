@@ -30,3 +30,22 @@ button:disabled {
 .result {
   margin-top: 20px;
 }
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tabs button:hover {
+  background-color: #1565c0;
+}

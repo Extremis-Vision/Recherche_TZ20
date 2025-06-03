@@ -2,6 +2,7 @@ import { useState } from 'react';
 import SearchBar from './SearchBar';
 import KeywordList from './KeywordList';
 import ResultDisplay from './ResultDisplay';
+import GraphVisualization from './GraphVisualization'; // Importez le composant GraphVisualization
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [error, setError] = useState(null);
   const [step, setStep] = useState(1);
   const [ragResult, setRagResult] = useState('');
+  const [showGraph, setShowGraph] = useState(false); // État pour basculer entre les vues
 
   const handleGenerateKeywords = async (e) => {
     e.preventDefault();
@@ -78,17 +80,28 @@ function App() {
   return (
     <div className="container">
       <h1>Recherche de mots-clés IA</h1>
-      <SearchBar
-        recherche={recherche}
-        setRecherche={setRecherche}
-        loading={loading}
-        step={step}
-        onSubmit={step === 1 ? handleGenerateKeywords : handleSimpleSearch}
-        onNewSearch={handleNewSearch}
-      />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <KeywordList keywords={keywords} setKeywords={setKeywords} />
-      <ResultDisplay ragResult={ragResult} />
+      <div className="tabs">
+        <button onClick={() => setShowGraph(false)}>Recherche</button>
+        <button onClick={() => setShowGraph(true)}>Visualisation du Graphe</button>
+      </div>
+
+      {!showGraph ? (
+        <>
+          <SearchBar
+            recherche={recherche}
+            setRecherche={setRecherche}
+            loading={loading}
+            step={step}
+            onSubmit={step === 1 ? handleGenerateKeywords : handleSimpleSearch}
+            onNewSearch={handleNewSearch}
+          />
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <KeywordList keywords={keywords} setKeywords={setKeywords} />
+          <ResultDisplay ragResult={ragResult} />
+        </>
+      ) : (
+        <GraphVisualization />
+      )}
     </div>
   );
 }

@@ -94,10 +94,41 @@ class BDD_Node:
                 ]
             return relations
 
-    
+    def parse_graph_neo4j(self) -> dict:
+        """Parse le graphe Neo4j et retourne les nœuds et les arêtes."""
+        nodes = {}
+        edges = []
+
+        with self.driver.session() as session:
+            # Récupérer les nœuds
+            result_nodes = session.run("MATCH (n) RETURN n")
+            for record in result_nodes:
+                node = record["n"]
+                node_id = str(node.element_id)
+                props = dict(node)
+                props["id"] = node_id
+                nodes[node_id] = props
+
+            # Récupérer les arêtes
+            result_edges = session.run("MATCH (a)-[r]->(b) RETURN a, b, r")
+            for record in result_edges:
+                source = str(record["a"].element_id)
+                target = str(record["b"].element_id)
+                rel_type = record["r"].type
+                edges.append({
+                    "data": {
+                        "source": source,
+                        "target": target,
+                        "label": rel_type
+                    }
+                })
+
+        node_list = [{"data": node} for node in nodes.values()]
+
+        return {"nodes": node_list, "edges": edges}
     
 
 
 #Exemple d'utilisation 
-#node_bdd = GraphDatabase()
-#print(node_bdd.get_noeuds())
+#node_bdd = BDD_Node()
+#print(node_bdd.parse_graph_neo4j())
