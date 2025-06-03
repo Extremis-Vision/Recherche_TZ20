@@ -33,24 +33,20 @@ class Bdd:
             )
         ''')
         self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS prompts (
-                id SERIAL PRIMARY KEY,
-                prompt TEXT
-            )
-        ''')
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS question_engines (
-                id SERIAL PRIMARY KEY,
-                question TEXT,
-                engines TEXT
-            )
-        ''')
-        self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS images (
                 id SERIAL PRIMARY KEY,
                 image BYTEA
             )
         ''')
+
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS sources (
+                id SERIAL PRIMARY KEY,
+                url TEXT,
+                description TEXT
+            )
+        ''')
+        
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS recherches (
                 id SERIAL PRIMARY KEY,
@@ -65,13 +61,6 @@ class Bdd:
                 subject TEXT,
                 date_time TIMESTAMP,
                 objectif TEXT
-            )
-        ''')
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS sources (
-                id SERIAL PRIMARY KEY,
-                url TEXT,
-                description TEXT
             )
         ''')
         self.cursor.execute('''
