@@ -104,7 +104,7 @@ class Bdd:
         ''')
         self.conn.commit()
 
-    def get_EspaceRecherche(self) -> List["RechercheEspace"]:
+    def get_EspaceRecherches(self) -> List["RechercheEspace"]:
         self.cursor.execute('''
             SELECT id FROM recherche_espaces
         ''')
@@ -115,6 +115,17 @@ class Bdd:
                 espaces.append(espace)
         return espaces
     
+    def get_Recherches(self) -> List["MotCle"]:
+        self.cursor.execute('''
+            SELECT id FROM recherches
+        ''')
+        mot_cles = []
+        for (id_espace,) in self.cursor.fetchall():
+            motcle = MotCle.load(id_espace, self)
+            if motcle:
+                mot_cles.append(motcle)
+        return mot_cles
+
     def get_MotCles(self) -> List["MotCle"]:
         self.cursor.execute('''
             SELECT id FROM keywords
@@ -126,7 +137,27 @@ class Bdd:
                 mot_cles.append(motcle)
         return mot_cles
 
-    def ajout_MotCle(self, mots_cles : List[str])
+    def get_Images(self) -> List["MotCle"]:
+        self.cursor.execute('''
+            SELECT id FROM images
+        ''')
+        mot_cles = []
+        for (id_espace,) in self.cursor.fetchall():
+            motcle = MotCle.load(id_espace, self)
+            if motcle:
+                mot_cles.append(motcle)
+        return mot_cles
+    
+    def get_Sources(self) -> List["MotCle"]:
+        self.cursor.execute('''
+            SELECT id FROM sources
+        ''')
+        mot_cles = []
+        for (id_espace,) in self.cursor.fetchall():
+            motcle = MotCle.load(id_espace, self)
+            if motcle:
+                mot_cles.append(motcle)
+        return mot_cles
 
     def close(self):
         self.conn.close()
