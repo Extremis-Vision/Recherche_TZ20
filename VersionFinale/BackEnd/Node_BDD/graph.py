@@ -1,7 +1,13 @@
 from neo4j import GraphDatabase
 import os
 from dotenv import load_dotenv
-from .relation import Relation
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
+
+from Node_BDD.relation import Relation
+
 
 chemin_env = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
 

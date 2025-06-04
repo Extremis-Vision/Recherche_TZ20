@@ -1,122 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import SearchBar from './SearchBar';
+import KeywordList from './KeywordList';
+import ResultDisplay from './ResultDisplay';
+import GraphVisualization from './GraphVisualization';
+import './App.css';
 
-function Accueil() {
-  const [espaces, setEspaces] = useState([]);
-  const [nouvelEspace, setNouvelEspace] = useState({ subject: '', objectif: '', couleur: '#267dc5' });
-  const [selectedEspace, setSelectedEspace] = useState(null);
-  const [selectedEspaceDetails, setSelectedEspaceDetails] = useState(null);
-  const [recherches, setRecherches] = useState([]);
+function App() {
+  const [recherche, setRecherche] = useState('');
+  const [keywords, setKeywords] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [step, setStep] = useState(1);
+  const [ragResult, setRagResult] = useState('');
+  const [graphFullScreen, setGraphFullScreen] = useState(false);
 
-  // Panneau latéral
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [search, setSearch] = useState('');
-
-  // Charger la liste des espaces au chargement de la page
-  useEffect(() => {
-    fetchEspaces();
-  }, []);
-
-  // Charger les recherches et détails quand on sélectionne un espace
-  useEffect(() => {
-    if (selectedEspace) {
-      fetchEspaceDetails(selectedEspace.id);
-      fetchRecherches(selectedEspace.id);
-    } else {
-      setSelectedEspaceDetails(null);
-      setRecherches([]);
-    }
-  }, [selectedEspace]);
-
-  // Récupérer tous les espaces (pour la sidebar SEULEMENT)
-  const fetchEspaces = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch('http://localhost:8888/bdd/GetEspaceRecherches/');
-      if (!response.ok) throw new Error('Erreur lors de la récupération des espaces');
-      const data = await response.json();
-      setEspaces(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Créer un nouvel espace
-  const handleCreateEspace = async (e) => {
+  const handleGenerateKeywords = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setKeywords(null);
+    setRagResult('');
     try {
-      const response = await fetch('http://localhost:8888/bdd/CreeEspaceRecherche/', {
+      const response = await fetch('http://localhost:8888/recherche/keywords/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nouvelEspace),
+        body: JSON.stringify({ recherche, numberKeyWord: 5 }),
       });
-      if (!response.ok) throw new Error('Erreur lors de la création de l\'espace');
-      setNouvelEspace({ subject: '', objectif: '', couleur: '#267dc5' });
-      await fetchEspaces();
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Récupérer les détails d'un espace
-  const fetchEspaceDetails = async (idEspace) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`http://localhost:8888/bdd/GetEspaceRecherche/?id=${idEspace}`);
-      if (!response.ok) throw new Error("Erreur lors de la récupération du détail de l'espace");
+      if (!response.ok) throw new Error('Erreur lors de la g�n�ration des mots-cl�s');
       const data = await response.json();
-      setSelectedEspaceDetails(data);
+      setKeywords(data.questions);
+      setStep(2);
     } catch (err) {
       setError(err.message);
-      setSelectedEspaceDetails(null);
     } finally {
       setLoading(false);
     }
   };
 
-  // Récupérer les recherches d'un espace
-  const fetchRecherches = async (idEspace) => {
+  const handleSimpleSearch = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setError(null);
+    setRagResult('');
     try {
-      const response = await fetch(`http://localhost:8888/bdd/GetRecherches/?id_Espaces_Recherches=${idEspace}`);
-      if (!response.ok) throw new Error('Erreur lors de la récupération des recherches');
-      const data = await response.json();
-      setRecherches(data);
-    } catch (err) {
-      setError(err.message);
-      setRecherches([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Supprimer un espace
-  const handleDeleteEspace = async (idEspace) => {
-    if (!window.confirm("Supprimer cet espace de recherche ?")) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch('http://localhost:8888/bdd/SupprimerEspaceRecherche/', {
+      const response = await fetch('http://localhost:8888/recherche/SimpleSearch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id_espace: idEspace }),
+        body: JSON.stringify({
+          recherche_prompt: recherche,
+          MotCLee: keywords,
+          number_result: 5,
+        }),
       });
-      if (!response.ok) throw new Error("Erreur lors de la suppression de l'espace");
-      await fetchEspaces();
-      if (selectedEspace && selectedEspace.id === idEspace) {
-        setSelectedEspace(null);
-        setSelectedEspaceDetails(null);
-        setRecherches([]);
+      if (!response.ok) throw new Error('Erreur lors de la recherche RAG');
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        setRagResult((prev) => prev + chunk);
       }
     } catch (err) {
       setError(err.message);
@@ -125,195 +69,124 @@ function Accueil() {
     }
   };
 
-  // Clic sur un espace dans la sidebar
-  const handleSidebarClick = (espace) => {
-    setSelectedEspace(espace);
-    setSidebarOpen(false);
+  const handleNewSearch = () => {
+    setRecherche('');
+    setKeywords(null);
+    setRagResult('');
+    setStep(1);
+    setError(null);
   };
 
-  // Espaces filtrés selon la recherche
-  const filteredEspaces = espaces.filter(
-    espace =>
-      espace.subject.toLowerCase().includes(search.toLowerCase()) ||
-      espace.objectif.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
-    <div style={{ maxWidth: 1000, margin: 'auto', padding: 30, display: 'flex' }}>
-      {/* Sidebar historique */}
-      <div
-        style={{
-          width: sidebarOpen ? 280 : 0,
-          transition: 'width 0.3s',
-          overflow: 'hidden',
-          background: '#f9f9f9',
-          borderRight: '1px solid #eee',
-          minHeight: '100vh',
-          position: 'relative',
-        }}
-      >
-        <button
-          onClick={() => setSidebarOpen(false)}
-          style={{
-            position: 'absolute',
-            top: 10,
-            right: -30,
-            background: '#267dc5',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '0 6px 6px 0',
-            padding: '6px 10px',
-            cursor: 'pointer',
-            zIndex: 2,
-            boxShadow: '1px 2px 8px #0002'
-          }}
-          title="Fermer l'historique"
-        >
-          ←
-        </button>
-        <div style={{ padding: sidebarOpen ? 16 : 0, opacity: sidebarOpen ? 1 : 0, transition: 'opacity 0.2s' }}>
-          <h3 style={{ fontSize: 18, marginBottom: 10 }}>Espaces</h3>
-          {/* Barre de recherche */}
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Rechercher un espace..."
-            style={{
-              width: '100%',
-              marginBottom: 12,
-              padding: '8px 12px',
-              borderRadius: 20,
-              border: '1.5px solid #b6b6b6',
-              fontSize: 15,
-              background: '#fff',
-              boxShadow: '0 1px 4px #0001',
-              outline: 'none',
-              transition: 'border 0.2s',
-            }}
+    <div className="container" style={{ maxWidth: 1200 }}>
+      <h1>Recherche de mots-cl�s IA</h1>
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 24 }}>
+        {/* Colonne Recherche */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <SearchBar
+            recherche={recherche}
+            setRecherche={setRecherche}
+            loading={loading}
+            step={step}
+            onSubmit={step === 1 ? handleGenerateKeywords : handleSimpleSearch}
+            onNewSearch={handleNewSearch}
           />
-          {filteredEspaces.length === 0 && (
-            <div style={{ color: '#aaa', fontStyle: 'italic' }}>Aucun espace</div>
-          )}
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {filteredEspaces.map((espace) => (
-              <li key={espace.id} style={{ marginBottom: 8, display: 'flex', alignItems: 'center' }}>
-                <button
-                  onClick={() => handleSidebarClick(espace)}
-                  style={{
-                    background: selectedEspace && selectedEspace.id === espace.id ? '#267dc5' : '#e0e0e0',
-                    color: selectedEspace && selectedEspace.id === espace.id ? '#fff' : '#333',
-                    border: 'none',
-                    borderRadius: 6,
-                    padding: '0.5em 1em',
-                    cursor: 'pointer',
-                    width: '100%',
-                    textAlign: 'left',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {espace.subject} <span style={{ color: '#b6e' }}>({espace.objectif})</span>
-                </button>
-                <button
-                  onClick={() => handleDeleteEspace(espace.id)}
-                  style={{
-                    marginLeft: 6,
-                    background: '#b71c1c',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: 6,
-                    padding: '0.3em 0.7em',
-                    cursor: 'pointer',
-                  }}
-                  title="Supprimer l'espace"
-                >
-                  ✕
-                </button>
-              </li>
-            ))}
-          </ul>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <KeywordList keywords={keywords} setKeywords={setKeywords} />
+          <ResultDisplay ragResult={ragResult} />
+        </div>
+        {/* Colonne Graphe (miniature) */}
+        <div style={{ width: 340, minWidth: 300, maxWidth: 400, position: 'relative' }}>
+          <div style={{
+            border: '1px solid #ccc',
+            borderRadius: 8,
+            background: '#fafafa',
+            boxShadow: '0 2px 8px #0001',
+            padding: 8,
+            position: 'relative'
+          }}>
+            <div style={{ fontWeight: 'bold', marginBottom: 6 }}>Aper�u du Graphe</div>
+            <div style={{ width: '100%', height: 220 }}>
+              <GraphVisualization height={220} />
+            </div>
+            <button
+              style={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                background: '#267dc5',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 4,
+                padding: '4px 10px',
+                cursor: 'pointer'
+              }}
+              onClick={() => setGraphFullScreen(true)}
+              title="Agrandir le graphe"
+            >
+              Agrandir
+            </button>
+          </div>
         </div>
       </div>
-      {/* Bouton pour ouvrir la sidebar */}
-      {!sidebarOpen && (
-        <button
-          onClick={() => setSidebarOpen(true)}
-          style={{
-            position: 'fixed',
-            top: 20,
-            left: 10,
-            background: '#267dc5',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '6px',
-            padding: '6px 12px',
-            cursor: 'pointer',
-            zIndex: 10,
-            boxShadow: '1px 2px 8px #0002'
-          }}
-          title="Ouvrir les espaces"
-        >
-          ≡
-        </button>
-      )}
-      {/* Contenu principal */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <h1>Accueil - Espaces de Recherche</h1>
 
-        {/* Formulaire de création d'espace */}
-        <form onSubmit={handleCreateEspace} style={{ marginBottom: '2em', background: '#f6f6f6', padding: 20, borderRadius: 8 }}>
-          <h2>Créer un nouvel espace</h2>
-          <input
-            type="text"
-            value={nouvelEspace.subject}
-            onChange={e => setNouvelEspace({ ...nouvelEspace, subject: e.target.value })}
-            placeholder="Sujet"
-            required
-            style={{ marginRight: 10 }}
-          />
-          <input
-            type="text"
-            value={nouvelEspace.objectif}
-            onChange={e => setNouvelEspace({ ...nouvelEspace, objectif: e.target.value })}
-            placeholder="Objectif"
-            required
-            style={{ marginRight: 10 }}
-          />
-          <input
-            type="color"
-            value={nouvelEspace.couleur}
-            onChange={e => setNouvelEspace({ ...nouvelEspace, couleur: e.target.value })}
-            style={{ width: 40, height: 40, verticalAlign: 'middle', marginRight: 10 }}
-          />
-          <button type="submit" disabled={loading}>Créer</button>
-        </form>
+      {/* Modal plein �cran pour le graphe */}
+      {graphFullScreen && (
+  <div
+    style={{
+      position: 'fixed',
+      zIndex: 1000,
+      top: 0, left: 0, right: 0, bottom: 0,
+      background: 'rgba(0,0,0,0.7)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}
+    onClick={() => setGraphFullScreen(false)}
+  >
+    <div
+      style={{
+        background: '#fff',
+        borderRadius: 12,
+        padding: 20,
+        width: '90vw',
+        height: '90vh',
+        position: 'relative',
+        boxShadow: '0 4px 24px #0004',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+      onClick={e => e.stopPropagation()}
+    >
+      <button
+        onClick={() => setGraphFullScreen(false)}
+        style={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          background: '#b71c1c',
+          color: '#fff',
+          border: 'none',
+          borderRadius: 4,
+          padding: '6px 16px',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          fontSize: '1.2em',
+          zIndex: 10, // <-- Ajoute ceci
+        }}
+      >
+        Fermer
+      </button>
 
-        {/* Affichage des détails et recherches de l'espace sélectionné */}
-        {selectedEspaceDetails && (
-          <div style={{ marginTop: 30, background: '#f6f6f6', padding: 20, borderRadius: 8 }}>
-            <h3>Détail de l’espace</h3>
-            <pre style={{ background: '#eee', padding: 10, borderRadius: 5 }}>
-              {JSON.stringify(selectedEspaceDetails, null, 2)}
-            </pre>
-            <h4>Recherches pour : {selectedEspace && selectedEspace.subject}</h4>
-            {recherches.length === 0 ? (
-              <p>Aucune recherche pour cet espace.</p>
-            ) : (
-              <ul>
-                {recherches.map(rech => (
-                  <li key={rech.id}>
-                    <b>{rech.prompt}</b> — <span>{rech.response}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
-
-        {error && <p style={{ color: 'red', marginTop: 20 }}>{error}</p>}
+      <div style={{ flex: 1, width: '100%', height: '100%' }}>
+        <GraphVisualization width="100%" height="100%" />
       </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
 
-export default Accueil;
+export default App;
