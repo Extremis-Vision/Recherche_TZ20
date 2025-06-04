@@ -38,8 +38,12 @@ class NodeId(BaseModel):
 async def SupprimerNode(node: NodeId):
     print("Reçu :", node)
     try:
+        # Remplace temporairement par un id existant pour tester
+        # noeud_current = Noeud.load(graph_bdd, "4:4bb8bff4-fd87-4153-a024-5f8232de8d80:5")
         noeud_current = Noeud.load(graph_bdd, node.id)
-        print("Noeud chargé :", noeud_current.dico())
+        print("Noeud trouvé :", noeud_current)
+        if noeud_current is None:
+            raise HTTPException(status_code=404, detail="Noeud non trouvé")
         return noeud_current.supprimer(graph_bdd)
     except Exception as e:
         print("Erreur lors de la suppression d'un noeud :", e)

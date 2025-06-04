@@ -24,54 +24,65 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
   });
 
   useEffect(() => {
+    console.log("Initializing graph...");
     let cy;
 
     fetch("http://localhost:8888/nodebdd/GetAllNode/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        const nodes = (data.nodes || []).map((node) => {
-          const d = node.data || {};
-          const displayLabel = d.nom || d.name || d.id;
-          const backgroundcolor = d.backgroundcolor || "#267dc5";
-          return {
-            ...node,
-            data: {
-              ...d,
-              displayLabel,
-              backgroundcolor,
-            },
-          };
-        });
+        console.log("Raw data:", data);
 
-        const edges = (data.edges || []).map((edge) => {
-          const d = edge.data || {};
-          const label = d.label || d.type || "";
-          return {
-            ...edge,
+        // Vérification et nettoyage des données
+        const nodes = (data.nodes || [])
+          .filter((node) => node.data && node.data.id)
+          .map((node) => ({
             data: {
-              ...d,
-              label,
+              ...node.data,
+              displayLabel:
+                node.data.displayLabel ||
+                node.data.nom ||
+                node.data.name ||
+                node.data.id,
+              backgroundcolor: node.data.backgroundcolor || "#267dc5",
             },
-          };
-        });
+          }));
+
+        const nodeIds = new Set(nodes.map((n) => n.data.id));
+
+        const edges = (data.edges || [])
+          .filter((edge) => {
+            const hasValidIds = edge.data && edge.data.source && edge.data.target;
+            const sourceExists = nodeIds.has(edge.data.source);
+            const targetExists = nodeIds.has(edge.data.target);
+            return hasValidIds && sourceExists && targetExists;
+          })
+          .map((edge) => ({
+            data: {
+              ...edge.data,
+              id: edge.data.id || `edge-${edge.data.source}-${edge.data.target}`,
+            },
+          }));
+
+        console.log("Processed nodes:", nodes);
+        console.log("Processed edges:", edges);
 
         setAllNodes(nodes);
         setAllEdges(edges);
 
+        if (!cyRef.current) {
+          console.error("Container not found");
+          return;
+        }
+
         cy = cytoscape({
           container: cyRef.current,
-          elements: { nodes, edges },
+          elements: [...nodes, ...edges],
           style: [
             {
               selector: "node",
               style: {
-                label: "data(displayLabel)",
                 "background-color": "data(backgroundcolor)",
+                label: "data(displayLabel)",
                 color: "#fff",
                 "font-size": "14px",
                 "text-valign": "center",
@@ -110,13 +121,23 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
           ],
           layout: {
             name: "cose-bilkent",
-            animate: true,
-            randomize: false,
+            animate: false, // Désactiver l'animation initiale
+            randomize: true,
             fit: true,
+            padding: 50,
           },
         });
 
         cyInstance.current = cy;
+
+        // Force layout render
+        setTimeout(() => {
+          if (cy) {
+            cy.resize();
+            cy.fit();
+            cy.center();
+          }
+        }, 100);
 
         cy.on("cxttap", "node", (evt) => {
           const node = evt.target;
@@ -153,7 +174,7 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
         };
       })
       .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
+        console.error("Error loading graph:", error);
       });
 
     return () => {
@@ -219,21 +240,26 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
   const handleDeleteNode = async () => {
     if (!contextMenu.nodeId) return;
 
-    if (
-      !window.confirm(
-        `Supprimer le nœud "${contextMenu.nodeLabel}" et toutes ses connexions ?`
-      )
-    )
+    const nodeToDelete = allNodes.find((node) => node.data.id === contextMenu.nodeId);
+
+    if (!nodeToDelete) {
+      console.error("Node not found in the current graph data.");
       return;
+    }
+
+    const nodeDetails = `Node Details:\n\nID: ${nodeToDelete.data.id}\nLabel: ${nodeToDelete.data.displayLabel}\nDescription: ${nodeToDelete.data.description || 'No description'}\nColor: ${nodeToDelete.data.backgroundcolor || 'No color'}`;
+
+    if (!window.confirm(`Supprimer le nœud:\n\n${nodeDetails}\n\nVoulez-vous vraiment supprimer ce nœud et toutes ses connexions?`)) {
+      return;
+    }
 
     try {
-      // Log the nodeId to ensure it is correct
       console.log("Deleting node with ID:", contextMenu.nodeId);
 
       const response = await fetch("http://localhost:8888/nodebdd/SupprimerNode/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: contextMenu.nodeId }), // Ensure this is the correct integer ID
+        body: JSON.stringify({ id: contextMenu.nodeId }),
       });
 
       if (!response.ok) {
@@ -270,7 +296,16 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
   }, [contextMenu.visible]);
 
   return (
-    <div className="graph-container" style={{ width, height, position: "relative" }}>
+    <div
+      className="graph-container"
+      style={{
+        width,
+        height,
+        position: "relative",
+        border: "1px solid #ccc", // Aide visuelle pour voir le conteneur
+        background: "#f5f5f5",     // Couleur de fond pour voir la zone
+      }}
+    >
       <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
         <input
           className="barre-recherche"
@@ -296,14 +331,14 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
         </label>
       </div>
       <div
-        id="cy"
         ref={cyRef}
         style={{
           width: "100%",
-          height: typeof height === "number" ? `${height - 40}px` : `calc(${height} - 40px)`,
-          minHeight: 120,
+          height: `calc(100% - 50px)`,
+          minHeight: "300px", // Hauteur minimum garantie
+          background: "#fff",  // Fond blanc pour le graphe
         }}
-      ></div>
+      />
       {contextMenu.visible && (
         <NodeContextMenu
           x={contextMenu.x}

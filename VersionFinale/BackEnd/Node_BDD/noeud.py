@@ -81,36 +81,41 @@ class Noeud:
 
     @classmethod
     def load(cls, node_bdd, id_noeud: str):
-        """Charge un noeud depuis Neo4j, retourne un objet Noeud ou None."""
-        with node_bdd.driver.session() as session:
-            query = "MATCH (n:Node {id: $id}) RETURN n"
-            result = session.run(query, id=id_noeud)
-            data = result.single()
-            if data is None:
-                return None
-            node_dict = dict(data["n"])
-            n = cls(
-                couleur=node_dict["backgroundcolor"],
-                nom=node_dict["nom"],
-                description=node_dict["description"]
-            )
-            n.id = node_dict["id"]
-            return n
+        try:
+            with node_bdd.driver.session() as session:
+                query = "MATCH (n:Node {id: $id}) RETURN n"
+                result = session.run(query, id=id_noeud)
+                data = result.single()
 
-# Example usage
-#from graph import BDD_Node
-#node_bdd = BDD_Node()
-#n = Noeud("#fffff", "Neo4j", "Base de données graphe")
-#success = n.cree(node_bdd)
-#if success:
-#    id = n.get_id()
-#    print(f"Node created with ID: {id}")
-#
-#    noeud_test = Noeud.load(node_bdd, id)
-#    if noeud_test:
-#        print(noeud_test.dico())
-#        noeud_test.supprimer(node_bdd)
-#    else:
-#        print("Failed to load the node.")
-#else:
-#    print("Failed to create the node.")
+                if data is None:
+                    return None
+
+                node_dict = dict(data["n"])
+                print(f"[DEBUG] Node data: {node_dict}")
+
+                # Clés obligatoires et variantes pour la couleur
+                required_keys = ["nom", "description", "id"]
+                color_keys = ["couleur", "color", "backgroundcolor"]
+
+                # Vérifie la présence des clés obligatoires
+                missing_keys = [key for key in required_keys if key not in node_dict]
+                # Vérifie la présence d'au moins une clé couleur
+                couleur = next((node_dict[c] for c in color_keys if c in node_dict), None)
+                has_couleur = couleur is not None
+
+                if not has_couleur:
+                    missing_keys.append("couleur/color/backgroundcolor")
+
+                if not missing_keys:
+                    n = cls(
+                        couleur=couleur,
+                        nom=node_dict["nom"],
+                        description=node_dict["description"]
+                    )
+                    n.id = node_dict["id"]
+                    return n
+                else:
+                    return None
+        except Exception as e:
+            print(f"[EXCEPTION] Erreur lors du chargement du nœud avec l'ID {id_noeud}: {e}")
+            return None

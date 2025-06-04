@@ -18,14 +18,14 @@ class BDD_Node:
         self.driver = GraphDatabase.driver(os.getenv('NEO4J_URI'), auth=(os.getenv('NEO4J_USER'), os.getenv('NEO4J_PASSWORD')))
 
     def get_noeuds(self) -> list[dict]:
-        """Retourne tous les n?uds de la base de donn�es."""
+        """Retrieve all nodes from the database using a custom id property."""
         with self.driver.session() as session:
-            query = "MATCH (n:Node) RETURN n, ID(n) AS internal_id"
+            query = "MATCH (n:Node) RETURN n"
             result = session.run(query)
             noeuds = []
             for record in result:
                 node_dict = dict(record["n"])
-                node_dict["internal_id"] = record["internal_id"]
+                # Ensure each node has a unique id property
                 noeuds.append(node_dict)
             return noeuds
 
@@ -102,36 +102,63 @@ class BDD_Node:
 
     def parse_graph_neo4j(self) -> dict:
         """Parse le graphe Neo4j et retourne les nœuds et les arêtes."""
-        nodes = {}
+        nodes = []
         edges = []
 
         with self.driver.session() as session:
-            # Récupérer les nœuds
-            result_nodes = session.run("MATCH (n) RETURN n")
+            # Récupérer les nœuds avec leurs propriétés
+            result_nodes = session.run("""
+                MATCH (n:Node) 
+                RETURN n, ID(n) as neo4j_id,
+                    CASE WHEN n.name IS NOT NULL THEN n.name 
+                         WHEN n.nom IS NOT NULL THEN n.nom 
+                         ELSE toString(ID(n)) END as displayName,
+                    COALESCE(n.backgroundcolor, '#267dc5') as bgcolor
+            """)
+            
+            # Map pour stocker les IDs des nœuds
+            node_ids = {}
+            
             for record in result_nodes:
                 node = record["n"]
-                node_id = str(node.element_id)
-                props = dict(node)
-                props["id"] = node_id
-                nodes[node_id] = props
+                node_props = dict(node)
+                node_id = node_props.get("id", str(record["neo4j_id"]))
+                node_ids[record["neo4j_id"]] = node_id
+                
+                node_data = {
+                    "id": node_id,
+                    "name": node_props.get("name", ""),
+                    "nom": node_props.get("nom", ""),
+                    "displayLabel": record["displayName"],
+                    "backgroundcolor": record["bgcolor"],
+                    "description": node_props.get("description", "")
+                }
+                nodes.append({"data": node_data})
 
-            # Récupérer les arêtes
-            result_edges = session.run("MATCH (a)-[r]->(b) RETURN a, b, r")
+            # Récupérer les arêtes avec les IDs des nœuds source et cible
+            result_edges = session.run("""
+                MATCH (a:Node)-[r]->(b:Node)
+                RETURN ID(a) as source_id, ID(b) as target_id,
+                       a.id as source_custom_id, b.id as target_custom_id,
+                       type(r) as type, r.description as description
+            """)
+            
             for record in result_edges:
-                source = str(record["a"].element_id)
-                target = str(record["b"].element_id)
-                rel_type = record["r"].type
-                edges.append({
-                    "data": {
-                        "source": source,
-                        "target": target,
-                        "label": rel_type
+                source_id = node_ids.get(record["source_id"]) or record["source_custom_id"]
+                target_id = node_ids.get(record["target_id"]) or record["target_custom_id"]
+                
+                if source_id and target_id:  # Ne créer l'arête que si les deux IDs existent
+                    edge_data = {
+                        "id": f"edge-{source_id}-{target_id}",
+                        "source": source_id,
+                        "target": target_id,
+                        "label": record["type"],
+                        "type": record["type"],
+                        "description": record["description"] or ""
                     }
-                })
+                    edges.append({"data": edge_data})
 
-        node_list = [{"data": node} for node in nodes.values()]
-
-        return {"nodes": node_list, "edges": edges}
+        return {"nodes": nodes, "edges": edges}
     
 
 
