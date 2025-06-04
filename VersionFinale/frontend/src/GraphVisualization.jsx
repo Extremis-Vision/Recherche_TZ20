@@ -3,6 +3,7 @@ import cytoscape from "cytoscape";
 import coseBilkent from "cytoscape-cose-bilkent";
 import NodeContextMenu from "./NodeContextMenu";
 import EdgeContextMenu from "./EdgeContextMenu";
+import EdgeDetails from './EdgeDetails';
 import "./GraphVisualization.css";
 
 cytoscape.use(coseBilkent);
@@ -39,6 +40,7 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
   const [isCreatingRelation, setIsCreatingRelation] = useState(false);
   const [newRelationType, setNewRelationType] = useState("");
   const [newRelationDescription, setNewRelationDescription] = useState("");
+  const [selectedEdge, setSelectedEdge] = useState(null);
 
   useEffect(() => {
     console.log("Initializing graph...");
@@ -191,11 +193,15 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
           evt.preventDefault();
         });
 
+        cy.on("tap", "edge", (evt) => {
+          const edge = evt.target;
+          setSelectedEdge(edge);
+        });
+
         cy.on("tap", (evt) => {
-          if (contextMenu.visible) {
+          if (evt.target === cy) {
+            // Si on clique sur le fond
             setContextMenu((m) => ({ ...m, visible: false }));
-          }
-          if (edgeContextMenu.visible) {
             setEdgeContextMenu((m) => ({ ...m, visible: false }));
           }
         });
@@ -351,19 +357,22 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
         body: JSON.stringify({
           id_source: newRelation.source,
           id_target: newRelation.target,
-          type: newRelation.type,
+          type: newRelation.type.trim(),  // S'assurer qu'il n'y a pas d'espaces superflus
           description: newRelation.description
         }),
       });
 
-      if (!response.ok) throw new Error("Erreur lors de la création de la relation");
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || "Erreur lors de la création de la relation");
+      }
       
       // Recharger le graphe
       window.location.reload();
       setShowRelationForm(false);
     } catch (error) {
       console.error("Erreur:", error);
-      alert("Erreur lors de la création de la relation");
+      alert("Erreur lors de la création de la relation: " + error.message);
     }
   };
 
@@ -486,13 +495,21 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
         </button>
       </div>
 
+      {/* Modifier le style des modales */}
       {showCreateForm && (
         <div className="modal" style={{
-          position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0,0,0,0.5)',
-          zIndex: 1000
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: 'white',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+          zIndex: 1000,
+          color: '#333', // Couleur du texte
         }}>
-          <h3>Créer un nouveau nœud</h3>
+          <h3 style={{ color: '#333' }}>Créer un nouveau nœud</h3>
           <form onSubmit={handleCreateNode}>
             <input
               type="text"
@@ -596,9 +613,42 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
           x={edgeContextMenu.x}
           y={edgeContextMenu.y}
           edge={edgeContextMenu.edge}
-          onUpdate={handleUpdateEdge}
           onClose={() => setEdgeContextMenu({ visible: false, x: 0, y: 0, edge: null })}
         />
+      )}
+      {selectedEdge && (
+        <div style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: 'white',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+          zIndex: 1000,
+          color: '#333', // Couleur du texte
+        }}>
+          <h3 style={{ marginTop: 0, color: '#333' }}>Détails de la relation</h3>
+          <p style={{ color: '#666' }}><strong>Type:</strong> {selectedEdge.data('label')}</p>
+          <p style={{ color: '#666' }}><strong>Description:</strong> {selectedEdge.data('description') || "Aucune description"}</p>
+          <p style={{ color: '#666' }}><strong>Source:</strong> {selectedEdge.data('source')}</p>
+          <p style={{ color: '#666' }}><strong>Destination:</strong> {selectedEdge.data('target')}</p>
+          <button 
+            onClick={() => setSelectedEdge(null)}
+            style={{
+              padding: '8px 16px',
+              marginTop: '16px',
+              cursor: 'pointer',
+              backgroundColor: '#f0f0f0',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              color: '#333'
+            }}
+          >
+            Fermer
+          </button>
+        </div>
       )}
       {isCreatingRelation && (
         <div style={{

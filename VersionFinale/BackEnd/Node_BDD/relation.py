@@ -1,10 +1,8 @@
-
-
 class Relation:
-    def __init__(self, source_id: str, target_id: str, type: str, description: str):
+    def __init__(self, source_id: str, target_id: str, type: str, description: str = ""):
         self.source_id = source_id
         self.target_id = target_id
-        self.type = type
+        self.type = type.replace(" ", "_")  # Remplacer les espaces par des underscores
         self.description = description
 
     def to_dict(self):
@@ -18,15 +16,24 @@ class Relation:
     def create(self, node_bdd):
         """Crée la relation dans la base de données Neo4j."""
         with node_bdd.driver.session() as session:
-            query = (
-                f"""
-                MATCH (a:Node {{id: $source_id}}), (b:Node {{id: $target_id}})
-                MERGE (a)-[r:{self.type} {{description: $description}}]->(b)
+            query = """
+                MATCH (a:Node {id: $source_id})
+                MATCH (b:Node {id: $target_id})
+                MERGE (a)-[r:`%s` {description: $description}]->(b)
                 RETURN r
-                """
-            )
-            result = session.run(query, **self.to_dict())
-            return result.single() is not None
+            """ % self.type  # Utilisation de la chaîne formatée de manière sécurisée
+            
+            try:
+                session.run(
+                    query,
+                    source_id=self.source_id,
+                    target_id=self.target_id,
+                    description=self.description
+                )
+                return True
+            except Exception as e:
+                print("Erreur lors de la création de la relation:", e)
+                raise e
 
     def supprimer(self, node_bdd):
         """Supprime la relation de la base de données Neo4j."""

@@ -1,23 +1,23 @@
 import React from "react";
 
-const NodeContextMenu = ({ x, y, nodeLabel, onDelete, onClose, onCreateRelation }) => {
+const NodeContextMenu = ({ x, y, nodeLabel, onDelete, onCreateRelation, onClose }) => {
   return (
     <div
       style={{
         position: "fixed",
-        top: y,
         left: x,
-        background: "#fff",
+        top: y,
+        backgroundColor: "white",
         border: "1px solid #ccc",
-        borderRadius: 8,
-        boxShadow: "0 2px 8px #0002",
-        zIndex: 10000,
-        minWidth: 160,
-        padding: 0,
+        borderRadius: "4px",
+        padding: "8px",
+        boxShadow: "2px 2px 5px rgba(0,0,0,0.2)",
+        zIndex: 1000,
+        minWidth: "200px",
+        color: "#333",
       }}
-      onContextMenu={e => e.preventDefault()}
     >
-      <div style={{ padding: "10px 16px", borderBottom: "1px solid #eee", fontWeight: "bold" }}>
+      <div style={{ marginBottom: "8px", fontWeight: "bold", color: "#000" }}>
         {nodeLabel}
       </div>
       <button
@@ -28,38 +28,36 @@ const NodeContextMenu = ({ x, y, nodeLabel, onDelete, onClose, onCreateRelation 
         style={{
           display: "block",
           width: "100%",
-          padding: "10px 16px",
-          border: "none",
-          background: "none",
-          textAlign: "left",
+          padding: "6px",
+          marginBottom: "4px",
+          backgroundColor: "#f5f5f5",
+          border: "1px solid #ddd",
+          borderRadius: "4px",
           cursor: "pointer",
+          color: "#333",
+          textAlign: "left"
         }}
       >
         Créer relation
       </button>
       <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete();
+        }}
         style={{
+          display: "block",
           width: "100%",
-          padding: "10px 16px",
-          background: "#b71c1c",
-          color: "#fff",
-          border: "none",
-          borderRadius: "0 0 8px 8px",
+          padding: "6px",
+          backgroundColor: "#fff0f0",
+          border: "1px solid #ffcccc",
+          borderRadius: "4px",
           cursor: "pointer",
-          fontWeight: "bold",
+          color: "#cc0000",
+          textAlign: "left"
         }}
-        onClick={onDelete}
       >
-        Supprimer le nœud
-      </button>
-      <button
-        style={{
-          display: "none"
-        }}
-        onClick={onClose}
-        tabIndex={-1}
-      >
-        Fermer
+        Supprimer
       </button>
     </div>
   );
