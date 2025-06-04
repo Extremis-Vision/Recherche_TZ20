@@ -1,6 +1,6 @@
 import React from "react";
 
-const NodeContextMenu = ({ x, y, onDelete, onClose, nodeLabel }) => {
+const NodeContextMenu = ({ x, y, nodeLabel, onDelete, onClose, onCreateRelation }) => {
   return (
     <div
       style={{
@@ -20,6 +20,23 @@ const NodeContextMenu = ({ x, y, onDelete, onClose, nodeLabel }) => {
       <div style={{ padding: "10px 16px", borderBottom: "1px solid #eee", fontWeight: "bold" }}>
         {nodeLabel}
       </div>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onCreateRelation();
+        }}
+        style={{
+          display: "block",
+          width: "100%",
+          padding: "10px 16px",
+          border: "none",
+          background: "none",
+          textAlign: "left",
+          cursor: "pointer",
+        }}
+      >
+        Créer relation
+      </button>
       <button
         style={{
           width: "100%",

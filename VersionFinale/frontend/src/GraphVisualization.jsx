@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import cytoscape from "cytoscape";
 import coseBilkent from "cytoscape-cose-bilkent";
 import NodeContextMenu from "./NodeContextMenu";
+import EdgeContextMenu from "./EdgeContextMenu";
 import "./GraphVisualization.css";
 
 cytoscape.use(coseBilkent);
@@ -23,10 +24,21 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
     nodeLabel: "",
   });
 
+  const [edgeContextMenu, setEdgeContextMenu] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    edge: null,
+  });
+
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showRelationForm, setShowRelationForm] = useState(false);
   const [newNode, setNewNode] = useState({ nom: '', description: '', couleur: '#267dc5' });
   const [newRelation, setNewRelation] = useState({ source: '', target: '', type: '', description: '' });
+  const [relationSource, setRelationSource] = useState(null);
+  const [isCreatingRelation, setIsCreatingRelation] = useState(false);
+  const [newRelationType, setNewRelationType] = useState("");
+  const [newRelationDescription, setNewRelationDescription] = useState("");
 
   useEffect(() => {
     console.log("Initializing graph...");
@@ -167,9 +179,24 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
           });
         });
 
+        cy.on("cxttap", "edge", (evt) => {
+          const edge = evt.target;
+          const pos = evt.originalEvent;
+          setEdgeContextMenu({
+            visible: true,
+            x: pos.clientX,
+            y: pos.clientY,
+            edge: edge,
+          });
+          evt.preventDefault();
+        });
+
         cy.on("tap", (evt) => {
           if (contextMenu.visible) {
             setContextMenu((m) => ({ ...m, visible: false }));
+          }
+          if (edgeContextMenu.visible) {
+            setEdgeContextMenu((m) => ({ ...m, visible: false }));
           }
         });
 
@@ -340,21 +367,82 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
     }
   };
 
+  const handleStartCreateRelation = () => {
+    setIsCreatingRelation(true);
+    setRelationSource(contextMenu.nodeId);
+    setContextMenu((m) => ({ ...m, visible: false }));
+  };
+
+  const handleNodeClick = async (node) => {
+    if (isCreatingRelation && relationSource) {
+      const type = prompt("Type de relation :");
+      if (!type) {
+        setIsCreatingRelation(false);
+        setRelationSource(null);
+        return;
+      }
+      
+      const description = prompt("Description de la relation (optionnel) :");
+      
+      try {
+        const response = await fetch("http://localhost:8888/nodebdd/CreeRelation/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id_source: relationSource,
+            id_target: node.id(),
+            type: type,
+            description: description || ""
+          }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.detail || "Erreur lors de la création de la relation");
+        }
+        
+        // Recharger le graphe
+        window.location.reload();
+      } catch (error) {
+        console.error("Erreur:", error);
+        alert(error.message || "Erreur lors de la création de la relation");
+      }
+      
+      setIsCreatingRelation(false);
+      setRelationSource(null);
+    }
+  };
+
+  useEffect(() => {
+    const cy = cyInstance.current;
+    if (!cy) return;
+
+    cy.on("tap", "node", (evt) => {
+      const node = evt.target;
+      if (isCreatingRelation) {
+        handleNodeClick(node);
+      }
+    });
+  }, [isCreatingRelation]);
+
   useEffect(() => {
     const closeMenu = () => {
       if (contextMenu.visible) {
         setContextMenu((m) => ({ ...m, visible: false }));
       }
+      if (edgeContextMenu.visible) {
+        setEdgeContextMenu((m) => ({ ...m, visible: false }));
+      }
     };
 
-    if (contextMenu.visible) {
+    if (contextMenu.visible || edgeContextMenu.visible) {
       document.addEventListener("click", closeMenu);
     }
 
     return () => {
       document.removeEventListener("click", closeMenu);
     };
-  }, [contextMenu.visible]);
+  }, [contextMenu.visible, edgeContextMenu.visible]);
 
   return (
     <div
@@ -499,8 +587,33 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
           y={contextMenu.y}
           nodeLabel={contextMenu.nodeLabel}
           onDelete={handleDeleteNode}
+          onCreateRelation={handleStartCreateRelation}
           onClose={() => setContextMenu((m) => ({ ...m, visible: false }))}
         />
+      )}
+      {edgeContextMenu.visible && (
+        <EdgeContextMenu
+          x={edgeContextMenu.x}
+          y={edgeContextMenu.y}
+          edge={edgeContextMenu.edge}
+          onUpdate={handleUpdateEdge}
+          onClose={() => setEdgeContextMenu({ visible: false, x: 0, y: 0, edge: null })}
+        />
+      )}
+      {isCreatingRelation && (
+        <div style={{
+          position: 'fixed',
+          top: '10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '5px',
+          zIndex: 1000
+        }}>
+          Sélectionnez un nœud cible pour créer la relation
+        </div>
       )}
     </div>
   );

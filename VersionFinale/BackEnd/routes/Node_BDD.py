@@ -38,8 +38,6 @@ class NodeId(BaseModel):
 @router.post("/SupprimerNode/")
 async def SupprimerNode(node: NodeId):
     try:
-        # Remplace temporairement par un id existant pour tester
-        # noeud_current = Noeud.load(graph_bdd, "4:4bb8bff4-fd87-4153-a024-5f8232de8d80:5")
         noeud_current = Noeud.load(graph_bdd, node.id)
         if noeud_current is None:
             raise HTTPException(status_code=404, detail="Noeud non trouvé")
@@ -59,14 +57,15 @@ class CreationRelation(BaseModel):
 async def CreeRelation(creationrelationcurrent: CreationRelation):
     try:
         relation_current = Relation(
-            id_source=creationrelationcurrent.id_source,
-            id_target=creationrelationcurrent.id_target,
+            source_id=creationrelationcurrent.id_source, 
+            target_id=creationrelationcurrent.id_target, 
             type=creationrelationcurrent.type,
             description=creationrelationcurrent.description
         )
         relation_current.create(graph_bdd)
+        return {"status": "success"}  
     except Exception as e:
-        print("Erreur lors de la suppression d'un noeud :", e)
+        print("Erreur lors de la création d'une relation :", e)  
         raise HTTPException(status_code=500, detail=str(e))
 
 
