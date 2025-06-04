@@ -23,6 +23,11 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
     nodeLabel: "",
   });
 
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showRelationForm, setShowRelationForm] = useState(false);
+  const [newNode, setNewNode] = useState({ nom: '', description: '', couleur: '#267dc5' });
+  const [newRelation, setNewRelation] = useState({ source: '', target: '', type: '', description: '' });
+
   useEffect(() => {
     console.log("Initializing graph...");
 
@@ -290,6 +295,51 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
     }
   };
 
+  const handleCreateNode = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8888/nodebdd/CreeNoeud/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newNode),
+      });
+
+      if (!response.ok) throw new Error("Erreur lors de la création du nœud");
+      
+      // Recharger le graphe
+      window.location.reload();
+      setShowCreateForm(false);
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Erreur lors de la création du nœud");
+    }
+  };
+
+  const handleCreateRelation = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8888/nodebdd/CreeRelation/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id_source: newRelation.source,
+          id_target: newRelation.target,
+          type: newRelation.type,
+          description: newRelation.description
+        }),
+      });
+
+      if (!response.ok) throw new Error("Erreur lors de la création de la relation");
+      
+      // Recharger le graphe
+      window.location.reload();
+      setShowRelationForm(false);
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Erreur lors de la création de la relation");
+    }
+  };
+
   useEffect(() => {
     const closeMenu = () => {
       if (contextMenu.visible) {
@@ -317,7 +367,7 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
         background: "#f5f5f5",     // Couleur de fond pour voir la zone
       }}
     >
-      <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
+      <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
         <input
           className="barre-recherche"
           type="text"
@@ -340,7 +390,100 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
           />
           Inclure voisins
         </label>
+        <button onClick={() => setShowCreateForm(true)} style={{ padding: "6px 12px" }}>
+          Nouveau Nœud
+        </button>
+        <button onClick={() => setShowRelationForm(true)} style={{ padding: "6px 12px" }}>
+          Nouvelle Relation
+        </button>
       </div>
+
+      {showCreateForm && (
+        <div className="modal" style={{
+          position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+          zIndex: 1000
+        }}>
+          <h3>Créer un nouveau nœud</h3>
+          <form onSubmit={handleCreateNode}>
+            <input
+              type="text"
+              placeholder="Nom"
+              value={newNode.nom}
+              onChange={(e) => setNewNode({...newNode, nom: e.target.value})}
+              style={{ display: 'block', margin: '10px 0' }}
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              value={newNode.description}
+              onChange={(e) => setNewNode({...newNode, description: e.target.value})}
+              style={{ display: 'block', margin: '10px 0' }}
+            />
+            <input
+              type="color"
+              value={newNode.couleur}
+              onChange={(e) => setNewNode({...newNode, couleur: e.target.value})}
+              style={{ display: 'block', margin: '10px 0' }}
+            />
+            <button type="submit">Créer</button>
+            <button type="button" onClick={() => setShowCreateForm(false)}>Annuler</button>
+          </form>
+        </div>
+      )}
+
+      {showRelationForm && (
+        <div className="modal" style={{
+          position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+          zIndex: 1000
+        }}>
+          <h3>Créer une nouvelle relation</h3>
+          <form onSubmit={handleCreateRelation}>
+            <select
+              value={newRelation.source}
+              onChange={(e) => setNewRelation({...newRelation, source: e.target.value})}
+              style={{ display: 'block', margin: '10px 0' }}
+            >
+              <option value="">Sélectionner source</option>
+              {allNodes.map(node => (
+                <option key={node.data.id} value={node.data.id}>
+                  {node.data.displayLabel || node.data.nom || node.data.id}
+                </option>
+              ))}
+            </select>
+            <select
+              value={newRelation.target}
+              onChange={(e) => setNewRelation({...newRelation, target: e.target.value})}
+              style={{ display: 'block', margin: '10px 0' }}
+            >
+              <option value="">Sélectionner cible</option>
+              {allNodes.map(node => (
+                <option key={node.data.id} value={node.data.id}>
+                  {node.data.displayLabel || node.data.nom || node.data.id}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              placeholder="Type de relation"
+              value={newRelation.type}
+              onChange={(e) => setNewRelation({...newRelation, type: e.target.value})}
+              style={{ display: 'block', margin: '10px 0' }}
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              value={newRelation.description}
+              onChange={(e) => setNewRelation({...newRelation, description: e.target.value})}
+              style={{ display: 'block', margin: '10px 0' }}
+            />
+            <button type="submit">Créer</button>
+            <button type="button" onClick={() => setShowRelationForm(false)}>Annuler</button>
+          </form>
+        </div>
+      )}
+
       <div
         ref={cyRef}
         style={{
