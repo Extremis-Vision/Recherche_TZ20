@@ -25,46 +25,57 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
 
   useEffect(() => {
     console.log("Initializing graph...");
-    let cy;
 
     fetch("http://localhost:8888/nodebdd/GetAllNode/")
       .then((response) => response.json())
       .then((data) => {
-        console.log("Raw data:", data);
+        console.log("Raw data received:", data);
 
-        // Vérification et nettoyage des données
-        const nodes = (data.nodes || [])
-          .filter((node) => node.data && node.data.id)
-          .map((node) => ({
+        if (!data.nodes || !data.edges) {
+          console.error("Invalid data format received:", data);
+          return;
+        }
+
+        // Filtrer et traiter les nœuds
+        const nodes = data.nodes
+          .filter(node => node.data && node.data.id)
+          .map(node => ({
+            group: 'nodes',
             data: {
               ...node.data,
-              displayLabel:
-                node.data.displayLabel ||
-                node.data.nom ||
-                node.data.name ||
-                node.data.id,
-              backgroundcolor: node.data.backgroundcolor || "#267dc5",
-            },
+              id: String(node.data.id),
+              label: node.data.displayLabel || node.data.nom || node.data.name || String(node.data.id)
+            }
           }));
 
-        const nodeIds = new Set(nodes.map((n) => n.data.id));
+        const validNodeIds = new Set(nodes.map(n => n.data.id));
+        console.log("Valid node IDs:", validNodeIds);
 
-        const edges = (data.edges || [])
-          .filter((edge) => {
-            const hasValidIds = edge.data && edge.data.source && edge.data.target;
-            const sourceExists = nodeIds.has(edge.data.source);
-            const targetExists = nodeIds.has(edge.data.target);
-            return hasValidIds && sourceExists && targetExists;
+        // Filtrer et traiter les arêtes
+        const edges = data.edges
+          .filter(edge => {
+            if (!edge.data || !edge.data.source || !edge.data.target) {
+              console.warn("Invalid edge data:", edge);
+              return false;
+            }
+            const sourceExists = validNodeIds.has(String(edge.data.source));
+            const targetExists = validNodeIds.has(String(edge.data.target));
+            if (!sourceExists || !targetExists) {
+              console.warn(`Skipping edge - missing nodes:`, edge.data);
+              return false;
+            }
+            return true;
           })
-          .map((edge) => ({
+          .map(edge => ({
+            group: 'edges',
             data: {
               ...edge.data,
-              id: edge.data.id || `edge-${edge.data.source}-${edge.data.target}`,
-            },
+              id: String(edge.data.id),
+              source: String(edge.data.source),
+              target: String(edge.data.target),
+              label: edge.data.label || ''
+            }
           }));
-
-        console.log("Processed nodes:", nodes);
-        console.log("Processed edges:", edges);
 
         setAllNodes(nodes);
         setAllEdges(edges);
@@ -74,7 +85,7 @@ const GraphVisualization = ({ width = "100%", height = 600 }) => {
           return;
         }
 
-        cy = cytoscape({
+        const cy = cytoscape({
           container: cyRef.current,
           elements: [...nodes, ...edges],
           style: [

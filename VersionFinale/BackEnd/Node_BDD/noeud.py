@@ -7,14 +7,27 @@ class Noeud:
 
     def dico(self):
         return {
-            "id": self.id,
+            "id": str(self.id) if self.id is not None else None,
             "backgroundcolor": self.couleur,
-            "nom": self.nom,
-            "description": self.description
+            "nom": str(self.nom),
+            "description": str(self.description)
         }
 
+    @staticmethod
+    def convert_id(id_value):
+        """
+        Convertit l'ID en entier si c'est une chaîne composée uniquement de chiffres.
+        Retourne la valeur telle quelle sinon.
+        """
+        if isinstance(id_value, str):
+            # Enlever les espaces et vérifier si uniquement des chiffres
+            cleaned_id = id_value.strip()
+            if cleaned_id.isdigit():
+                return int(cleaned_id)
+        return id_value
+
     def get_id(self):
-        return self.id
+        return self.convert_id(self.id)
 
     def get_couleur(self):
         return self.couleur
@@ -76,21 +89,27 @@ class Noeud:
             return False
         with node_bdd.driver.session() as session:
             query = "MATCH (n:Node {id: $id}) DELETE n"
-            session.run(query, id=self.id)
+            session.run(query, id=self.convert_id(self.id))
             return True
 
     @classmethod
     def load(cls, node_bdd, id_noeud: str):
         try:
             with node_bdd.driver.session() as session:
+                # Convertir l'ID en entier si c'est un nombre
+                converted_id = cls.convert_id(id_noeud)
                 query = "MATCH (n:Node {id: $id}) RETURN n"
-                result = session.run(query, id=id_noeud)
+                result = session.run(query, id=converted_id)
                 data = result.single()
 
                 if data is None:
                     return None
 
                 node_dict = dict(data["n"])
+                # Assurer que l'ID est une chaîne
+                if "id" in node_dict:
+                    node_dict["id"] = str(node_dict["id"])
+
                 print(f"[DEBUG] Node data: {node_dict}")
 
                 # Clés obligatoires et variantes pour la couleur
