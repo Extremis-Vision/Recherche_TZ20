@@ -67,6 +67,8 @@ async def CreeRelation(creationrelationcurrent: CreationRelation):
     except Exception as e:
         print("Erreur lors de la création d'une relation :", e)  
         raise HTTPException(status_code=500, detail=str(e))
+    
+
 
 
 class CreeNoeud(BaseModel):

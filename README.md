@@ -15,7 +15,9 @@ The goal of this project is to evaluate the performance of models, specific tech
 7. **[Finetuning](7_Finetunning/7_Finetunning.md)**: Details can be found in the `7_Finetunning` folder. 🛠️
 
 
-- fait création noeuds et relation dans le graph 
+- Rajout potentielle u système de retrive avec GraphRAG combiné et aussi metadata dans le RAG 
+- Vérifier LOAD RELATION 
+- RENDRE LE CODE REACT PLUS SIMPLE ET LISSIBLE 
 - Choix du type de recherche et du modèle avec par défaut ministral 
 - Modifications du prompt de génération des mots clées (pour qu'il mette les mots les plus important dans un pompt)
 - Tester avec Gemma 4b, Granite 8b
