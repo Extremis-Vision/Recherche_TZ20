@@ -16,6 +16,8 @@ The goal of this project is to evaluate the performance of models, specific tech
 
 
 - Rajout potentielle u système de retrive avec GraphRAG combiné et aussi metadata dans le RAG 
+- Bouton création de dans le graph 
+- Bouton zoom et zoom auto, laisse le mode plein écran lors des ajout et autres 
 - Vérifier LOAD RELATION 
 - RENDRE LE CODE REACT PLUS SIMPLE ET LISSIBLE 
 - Choix du type de recherche et du modèle avec par défaut ministral 
@@ -29,5 +31,8 @@ The goal of this project is to evaluate the performance of models, specific tech
 - Affichage des sources ajouté pour une requ^ete de recherche
 - Choix du type préférer de recherche 
 - Utilisation de Farfalle pour reprendre sys prompt ou implémentation de la recherche surtout avec SearXNG
-
 - Remise en ordre du repo explication du code et autre ainsi que citation correcte. 
+
+Idée rajout possible : 
+- mettre tous les noeuds comme fonds de la page d'acceille
+- rajouté les types / catégorie à un noeuds / rajouter la possibilité de mettre du json et l'interpréter par la lecture
