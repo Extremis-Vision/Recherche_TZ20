@@ -54,36 +54,44 @@ class ChromaDB:
         )
 
     def add_documents(self, docs: List[dict]):
-        """
-        Ajoute des documents à la collection ChromaDB.
-        """
-        print(docs)
+        """Ajoute des documents à la collection ChromaDB."""
         documents = []
         metadatas = []
         ids = []
 
         for i, doc in enumerate(docs):
-            title = doc.get("title")
-            link = doc.get("link")
-            snippet = doc.get("snippet", "")
-            if not title or not link:
+            title = doc.get("title", "").strip()
+            link = doc.get("link", "").strip()
+            snippet = doc.get("snippet", "").strip()
+
+            # Vérifier la validité des données
+            if not all([title, link, snippet]):
                 continue
 
+            # Créer un identifiant unique basé sur l'URL
+            doc_id = f"doc_{hash(link)}_{i}"
+            
+            # Ajouter le document
             documents.append(f"{title}. {snippet}")
             metadatas.append({
-                "link": link,
                 "title": title,
-                "snippet": snippet
+                "link": link,
+                "snippet": snippet,
+                "source": doc.get("engines", ["unknown"])[0],  # Ajouter la source
+                "category": doc.get("category", "unknown")     # Ajouter la catégorie
             })
-            ids.append(f"doc_{i}")
+            ids.append(doc_id)
 
         if documents:
-            self.collection.add(
-                documents=documents,
-                metadatas=metadatas,
-                ids=ids
-            )
-            print(f"Added {len(documents)} documents to the collection.")
+            try:
+                self.collection.add(
+                    documents=documents,
+                    metadatas=metadatas,
+                    ids=ids
+                )
+                print(f"Added {len(documents)} documents to the collection.")
+            except Exception as e:
+                print(f"Error adding documents: {e}")
 
     def split_text_into_chunks(self, text, max_chunk_size=800, overlap=100):
         import re
@@ -168,61 +176,71 @@ class ChromaDB:
     def get_documents(self, n_results: int = 5, query: str = None) -> List[dict]:
         """Récupère les documents pertinents pour la query."""
         print(f"Querying the collection for: {query} with n_results={n_results}")
-        docs = []
-        if query:
+        
+        if not query:  # Si pas de requête, retourner tous les documents
             try:
-                # Préparer les mots clés importants de la requête
-                query_words = set(query.lower().split())
-                important_keywords = {'faillite', 'faillites', '2024', 'entreprise', 'entreprises', 'défaillance', 'défaillances'}
-                query_important_words = query_words.intersection(important_keywords)
-
-                results = self.collection.query(
-                    query_texts=[query],
-                    n_results=n_results * 3
-                )
-                
+                results = self.collection.get()
                 if results.get('metadatas'):
-                    metadatas = results['metadatas'][0]
-                    filtered_results = []
-                    
-                    for metadata in metadatas:
-                        text = f"{metadata.get('title', '')} {metadata.get('snippet', '')}".lower()
-                        
-                        # Calculer un score basé sur les mots clés importants et leur contexte
-                        score = 0
-                        for word in query_important_words:
-                            if word in text:
-                                score += 2  # Bonus pour les mots clés importants
-                        
-                        # Vérifier la présence de chiffres près des mots clés
-                        if any(str(year) in text for year in range(2024, 2026)):
-                            score += 3  # Bonus pour les années récentes
-                            
-                        # Vérifier la proximité des mots clés
-                        if 'faillite' in text and '2024' in text and 'entreprise' in text:
-                            score += 5  # Bonus pour la co-occurrence des mots clés principaux
-                            
-                        if score > 3:  # Seuil minimal de pertinence
-                            filtered_results.append((score, metadata))
-                    
-                    # Trier par score et prendre les n meilleurs résultats
-                    filtered_results.sort(key=lambda x: x[0], reverse=True)
-                    metadatas = [item[1] for item in filtered_results[:n_results]]
-                    
-                    print(f"Found {len(metadatas)} relevant documents with scores")
-                    
-                    docs = [{
+                    return [{
                         "title": meta.get("title", ""),
                         "link": meta.get("link", ""),
                         "snippet": meta.get("snippet", "")
-                    } for meta in metadatas]
-                    
+                    } for meta in results['metadatas'] if meta.get("title") and meta.get("link")]
+                return []
             except Exception as e:
-                print(f"Error during query: {e}")
+                print(f"Error getting all documents: {e}")
                 return []
 
-        print("Résultats filtrés:", docs)
-        return docs
+        try:
+            # Augmenter le nombre de résultats initial
+            initial_n_results = n_results * 3
+            results = self.collection.query(
+                query_texts=[query],
+                n_results=initial_n_results
+            )
+            
+            if not results.get('metadatas'):
+                return []
+
+            metadatas = results['metadatas'][0]
+            
+            # Système de score amélioré
+            scored_results = []
+            query_words = set(query.lower().split())
+            
+            for metadata in metadatas:
+                text = f"{metadata.get('title', '')} {metadata.get('snippet', '')}".lower()
+                
+                # Calcul du score
+                score = 0
+                # Points pour chaque mot de la requête trouvé
+                for word in query_words:
+                    if word in text:
+                        score += 1
+                        # Bonus si le mot est dans le titre
+                        if word in metadata.get('title', '').lower():
+                            score += 0.5
+                
+                # Ajouter tous les résultats avec leur score
+                if metadata.get("title") and metadata.get("link"):
+                    scored_results.append((score, metadata))
+
+            # Trier par score décroissant
+            scored_results.sort(key=lambda x: x[0], reverse=True)
+            
+            # Prendre les n_results meilleurs résultats
+            docs = [{
+                "title": meta.get("title", ""),
+                "link": meta.get("link", ""),
+                "snippet": meta.get("snippet", "")
+            } for score, meta in scored_results[:n_results]]
+
+            print(f"Found {len(docs)} documents with scores")
+            return docs
+
+        except Exception as e:
+            print(f"Error during query: {e}")
+            return []
 
     def clear_collection(self):
         """
