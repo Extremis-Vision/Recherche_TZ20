@@ -15,7 +15,102 @@ The goal of this project is to evaluate the performance of models, specific tech
 7. **[Finetuning](7_Finetunning/7_Finetunning.md)**: Details can be found in the `7_Finetunning` folder. 🛠️
 
 
-- Rajout potentielle u système de retrive avec GraphRAG combiné et aussi metadata dans le RAG 
+
+# Checklist des Tâches à Aborder
+
+## Tâches Urgentes
+
+Problème Base de Chunk et  chunl recupération 
+1. **Modification du Système de Recherche**
+   - Améliorer la recherche si la réponse ne convient pas.
+   - Ajouter un bouton pour refaire la recherche avec DeepSearch ou ExtremeSearch.
+
+2. **Bot Auto avec Deadlines et Autres**
+   - Implémenter un bot automatique pour rajouter des données et informations automatiquement en fonction de ce qui est renvoyé.
+
+3. **Description Appuyée sur le Noeud**
+   - Afficher une description appuyée sur le nœud dans les résultats de recherche.
+
+4. **Rajout Potentiel d'un Système de Retrieve avec GraphRAG**
+   - Intégrer GraphRAG et ajouter des metadata (liens du site, catégorie et sujet principal) dans le RAG.
+
+5. **Bouton Création dans le Graph**
+   - Ajouter un bouton pour créer de nouvelles entités ou relations dans le graph.
+
+6. **Zoomer et Zoom Auto**
+   - Implémenter les fonctionnalités de zoom et zoom automatique, avec mode plein écran pendant l'ajout d'entités.
+
+7. **Vérification LOAD RELATION**
+   - Vérifier la relation de chargement (LOAD RELATION) pour s'assurer qu'elle fonctionne correctement.
+
+8. **Simplification du Code React**
+   - Rendre le code React plus simple et lisible.
+
+## Tâches Importantes
+
+9. **Choix du Type de Recherche et du Modèle par Défaut**
+   - Permettre à l'utilisateur de choisir entre différents types de recherche et modèles, avec un modèle par défaut (Ministral).
+
+10. **Modifications du Prompt de Génération des Mots Clés**
+    - Adapter le prompt pour qu'il mette en avant les mots les plus importants.
+
+11. **Tests avec Gemma 4b et Granite 8b**
+    - Tester le système avec différents modèles comme Gemma 4b et Granite 8b.
+
+12. **Bouton de Création de Graphique**
+    - Ajouter un bouton pour créer des graphiques.
+    - Permettre aux utilisateurs d'activer ou désactiver la création de graphiques par défaut, avec le choix du nombre de sites à crawler.
+
+13. **Table Paramètre Relier à la BDD**
+    - Créer une table paramètre relier à la base de données pour stocker les paramètres de recherche.
+
+14. **Modification du Crawler et Autres**
+    - Mettre à jour le crawler pour qu'il cherche de nouveaux mots ou outils chaque fois qu'ils sont découverts.
+
+15. **Capacité de Recherche des Images**
+    - Ajouter la capacité de rechercher des images dans les résultats.
+
+16. **Citations des Sources Correctes**
+    - Afficher les citations des sources correctement dans les résultats de recherche.
+
+17. **Affichage des Sources Ajoutées pour une Requête de Recherche**
+    - Afficher les sources ajoutées pour chaque requête de recherche.
+
+18. **Utilisation de Farfalle ou SearXNG**
+    - Utiliser Farfalle pour reprendre le sys prompt ou implémenter la recherche avec SearXNG.
+
+## Tâches Moins Urgentes mais Importantes
+
+19. **Rendre le Code Plus Lisible et Ajouter des Commentaires**
+    - Remettre en ordre le repo, ajouter des explications du code et citations correctes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Finir modification de relation pour qu'il fonctionne correctement (penser à modifier noeud aussi car id normal ne fonctionnera plus dans le futur avec neo4j)
+
+- MODIFIER SYSTÈME DE RECHERCHE POUR L'AMÉLIORER SI LA RÉPONSE NE CONVIENT PAS IL RENVOIE ALORS UN BOUTON POUR REFAIRE LA RECHERCHE AVEC DEEPSEARCH OU EXTREME SEARCH 
+- BOT AUTO AVEC DES DEADLINE ET AUTRE POUR AUTOMATIQUEMENT RAJOUTER DES DONNÉES ET DES INFORMATIONS EN FONCTION DE CE QUI EST RENVOYER 
+- DESCIPTION APPUIS SUR LE NOEUD
+- Rajout potentielle u système de retrive avec GraphRAG combiné et aussi metadata dans le RAG (rajouter le liens du site catégorie et sujet principale en méta data du chunk )
 - Bouton création de dans le graph 
 - Bouton zoom et zoom auto, laisse le mode plein écran lors des ajout et autres 
 - Vérifier LOAD RELATION 

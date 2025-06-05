@@ -1,12 +1,14 @@
 class Relation:
-    def __init__(self, source_id: str, target_id: str, type: str, description: str = ""):
+    def __init__(self, source_id: str, target_id: str, type: str, description: str = "", id : int = None):
         self.source_id = source_id
         self.target_id = target_id
+        self.id = id
         self.type = type.replace(" ", "_")  # Remplacer les espaces par des underscores
         self.description = description
 
     def to_dict(self):
         return {
+            "id": self.id,
             "source_id": self.source_id,
             "target_id": self.target_id,
             "type": self.type,
@@ -36,35 +38,39 @@ class Relation:
                 raise e
 
     def supprimer(self, node_bdd):
-        """Supprime la relation de la base de données Neo4j."""
+        """Supprime la relation de la base de données Neo4j à partir de son id interne."""
         with node_bdd.driver.session() as session:
-            query = (
-                f"""
-                MATCH (a:Node {{id: $source_id}})-[r:{self.type}]->(b:Node {{id: $target_id}})
-                WHERE r.description = $description
+            query = """
+                MATCH ()-[r]->()
+                WHERE elementId(r) = $rel_id
                 DELETE r
-                """
-            )
-            session.run(query, **self.to_dict())
+            """
+            session.run(query, rel_id=self.id)
             return True
 
+
     @classmethod
-    def load_relation(cls, node_bdd, source_id: str, target_id: str, rel_type: str):
-        """Charge une relation spécifique entre deux nœuds."""
+    def load_relation_by_id(cls, node_bdd, rel_id: int):
+        """Charge une relation à partir de son id interne Neo4j (elementId)."""
         with node_bdd.driver.session() as session:
             query = (
-                f"""
-                MATCH (a:Node {{id: $source_id}})-[r:{rel_type}]->(b:Node {{id: $target_id}})
-                RETURN a.id AS source_id, b.id AS target_id, type(r) AS type, r.description AS description
+                """
+                MATCH ()-[r]->()
+                WHERE elementId(r) = $rel_id
+                RETURN type(r) AS type, r AS rel, elementId(r) AS rel_id, startNode(r).id AS source_id, endNode(r).id AS target_id
                 """
             )
-            result = session.run(query, source_id=source_id, target_id=target_id)
+            result = session.run(query, rel_id=rel_id)
             record = result.single()
             if record is None:
                 return None
+            # On récupère les propriétés de la relation (rel)
+            rel_props = dict(record["rel"])
             return cls(
+                rel_id=record["rel_id"],
+                type=record["type"],
                 source_id=record["source_id"],
                 target_id=record["target_id"],
-                type=record["type"],
-                description=record["description"]
+                **rel_props  # inclut toutes les propriétés de la relation
             )
+

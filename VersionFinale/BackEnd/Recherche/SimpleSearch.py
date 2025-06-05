@@ -48,7 +48,7 @@ class SimpleSearch(RechercheBasique):
             f"INSTRUCTIONS:\n"
             f"- Respond with a single JSON object only—no extra text, comments, or explanations.\n"
             f"- The JSON object must include:\n"
-            f"    - 'questions': a list of exactly {numberKeyWord} specific English keywords (proper nouns, tool names, company names, etc.).\n"
+            f"    - 'questions': a list of exactly {numberKeyWord} specific English keywords (proper nouns, tool names, company names, etc.), but allso precise query to have a good context.\n"
             f"    - 'categorie': the main category or domain of the question (e.g., 'technology', 'health').\n"
             f"    - 'boolean': 'true' if a specific function (such as price lookup or weather) can provide the answer; otherwise, 'false'.\n"
             f"\n"

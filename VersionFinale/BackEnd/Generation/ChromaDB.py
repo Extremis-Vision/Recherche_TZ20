@@ -57,6 +57,7 @@ class ChromaDB:
         """
         Ajoute des documents à la collection ChromaDB.
         """
+        print(docs)
         documents = []
         metadatas = []
         ids = []
@@ -165,28 +166,62 @@ class ChromaDB:
 
 
     def get_documents(self, n_results: int = 5, query: str = None) -> List[dict]:
-        """
-        Récupère les documents pertinents pour la query.
-        """
+        """Récupère les documents pertinents pour la query."""
+        print(f"Querying the collection for: {query} with n_results={n_results}")
         docs = []
         if query:
-            results = self.collection.query(
-                query_texts=[query],
-                n_results=n_results
-            )
-            metadatas = results['metadatas'][0] if results.get('metadatas') else []
-            print(f"Found {len(metadatas)} documents for the query: {query}")
-        else:
-            results = self.collection.get(limit=n_results)
-            metadatas = results['metadatas'] if results.get('metadatas') else []
-            print(f"Retrieved {len(metadatas)} documents without a query.")
+            try:
+                # Préparer les mots clés importants de la requête
+                query_words = set(query.lower().split())
+                important_keywords = {'faillite', 'faillites', '2024', 'entreprise', 'entreprises', 'défaillance', 'défaillances'}
+                query_important_words = query_words.intersection(important_keywords)
 
-        for meta in metadatas:
-            docs.append({
-                "title": meta.get("title"),
-                "link": meta.get("link"),
-                "snippet": meta.get("snippet")
-            })
+                results = self.collection.query(
+                    query_texts=[query],
+                    n_results=n_results * 3
+                )
+                
+                if results.get('metadatas'):
+                    metadatas = results['metadatas'][0]
+                    filtered_results = []
+                    
+                    for metadata in metadatas:
+                        text = f"{metadata.get('title', '')} {metadata.get('snippet', '')}".lower()
+                        
+                        # Calculer un score basé sur les mots clés importants et leur contexte
+                        score = 0
+                        for word in query_important_words:
+                            if word in text:
+                                score += 2  # Bonus pour les mots clés importants
+                        
+                        # Vérifier la présence de chiffres près des mots clés
+                        if any(str(year) in text for year in range(2024, 2026)):
+                            score += 3  # Bonus pour les années récentes
+                            
+                        # Vérifier la proximité des mots clés
+                        if 'faillite' in text and '2024' in text and 'entreprise' in text:
+                            score += 5  # Bonus pour la co-occurrence des mots clés principaux
+                            
+                        if score > 3:  # Seuil minimal de pertinence
+                            filtered_results.append((score, metadata))
+                    
+                    # Trier par score et prendre les n meilleurs résultats
+                    filtered_results.sort(key=lambda x: x[0], reverse=True)
+                    metadatas = [item[1] for item in filtered_results[:n_results]]
+                    
+                    print(f"Found {len(metadatas)} relevant documents with scores")
+                    
+                    docs = [{
+                        "title": meta.get("title", ""),
+                        "link": meta.get("link", ""),
+                        "snippet": meta.get("snippet", "")
+                    } for meta in metadatas]
+                    
+            except Exception as e:
+                print(f"Error during query: {e}")
+                return []
+
+        print("Résultats filtrés:", docs)
         return docs
 
     def clear_collection(self):

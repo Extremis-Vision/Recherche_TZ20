@@ -144,18 +144,19 @@ class BDD_Node:
 
             # Récupérer les arêtes
             result_edges = session.run("""
-                MATCH (a:Node)-[r]->(b:Node)
-                RETURN a.id as source, b.id as target, type(r) as type, 
-                       r.description as description, id(r) as edge_id
-            """)
-            
+                    MATCH (a:Node)-[r]->(b:Node)
+                    RETURN a.id as source, b.id as target, type(r) as type, 
+                        r.description as description, id(r) as edge_id
+                """)
+
+            edges = []
             for record in result_edges:
                 source_id = str(record["source"])
                 target_id = str(record["target"])
-                edge_id = f"e{record['edge_id']}"
-                
+                edge_id = str(record["edge_id"])  # <-- juste le chiffre, sans préfixe
+
                 edge_data = {
-                    "id": edge_id,
+                    "id": edge_id,  # id numérique de la relation
                     "source": source_id,
                     "target": target_id,
                     "label": str(record["type"]),
@@ -164,10 +165,10 @@ class BDD_Node:
                 }
                 edges.append({"data": edge_data})
 
-        print("Nodes:", nodes)  # Debug
-        print("Edges:", edges)  # Debug
-        return {"nodes": nodes, "edges": edges}
-    
+                print("Nodes:", nodes)  # Debug
+                print("Edges:", edges)  # Debug
+                return {"nodes": nodes, "edges": edges}
+            
 
 
 #Exemple d'utilisation 
